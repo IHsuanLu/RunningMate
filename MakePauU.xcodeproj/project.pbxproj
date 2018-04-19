@@ -7,12 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48918341F557D330DCEAA263 /* Pods_MakePauU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB7431953B05FD8EAE1ADA1F /* Pods_MakePauU.framework */; };
+		8C08FEF92079C50F0021B343 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FEF82079C50F0021B343 /* RegisterVC.swift */; };
+		8C08FEFB2079D3E70021B343 /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FEFA2079D3E70021B343 /* DateTextField.swift */; };
+		8C08FEFD2079D7EF0021B343 /* DateTextFieldLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FEFC2079D7EF0021B343 /* DateTextFieldLong.swift */; };
+		8C08FF022079DC620021B343 /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF012079DC620021B343 /* DLRadioButton.m */; };
+		8C08FF042079E05D0021B343 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF032079E05D0021B343 /* CustomButton.swift */; };
+		8C08FF06207A02800021B343 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C08FF05207A02800021B343 /* GoogleService-Info.plist */; };
+		8C08FF08207A0C930021B343 /* UITabBarControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF07207A0C930021B343 /* UITabBarControllerExt.swift */; };
+		8C08FF0A207A12D80021B343 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF09207A12D80021B343 /* CustomTabBar.swift */; };
+		8C08FF0C207A19B20021B343 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF0B207A19B20021B343 /* UIViewExt.swift */; };
+		8C08FF0E207A284D0021B343 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF0D207A284D0021B343 /* ProfileImageView.swift */; };
+		8C08FF10207A2BB10021B343 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF0F207A2BB10021B343 /* StartButton.swift */; };
+		8C11B9F92083544F00DDCDBF /* RoomMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11B9F82083544F00DDCDBF /* RoomMemberCell.swift */; };
+		8C11B9FB2083557A00DDCDBF /* RoomMemberItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11B9FA2083557A00DDCDBF /* RoomMemberItem.swift */; };
+		8C11B9FE20835CAD00DDCDBF /* StartStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11B9FD20835CAD00DDCDBF /* StartStatus.swift */; };
+		8C11BA072084879000DDCDBF /* CountDownVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11BA062084879000DDCDBF /* CountDownVC.swift */; };
+		8C11BA092088FC4700DDCDBF /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11BA082088FC4700DDCDBF /* GameStatus.swift */; };
+		8CAEA1E7207DD6E5005A3B5F /* FirstPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1E6207DD6E5005A3B5F /* FirstPageVC.swift */; };
+		8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */; };
+		8CAEA1EB207DDCA9005A3B5F /* StartGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */; };
+		8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */; };
+		8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */; };
+		8CBBDFDD2070BFD700C89FBB /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */; };
+		8CBBDFDF2070BFFD00C89FBB /* UIButtonExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFDE2070BFFD00C89FBB /* UIButtonExt.swift */; };
+		8CBBDFE12070C4A100C89FBB /* IntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFE02070C4A100C89FBB /* IntroCell.swift */; };
+		8CBBDFE32070C4C400C89FBB /* IntroItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFE22070C4C400C89FBB /* IntroItem.swift */; };
+		8CBBDFE52070D4BF00C89FBB /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFE42070D4BF00C89FBB /* LoginVC.swift */; };
+		8CBBDFE72070E1B200C89FBB /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFE62070E1B200C89FBB /* LoginTextField.swift */; };
 		8CD8D895206CD1B100E980AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8D894206CD1B100E980AD /* AppDelegate.swift */; };
-		8CD8D897206CD1B100E980AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8D896206CD1B100E980AD /* ViewController.swift */; };
 		8CD8D89A206CD1B100E980AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CD8D898206CD1B100E980AD /* Main.storyboard */; };
 		8CD8D89C206CD1B100E980AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CD8D89B206CD1B100E980AD /* Assets.xcassets */; };
 		8CD8D89F206CD1B100E980AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CD8D89D206CD1B100E980AD /* LaunchScreen.storyboard */; };
 		8CD8D8AA206CD1B100E980AD /* MakePauUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8D8A9206CD1B100E980AD /* MakePauUTests.swift */; };
+		9F2699A4876544AAE4E25220 /* Pods_MakePauUTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6809CA67CDFA6C757047B47E /* Pods_MakePauUTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,9 +54,40 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6809CA67CDFA6C757047B47E /* Pods_MakePauUTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MakePauUTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BEBF64C57DF290CBA3C96DE /* Pods-MakePauU.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakePauU.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MakePauU/Pods-MakePauU.debug.xcconfig"; sourceTree = "<group>"; };
+		812FDD6845AA882D64257C85 /* Pods-MakePauUTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakePauUTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MakePauUTests/Pods-MakePauUTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8C08FEF82079C50F0021B343 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		8C08FEFA2079D3E70021B343 /* DateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
+		8C08FEFC2079D7EF0021B343 /* DateTextFieldLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextFieldLong.swift; sourceTree = "<group>"; };
+		8C08FEFF2079DC610021B343 /* MakePauU-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MakePauU-Bridging-Header.h"; sourceTree = "<group>"; };
+		8C08FF002079DC620021B343 /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
+		8C08FF012079DC620021B343 /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
+		8C08FF032079E05D0021B343 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		8C08FF05207A02800021B343 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8C08FF07207A0C930021B343 /* UITabBarControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarControllerExt.swift; sourceTree = "<group>"; };
+		8C08FF09207A12D80021B343 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		8C08FF0B207A19B20021B343 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
+		8C08FF0D207A284D0021B343 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		8C08FF0F207A2BB10021B343 /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
+		8C11B9F82083544F00DDCDBF /* RoomMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomMemberCell.swift; sourceTree = "<group>"; };
+		8C11B9FA2083557A00DDCDBF /* RoomMemberItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomMemberItem.swift; sourceTree = "<group>"; };
+		8C11B9FD20835CAD00DDCDBF /* StartStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartStatus.swift; sourceTree = "<group>"; };
+		8C11BA062084879000DDCDBF /* CountDownVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownVC.swift; sourceTree = "<group>"; };
+		8C11BA082088FC4700DDCDBF /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
+		8CAEA1E6207DD6E5005A3B5F /* FirstPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageVC.swift; sourceTree = "<group>"; };
+		8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVC.swift; sourceTree = "<group>"; };
+		8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameVC.swift; sourceTree = "<group>"; };
+		8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalConfirmVC.swift; sourceTree = "<group>"; };
+		8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
+		8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
+		8CBBDFDE2070BFFD00C89FBB /* UIButtonExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExt.swift; sourceTree = "<group>"; };
+		8CBBDFE02070C4A100C89FBB /* IntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCell.swift; sourceTree = "<group>"; };
+		8CBBDFE22070C4C400C89FBB /* IntroItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroItem.swift; sourceTree = "<group>"; };
+		8CBBDFE42070D4BF00C89FBB /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		8CBBDFE62070E1B200C89FBB /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		8CD8D891206CD1B100E980AD /* MakePauU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakePauU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CD8D894206CD1B100E980AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8CD8D896206CD1B100E980AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8CD8D899206CD1B100E980AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8CD8D89B206CD1B100E980AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8CD8D89E206CD1B100E980AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +95,9 @@
 		8CD8D8A5206CD1B100E980AD /* MakePauUTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MakePauUTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CD8D8A9206CD1B100E980AD /* MakePauUTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePauUTests.swift; sourceTree = "<group>"; };
 		8CD8D8AB206CD1B100E980AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98AF5F1F8AFAA95E8B607C20 /* Pods-MakePauUTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakePauUTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MakePauUTests/Pods-MakePauUTests.release.xcconfig"; sourceTree = "<group>"; };
+		A5219AEAFF3404A4C051995C /* Pods-MakePauU.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakePauU.release.xcconfig"; path = "Pods/Target Support Files/Pods-MakePauU/Pods-MakePauU.release.xcconfig"; sourceTree = "<group>"; };
+		FB7431953B05FD8EAE1ADA1F /* Pods_MakePauU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MakePauU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48918341F557D330DCEAA263 /* Pods_MakePauU.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,18 +113,117 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F2699A4876544AAE4E25220 /* Pods_MakePauUTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7DDC66A177954513127AE4EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6BEBF64C57DF290CBA3C96DE /* Pods-MakePauU.debug.xcconfig */,
+				A5219AEAFF3404A4C051995C /* Pods-MakePauU.release.xcconfig */,
+				812FDD6845AA882D64257C85 /* Pods-MakePauUTests.debug.xcconfig */,
+				98AF5F1F8AFAA95E8B607C20 /* Pods-MakePauUTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8C08FEFE2079DC480021B343 /* RadioButton */ = {
+			isa = PBXGroup;
+			children = (
+				8C08FF002079DC620021B343 /* DLRadioButton.h */,
+				8C08FF012079DC620021B343 /* DLRadioButton.m */,
+				8C08FEFF2079DC610021B343 /* MakePauU-Bridging-Header.h */,
+			);
+			path = RadioButton;
+			sourceTree = "<group>";
+		};
+		8C11B9FC20835C1F00DDCDBF /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				8C11B9FD20835CAD00DDCDBF /* StartStatus.swift */,
+				8C11BA082088FC4700DDCDBF /* GameStatus.swift */,
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
+		8C11BA05208485E900DDCDBF /* StartGame */ = {
+			isa = PBXGroup;
+			children = (
+				8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */,
+				8C11BA062084879000DDCDBF /* CountDownVC.swift */,
+			);
+			name = StartGame;
+			sourceTree = "<group>";
+		};
+		8CBBDFCA206D327F00C89FBB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */,
+				8CBBDFE42070D4BF00C89FBB /* LoginVC.swift */,
+				8C08FEF82079C50F0021B343 /* RegisterVC.swift */,
+				8CAEA1E6207DD6E5005A3B5F /* FirstPageVC.swift */,
+				8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */,
+				8C11BA05208485E900DDCDBF /* StartGame */,
+				8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8CBBDFD82070BF8300C89FBB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8CBBDFE02070C4A100C89FBB /* IntroCell.swift */,
+				8C11B9F82083544F00DDCDBF /* RoomMemberCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8CBBDFD92070BF8B00C89FBB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8CBBDFE22070C4C400C89FBB /* IntroItem.swift */,
+				8C11B9FA2083557A00DDCDBF /* RoomMemberItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8CBBDFDA2070BF9500C89FBB /* SubClass */ = {
+			isa = PBXGroup;
+			children = (
+				8C08FF09207A12D80021B343 /* CustomTabBar.swift */,
+				8C08FF032079E05D0021B343 /* CustomButton.swift */,
+				8CBBDFE62070E1B200C89FBB /* LoginTextField.swift */,
+				8C08FEFA2079D3E70021B343 /* DateTextField.swift */,
+				8C08FEFC2079D7EF0021B343 /* DateTextFieldLong.swift */,
+				8C08FF0D207A284D0021B343 /* ProfileImageView.swift */,
+				8C08FF0F207A2BB10021B343 /* StartButton.swift */,
+			);
+			path = SubClass;
+			sourceTree = "<group>";
+		};
+		8CBBDFDB2070BF9B00C89FBB /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */,
+				8C08FF07207A0C930021B343 /* UITabBarControllerExt.swift */,
+				8CBBDFDE2070BFFD00C89FBB /* UIButtonExt.swift */,
+				8C08FF0B207A19B20021B343 /* UIViewExt.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		8CD8D888206CD1B100E980AD = {
 			isa = PBXGroup;
 			children = (
 				8CD8D893206CD1B100E980AD /* MakePauU */,
 				8CD8D8A8206CD1B100E980AD /* MakePauUTests */,
 				8CD8D892206CD1B100E980AD /* Products */,
+				7DDC66A177954513127AE4EC /* Pods */,
+				AEE9FD6226907106BDDF50F5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,12 +239,19 @@
 		8CD8D893206CD1B100E980AD /* MakePauU */ = {
 			isa = PBXGroup;
 			children = (
+				8C11B9FC20835C1F00DDCDBF /* Singleton */,
+				8C08FEFE2079DC480021B343 /* RadioButton */,
+				8CBBDFDB2070BF9B00C89FBB /* Extension */,
+				8CBBDFDA2070BF9500C89FBB /* SubClass */,
+				8CBBDFD92070BF8B00C89FBB /* Model */,
+				8CBBDFD82070BF8300C89FBB /* View */,
+				8CBBDFCA206D327F00C89FBB /* Controller */,
 				8CD8D894206CD1B100E980AD /* AppDelegate.swift */,
-				8CD8D896206CD1B100E980AD /* ViewController.swift */,
-				8CD8D898206CD1B100E980AD /* Main.storyboard */,
 				8CD8D89B206CD1B100E980AD /* Assets.xcassets */,
+				8CD8D898206CD1B100E980AD /* Main.storyboard */,
 				8CD8D89D206CD1B100E980AD /* LaunchScreen.storyboard */,
 				8CD8D8A0206CD1B100E980AD /* Info.plist */,
+				8C08FF05207A02800021B343 /* GoogleService-Info.plist */,
 			);
 			path = MakePauU;
 			sourceTree = "<group>";
@@ -96,6 +265,15 @@
 			path = MakePauUTests;
 			sourceTree = "<group>";
 		};
+		AEE9FD6226907106BDDF50F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FB7431953B05FD8EAE1ADA1F /* Pods_MakePauU.framework */,
+				6809CA67CDFA6C757047B47E /* Pods_MakePauUTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -103,9 +281,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8CD8D8AE206CD1B100E980AD /* Build configuration list for PBXNativeTarget "MakePauU" */;
 			buildPhases = (
+				B50578B2E3D01C30B95B6AD0 /* [CP] Check Pods Manifest.lock */,
 				8CD8D88D206CD1B100E980AD /* Sources */,
 				8CD8D88E206CD1B100E980AD /* Frameworks */,
 				8CD8D88F206CD1B100E980AD /* Resources */,
+				1E04C548D06F92BD15E241EC /* [CP] Embed Pods Frameworks */,
+				6EBDB5C22D0D034F9DDB07E5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -120,9 +301,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8CD8D8B1206CD1B100E980AD /* Build configuration list for PBXNativeTarget "MakePauUTests" */;
 			buildPhases = (
+				199CFDE742A33564CB2EE2DC /* [CP] Check Pods Manifest.lock */,
 				8CD8D8A1206CD1B100E980AD /* Sources */,
 				8CD8D8A2206CD1B100E980AD /* Frameworks */,
 				8CD8D8A3206CD1B100E980AD /* Resources */,
+				CA37B39BCFAED01838B40821 /* [CP] Embed Pods Frameworks */,
+				1971CB8C40A61E882DD81780 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -146,6 +330,7 @@
 				TargetAttributes = {
 					8CD8D890206CD1B100E980AD = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					8CD8D8A4206CD1B100E980AD = {
@@ -182,6 +367,7 @@
 				8CD8D89F206CD1B100E980AD /* LaunchScreen.storyboard in Resources */,
 				8CD8D89C206CD1B100E980AD /* Assets.xcassets in Resources */,
 				8CD8D89A206CD1B100E980AD /* Main.storyboard in Resources */,
+				8C08FF06207A02800021B343 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,13 +380,142 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1971CB8C40A61E882DD81780 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MakePauUTests/Pods-MakePauUTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		199CFDE742A33564CB2EE2DC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MakePauUTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1E04C548D06F92BD15E241EC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MakePauU/Pods-MakePauU-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MakePauU/Pods-MakePauU-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6EBDB5C22D0D034F9DDB07E5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MakePauU/Pods-MakePauU-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B50578B2E3D01C30B95B6AD0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MakePauU-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA37B39BCFAED01838B40821 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MakePauUTests/Pods-MakePauUTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8CD8D88D206CD1B100E980AD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CD8D897206CD1B100E980AD /* ViewController.swift in Sources */,
+				8CBBDFE72070E1B200C89FBB /* LoginTextField.swift in Sources */,
+				8CBBDFE12070C4A100C89FBB /* IntroCell.swift in Sources */,
+				8CBBDFE52070D4BF00C89FBB /* LoginVC.swift in Sources */,
+				8C11B9F92083544F00DDCDBF /* RoomMemberCell.swift in Sources */,
+				8C08FF0A207A12D80021B343 /* CustomTabBar.swift in Sources */,
+				8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */,
+				8C08FF042079E05D0021B343 /* CustomButton.swift in Sources */,
+				8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */,
+				8C08FF0E207A284D0021B343 /* ProfileImageView.swift in Sources */,
+				8C11B9FE20835CAD00DDCDBF /* StartStatus.swift in Sources */,
+				8CBBDFDF2070BFFD00C89FBB /* UIButtonExt.swift in Sources */,
+				8C08FF08207A0C930021B343 /* UITabBarControllerExt.swift in Sources */,
+				8C11BA072084879000DDCDBF /* CountDownVC.swift in Sources */,
+				8C08FEFD2079D7EF0021B343 /* DateTextFieldLong.swift in Sources */,
+				8CAEA1E7207DD6E5005A3B5F /* FirstPageVC.swift in Sources */,
+				8CBBDFDD2070BFD700C89FBB /* UIColorExt.swift in Sources */,
 				8CD8D895206CD1B100E980AD /* AppDelegate.swift in Sources */,
+				8CBBDFE32070C4C400C89FBB /* IntroItem.swift in Sources */,
+				8C11B9FB2083557A00DDCDBF /* RoomMemberItem.swift in Sources */,
+				8CAEA1EB207DDCA9005A3B5F /* StartGameVC.swift in Sources */,
+				8C08FF022079DC620021B343 /* DLRadioButton.m in Sources */,
+				8C08FF0C207A19B20021B343 /* UIViewExt.swift in Sources */,
+				8C11BA092088FC4700DDCDBF /* GameStatus.swift in Sources */,
+				8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */,
+				8C08FEFB2079D3E70021B343 /* DateTextField.swift in Sources */,
+				8C08FEF92079C50F0021B343 /* RegisterVC.swift in Sources */,
+				8C08FF10207A2BB10021B343 /* StartButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,14 +666,18 @@
 		};
 		8CD8D8AF206CD1B100E980AD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BEBF64C57DF290CBA3C96DE /* Pods-MakePauU.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LMNXHHZE26;
 				INFOPLIST_FILE = MakePauU/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = henry.MakePauU;
+				PRODUCT_BUNDLE_IDENTIFIER = henry.MakePauUForReal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MakePauU/RadioButton/MakePauU-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -366,14 +685,17 @@
 		};
 		8CD8D8B0206CD1B100E980AD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5219AEAFF3404A4C051995C /* Pods-MakePauU.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LMNXHHZE26;
 				INFOPLIST_FILE = MakePauU/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = henry.MakePauU;
+				PRODUCT_BUNDLE_IDENTIFIER = henry.MakePauUForReal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MakePauU/RadioButton/MakePauU-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -381,6 +703,7 @@
 		};
 		8CD8D8B2206CD1B100E980AD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 812FDD6845AA882D64257C85 /* Pods-MakePauUTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -398,6 +721,7 @@
 		};
 		8CD8D8B3206CD1B100E980AD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98AF5F1F8AFAA95E8B607C20 /* Pods-MakePauUTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

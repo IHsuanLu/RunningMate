@@ -1,0 +1,6 @@
+framework module Pods_MakePauU {
+  umbrella header "Pods-MakePauU-umbrella.h"
+
+  export *
+  module * { export * }
+}

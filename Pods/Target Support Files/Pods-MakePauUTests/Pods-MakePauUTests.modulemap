@@ -1,0 +1,6 @@
+framework module Pods_MakePauUTests {
+  umbrella header "Pods-MakePauUTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
