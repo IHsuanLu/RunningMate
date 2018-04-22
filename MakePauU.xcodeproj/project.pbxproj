@@ -24,6 +24,12 @@
 		8C11B9FE20835CAD00DDCDBF /* StartStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11B9FD20835CAD00DDCDBF /* StartStatus.swift */; };
 		8C11BA072084879000DDCDBF /* CountDownVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11BA062084879000DDCDBF /* CountDownVC.swift */; };
 		8C11BA092088FC4700DDCDBF /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11BA082088FC4700DDCDBF /* GameStatus.swift */; };
+		8C52B9DE208A4A4A003002AE /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9DD208A4A4A003002AE /* MenuBar.swift */; };
+		8C52B9E0208A50F1003002AE /* RankingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9DF208A50F1003002AE /* RankingVC.swift */; };
+		8C52B9E2208A5249003002AE /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9E1208A5249003002AE /* MenuBarCell.swift */; };
+		8C52B9EA208C4544003002AE /* ContentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9E9208C4544003002AE /* ContentViewCell.swift */; };
+		8C52B9EC208C4E24003002AE /* RankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9EB208C4E24003002AE /* RankCell.swift */; };
+		8C52B9EE208C603C003002AE /* RankItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9ED208C603C003002AE /* RankItem.swift */; };
 		8CAEA1E7207DD6E5005A3B5F /* FirstPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1E6207DD6E5005A3B5F /* FirstPageVC.swift */; };
 		8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */; };
 		8CAEA1EB207DDCA9005A3B5F /* StartGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */; };
@@ -75,6 +81,12 @@
 		8C11B9FD20835CAD00DDCDBF /* StartStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartStatus.swift; sourceTree = "<group>"; };
 		8C11BA062084879000DDCDBF /* CountDownVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownVC.swift; sourceTree = "<group>"; };
 		8C11BA082088FC4700DDCDBF /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
+		8C52B9DD208A4A4A003002AE /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		8C52B9DF208A50F1003002AE /* RankingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingVC.swift; sourceTree = "<group>"; };
+		8C52B9E1208A5249003002AE /* MenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarCell.swift; sourceTree = "<group>"; };
+		8C52B9E9208C4544003002AE /* ContentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewCell.swift; sourceTree = "<group>"; };
+		8C52B9EB208C4E24003002AE /* RankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankCell.swift; sourceTree = "<group>"; };
+		8C52B9ED208C603C003002AE /* RankItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankItem.swift; sourceTree = "<group>"; };
 		8CAEA1E6207DD6E5005A3B5F /* FirstPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageVC.swift; sourceTree = "<group>"; };
 		8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVC.swift; sourceTree = "<group>"; };
 		8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameVC.swift; sourceTree = "<group>"; };
@@ -159,6 +171,16 @@
 			name = StartGame;
 			sourceTree = "<group>";
 		};
+		8C52B9E8208C452D003002AE /* RankVC */ = {
+			isa = PBXGroup;
+			children = (
+				8C52B9E1208A5249003002AE /* MenuBarCell.swift */,
+				8C52B9E9208C4544003002AE /* ContentViewCell.swift */,
+				8C52B9EB208C4E24003002AE /* RankCell.swift */,
+			);
+			path = RankVC;
+			sourceTree = "<group>";
+		};
 		8CBBDFCA206D327F00C89FBB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +190,7 @@
 				8CAEA1E6207DD6E5005A3B5F /* FirstPageVC.swift */,
 				8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */,
 				8C11BA05208485E900DDCDBF /* StartGame */,
+				8C52B9DF208A50F1003002AE /* RankingVC.swift */,
 				8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */,
 			);
 			path = Controller;
@@ -178,6 +201,7 @@
 			children = (
 				8CBBDFE02070C4A100C89FBB /* IntroCell.swift */,
 				8C11B9F82083544F00DDCDBF /* RoomMemberCell.swift */,
+				8C52B9E8208C452D003002AE /* RankVC */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -187,6 +211,7 @@
 			children = (
 				8CBBDFE22070C4C400C89FBB /* IntroItem.swift */,
 				8C11B9FA2083557A00DDCDBF /* RoomMemberItem.swift */,
+				8C52B9ED208C603C003002AE /* RankItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +226,7 @@
 				8C08FEFC2079D7EF0021B343 /* DateTextFieldLong.swift */,
 				8C08FF0D207A284D0021B343 /* ProfileImageView.swift */,
 				8C08FF0F207A2BB10021B343 /* StartButton.swift */,
+				8C52B9DD208A4A4A003002AE /* MenuBar.swift */,
 			);
 			path = SubClass;
 			sourceTree = "<group>";
@@ -494,6 +520,7 @@
 				8CBBDFE52070D4BF00C89FBB /* LoginVC.swift in Sources */,
 				8C11B9F92083544F00DDCDBF /* RoomMemberCell.swift in Sources */,
 				8C08FF0A207A12D80021B343 /* CustomTabBar.swift in Sources */,
+				8C52B9EE208C603C003002AE /* RankItem.swift in Sources */,
 				8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */,
 				8C08FF042079E05D0021B343 /* CustomButton.swift in Sources */,
 				8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */,
@@ -502,8 +529,10 @@
 				8CBBDFDF2070BFFD00C89FBB /* UIButtonExt.swift in Sources */,
 				8C08FF08207A0C930021B343 /* UITabBarControllerExt.swift in Sources */,
 				8C11BA072084879000DDCDBF /* CountDownVC.swift in Sources */,
+				8C52B9EA208C4544003002AE /* ContentViewCell.swift in Sources */,
 				8C08FEFD2079D7EF0021B343 /* DateTextFieldLong.swift in Sources */,
 				8CAEA1E7207DD6E5005A3B5F /* FirstPageVC.swift in Sources */,
+				8C52B9E0208A50F1003002AE /* RankingVC.swift in Sources */,
 				8CBBDFDD2070BFD700C89FBB /* UIColorExt.swift in Sources */,
 				8CD8D895206CD1B100E980AD /* AppDelegate.swift in Sources */,
 				8CBBDFE32070C4C400C89FBB /* IntroItem.swift in Sources */,
@@ -514,7 +543,10 @@
 				8C11BA092088FC4700DDCDBF /* GameStatus.swift in Sources */,
 				8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */,
 				8C08FEFB2079D3E70021B343 /* DateTextField.swift in Sources */,
+				8C52B9E2208A5249003002AE /* MenuBarCell.swift in Sources */,
 				8C08FEF92079C50F0021B343 /* RegisterVC.swift in Sources */,
+				8C52B9EC208C4E24003002AE /* RankCell.swift in Sources */,
+				8C52B9DE208A4A4A003002AE /* MenuBar.swift in Sources */,
 				8C08FF10207A2BB10021B343 /* StartButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

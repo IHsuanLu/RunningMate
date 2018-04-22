@@ -67,14 +67,14 @@ class CountDownVC: NSObject{
             
         } else if count == 0 {
             
-            // 計時開始
-            startGameVC.setTimer_Game()
-        
-            // 遊戲開始
-            GameStatus.sharedInstance.ifStarted = true
-            
             blackView.alpha = 0
             timer.invalidate()
+            
+            // 計時開始
+            startGameVC.setTimer_Game()
+            
+            // 遊戲開始
+            GameStatus.sharedInstance.ifStarted = true
         }
     }
     

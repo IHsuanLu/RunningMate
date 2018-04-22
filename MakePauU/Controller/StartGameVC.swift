@@ -49,6 +49,10 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     @IBOutlet weak var downLeftExpandBtn: UIButton!
     
     
+    //constraint
+    @IBOutlet weak var downLeftWidthConstraint: NSLayoutConstraint!
+    
+    
     //接應countDown
     lazy var countDown: CountDownVC = {
         let cd = CountDownVC()
@@ -92,7 +96,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         locationManager.delegate = self
         mapView.delegate = self
         
-        downLeftExpandBtn.backgroundColor = UIColor(white: 1, alpha: 0.6)
+        downLeftExpandBtn.backgroundColor = UIColor(white: 1, alpha: 0.75)
 
         mapView.userTrackingMode = MKUserTrackingMode.follow
         
@@ -173,31 +177,33 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         
         ifExpanded = !ifExpanded
         
-        if ifExpanded == true{
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                
-                self.downLeftView.frame = CGRect(x: 0, y: self.downLeftView.frame.origin.y, width: 0, height: 50)
+        if !ifExpanded{
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.downLeftWidthConstraint.constant = 0
                 self.downLeftExpandBtn.frame = CGRect(x: 0, y: self.downLeftExpandBtn.frame.origin.y, width: 50, height: 50)
+                
                 self.placeholder.isHidden = true
                 self.title1.isHidden = true
                 self.title2.isHidden = true
                 self.routeDistance.isHidden = true
                 self.routeTime.isHidden = true
-                
+                self.downLeftView.layoutIfNeeded()
             }, completion: nil)
             
         } else {
             
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                
-                self.downLeftView.frame = CGRect(x: 0, y: self.downLeftView.frame.origin.y, width: 143, height: 50)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.downLeftWidthConstraint.constant = 143
                 self.downLeftExpandBtn.frame = CGRect(x: 143, y: self.downLeftExpandBtn.frame.origin.y, width: 50, height: 50)
+                
+                
                 self.placeholder.isHidden = false
                 self.title1.isHidden = false
                 self.title2.isHidden = false
                 self.routeDistance.isHidden = false
                 self.routeTime.isHidden = false
-                
+                self.downLeftView.layoutIfNeeded()
             }, completion: nil)
         }
     }
@@ -297,12 +303,12 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     func setTimer_Route(){
         
-        timerForRoute = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(updateRouteData), userInfo: nil, repeats: true)
+        timerForRoute = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateRouteData), userInfo: nil, repeats: true)
     }
     
     func setTimer_Route2(){
         
-        timerForRoute2 = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(updateRouteData2), userInfo: nil, repeats: true)
+        timerForRoute2 = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateRouteData2), userInfo: nil, repeats: true)
     }
     
     func setTimer_Game(){
@@ -473,12 +479,17 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         
         if routeDistance != nil && routeTime != nil{
             
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                
+                self.downLeftWidthConstraint.constant = 143
+                self.downLeftExpandBtn.frame = CGRect(x: 143, y: self.downLeftExpandBtn.frame.origin.y, width: 50, height: 50)
                 self.placeholder.isHidden = false
                 self.title1.isHidden = false
                 self.title2.isHidden = false
                 self.routeDistance.isHidden = false
                 self.routeTime.isHidden = false
+                
+                self.downLeftView.layoutIfNeeded()
             }, completion: nil)
             
             routeDistance.text = "\(Int(self.distance!)) M"
