@@ -85,6 +85,9 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     //downleft
     var ifExpanded = true
     
+    var mapHasCenteredInBeginning = false
+
+    
     
     //location manager
     let locationManager = CLLocationManager()
@@ -133,17 +136,29 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     }
     
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         
-        let location = locations[0]
-        
-        let center = location.coordinate
-        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-        let region = MKCoordinateRegion(center: center, span: span)
-        
-        mapView.setRegion(region, animated: true)
-        mapView.showsUserLocation = true
+        //這邊處理，when updates come in, 'mapView.userTrackingMode = MKUserTrackingMode.follow' 處理追蹤。
+        //然而，又不希望永遠保持追蹤，因為可能會想滑到其他地方看看 -> 第一時間要置中、其他時間按了球球再回來 -> bool 判斷！
+        if let userLoc = userLocation.location{
+            
+            if mapHasCenteredInBeginning == false {
+                
+                centerMapOnLocation(location: userLoc)
+                mapHasCenteredInBeginning = true
+            }
+        }
     }
+    
+    //讓user的location在畫面的正中間
+    func centerMapOnLocation(location: CLLocation){
+        
+        //(2000, 2000) is the region that we want to capture
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 1500, 1500)
+        
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+
     
     
     @IBAction func returnBtnPressed(_ sender: Any) {
@@ -223,6 +238,8 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     }
     
     @IBAction func ARBtnPressed(_ sender: Any) {
+        performSegue(withIdentifier: "toARVCNew", sender: nil)
+        
     }
     
     
@@ -269,6 +286,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     }
     
     
+    
     // draw circle
     func addRadiusCircle(location: CLLocation){
         circle = MKCircle(center: location.coordinate, radius: 300 as CLLocationDistance)
@@ -292,7 +310,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             return renderer
         }
     }
-    
     
     
     // set Timer
@@ -474,6 +491,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     }
     
     
+    
     //display Route Data
     func disPlayRouteInfo(){
         
@@ -504,6 +522,18 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         
         if segue.identifier == "toFinalConfirmVC"{
             _ = segue.destination as! FinalConfirmVC
+        }
+        
+        //toARVCNew
+        if segue.identifier == "toARVCNew"{
+            
+            if let arVCNew = segue.destination as? ARVC_New, let loc = locationCoordinate, let dis = distance {
+                arVCNew.locationCoordinate = loc
+                arVCNew.distance = dis
+            } else {
+                print("no tag")
+                _ = segue.destination as! ARVC_New
+            }
         }
     }
 }

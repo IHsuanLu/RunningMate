@@ -10,7 +10,7 @@ import UIKit
 
 //imagePickerController 需要 UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
-class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -43,9 +43,21 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     var toolBar = UIToolbar()
     
+    // gather Info and send to ApiService
+    var registerInfo = RegisterInfo()
+    var sex: String!
+    var sex_prefer: String!
+    
+    //
+    var registerStatus: Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        emailTextField.delegate = self
+        nameTextField.delegate = self
+        passwordTextField.delegate = self
+        
         arrayGenerator()
         
         DispatchQueue.main.async {
@@ -76,6 +88,11 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
     @IBAction func returnBtnPressed(_ sender: UIButton) {
@@ -116,11 +133,21 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     }
     
     @IBAction func radioBtnPressed(_ sender: DLRadioButton) {
-        // tag -> 1 for male ; 2 for female
+        if sender.tag == 1{
+            sex = "male"
+        } else if sender.tag == 2 {
+            sex = "female"
+        }
     }
     
-    @IBAction func preferRadioBtnPressed(_ sender: Any) {
-        // tag -> 1 for male ; 2 for female ; 3 for both
+    @IBAction func preferRadioBtnPressed(_ sender: DLRadioButton) {
+        if sender.tag == 1{
+            sex_prefer = "male"
+        } else if sender.tag == 2 {
+            sex_prefer = "female"
+        } else if sender.tag == 3 {
+            sex_prefer = "both"
+        }
     }
     
     
@@ -139,7 +166,7 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
             self.days.append("\(i)")
         }
             
-        for i in 1900...2018{
+        for i in 1970...2018{
             self.years.append("\(i)")
         }
     }
@@ -176,6 +203,102 @@ class RegisterVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         yearTextField.resignFirstResponder()
     }
     
+    
+    @IBAction func createAccountBtnPressed(_ sender: UIButton) {
+        
+        print("Button Pressed")
+        
+        gatherInfo(completion: {
+            // APIRequest
+            ApiService.sharedInstance.postResgister(registerInfo: registerInfo, completion: { registerStatus in
+                
+                //把成功與否傳回來
+                self.registerStatus = registerStatus
+                print(self.registerStatus)
+                
+                self.setAlert()
+            })
+        })
+    }
+    
+    func gatherInfo(completion: () -> ()){
+        
+        if let email = emailTextField.text {
+            registerInfo.email = email
+        } else {
+            setAlert(string: "Email")
+        }
+        
+        if let name = nameTextField.text {
+            registerInfo.name = name
+        } else {
+            setAlert(string: "Name")
+        }
+        
+        if let password = passwordTextField.text{
+            registerInfo.password = password
+        } else {
+            setAlert(string: "Password")
+        }
+        
+        if let birth_year = yearTextField.text{
+            registerInfo.birth_year = birth_year
+        } else {
+            setAlert(string: "Birth Year")
+        }
+        
+        if let birth_month = monthTextField.text{
+            registerInfo.birth_month = birth_month
+        } else {
+            setAlert(string: "Birth Month")
+        }
+        
+        if let birth_day = dayTextField.text{
+            registerInfo.birth_day = birth_day
+        } else {
+            setAlert(string: "Birth Day")
+        }
+        
+        if let sex = sex{
+            registerInfo.sex = sex
+        } else {
+            setAlert(string: "Sex")
+        }
+        
+        if let sex_prefer = sex_prefer{
+            registerInfo.sex_prefer = sex_prefer
+        } else {
+            setAlert(string: "Sex Prefer")
+        }
+        
+        completion()
+    }
+    
+    func setAlert(string: String){
+        let alert = UIAlertController(title: "\(string)欄位 未填寫！", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func setAlert(){
+        
+        if self.registerStatus == true{
+            let alert = UIAlertController(title: "註冊成功", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: { (action) in
+                
+                self.dismiss(animated: true, completion: nil)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            
+        } else {
+            let alert = UIAlertController(title: "此Email帳號已經註冊過了！", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 extension RegisterVC: UIPickerViewDelegate, UIPickerViewDataSource{

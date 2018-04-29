@@ -1,4 +1,6 @@
 PODS:
+  - Alamofire (4.7.2)
+  - ARCL (1.0.2)
   - Firebase/Core (4.8.0):
     - FirebaseAnalytics (= 4.0.5)
     - FirebaseCore (= 4.0.13)
@@ -21,9 +23,22 @@ PODS:
   - nanopb/encode (0.3.8)
 
 DEPENDENCIES:
+  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`)
+  - ARCL
   - Firebase/Core
 
+EXTERNAL SOURCES:
+  Alamofire:
+    :git: https://github.com/Alamofire/Alamofire.git
+
+CHECKOUT OPTIONS:
+  Alamofire:
+    :commit: 2fb881a1702cb1976c36192aceb54dcedab6fdc2
+    :git: https://github.com/Alamofire/Alamofire.git
+
 SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  ARCL: 88300cadfbdd6a9288ca17ad18d3ac972d6cb1e6
   Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
   FirebaseCore: 3c02ec652db3d03fdc8bc6d9154af3e20d64b6f5
@@ -31,6 +46,6 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: fec879fcff0d801aa7db7b1efd9686c4daad75f1
+PODFILE CHECKSUM: 74e4ef609a3382d51f320f6d288f7667a36fed39
 
 COCOAPODS: 1.3.1

@@ -12,6 +12,6 @@ class FirstPageVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(MemberId.sharedInstance.member_id)
     }
 }
