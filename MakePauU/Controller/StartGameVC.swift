@@ -85,8 +85,14 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     //downleft
     var ifExpanded = true
     
+    //user location
     var mapHasCenteredInBeginning = false
-
+    
+    
+    //total travel distance
+    var startLocation: CLLocation!
+    var lastLocation: CLLocation!
+    var traveledDistance: Double = 0
     
     
     //location manager
@@ -99,17 +105,27 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         locationManager.delegate = self
         mapView.delegate = self
         
+        setCalaulateTotalDistance()
+        
         downLeftExpandBtn.backgroundColor = UIColor(white: 1, alpha: 0.75)
 
-        mapView.userTrackingMode = MKUserTrackingMode.follow
-        
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         locationAuthStatus()
         locationManager.startUpdatingLocation()
+    }
+    
+    func setCalaulateTotalDistance(){
+        if CLLocationManager.locationServicesEnabled(){
+            
+            mapView.userTrackingMode = MKUserTrackingMode.follow
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+            locationManager.startMonitoringSignificantLocationChanges()
+            locationManager.distanceFilter = 10
+        }
     }
     
     
@@ -124,7 +140,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             locationManager.requestWhenInUseAuthorization()
         }
     }
-    
     //tell the delegate that the authorization status was changed
     //from CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -136,6 +151,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     }
     
     
+    //讓user的location在畫面的正中間
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         
         //這邊處理，when updates come in, 'mapView.userTrackingMode = MKUserTrackingMode.follow' 處理追蹤。
@@ -150,6 +166,38 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         }
     }
     
+    
+      func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    
+        if GameStatus.sharedInstance.ifStarted == true {
+            
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!")
+            if startLocation == nil {
+                startLocation = locations.first
+            } else if let location = locations.last {
+                traveledDistance += lastLocation.distance(from: location)
+                print("Traveled Distance:",  traveledDistance)
+                
+                let toKm = traveledDistance / 1000.0
+                
+                totalDistance.text = String(format: "%.2f", toKm)
+            }
+            
+            lastLocation = locations.last
+        } else {
+            print("Not Yet")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        if (error as? CLError)?.code == .denied {
+            manager.stopUpdatingLocation()
+            manager.stopMonitoringSignificantLocationChanges()
+        }
+    }
+    
+    
+    
     //讓user的location在畫面的正中間
     func centerMapOnLocation(location: CLLocation){
         
@@ -158,7 +206,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         
         mapView.setRegion(coordinateRegion, animated: true)
     }
-
     
     
     @IBAction func returnBtnPressed(_ sender: Any) {
@@ -310,68 +357,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             return renderer
         }
     }
-    
-    
-    // set Timer
-    func setTimer_Waiting(){
-        //Timer (呼叫 updateTimer every second)
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-    }
-    
-    func setTimer_Route(){
-        
-        timerForRoute = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateRouteData), userInfo: nil, repeats: true)
-    }
-    
-    func setTimer_Route2(){
-        
-        timerForRoute2 = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateRouteData2), userInfo: nil, repeats: true)
-    }
-    
-    func setTimer_Game(){
-        
-        timerForGame = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(startGameTimer), userInfo: nil, repeats: true)
-    }
-    
-    @objc func updateTimer(){
-
-        if count >= 0 {
-            let seconds = String(count % 60)
-            timerLabel.text = seconds
-            count = count - 1
-        } else {
-            
-            // 設定if pressed / if not pressed的處理
-            performSegue(withIdentifier: "toFinalConfirmVC", sender: nil)
-            
-            timer.invalidate()
-        }
-    }
-
-    @objc func updateRouteData(){
-        
-        self.disPlayRouteInfo()
-        timerForRoute.invalidate()
-    }
-    
-    @objc func updateRouteData2(){
-        
-        
-        self.disPlayRouteInfo()
-        self.timerForRoute2.invalidate()
-    }
-    
-    @objc func startGameTimer(){
-        
-        countForGame = countForGame + 1.0
-        time.text = "\(Int(Double(countForGame / 60)))'\(Int(round(Double(countForGame.truncatingRemainder(dividingBy: 60)))))''"
-        
-        if !GameStatus.sharedInstance.ifStarted {
-            timerForGame.invalidate()
-        }
-    }
-    
-    
     
     
     // set annotation
@@ -534,6 +519,69 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
                 print("no tag")
                 _ = segue.destination as! ARVC_New
             }
+        }
+    }
+}
+
+//set Timer
+extension StartGameVC{
+    
+    // set Timer
+    func setTimer_Waiting(){
+        //Timer (呼叫 updateTimer every second)
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    func setTimer_Route(){
+        
+        timerForRoute = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateRouteData), userInfo: nil, repeats: true)
+    }
+    
+    func setTimer_Route2(){
+        
+        timerForRoute2 = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateRouteData2), userInfo: nil, repeats: true)
+    }
+    
+    func setTimer_Game(){
+        
+        timerForGame = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(startGameTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer(){
+        
+        if count >= 0 {
+            let seconds = String(count % 60)
+            timerLabel.text = seconds
+            count = count - 1
+        } else {
+            
+            // 設定if pressed / if not pressed的處理
+            performSegue(withIdentifier: "toFinalConfirmVC", sender: nil)
+            
+            timer.invalidate()
+        }
+    }
+    
+    @objc func updateRouteData(){
+        
+        self.disPlayRouteInfo()
+        timerForRoute.invalidate()
+    }
+    
+    @objc func updateRouteData2(){
+        
+        
+        self.disPlayRouteInfo()
+        self.timerForRoute2.invalidate()
+    }
+    
+    @objc func startGameTimer(){
+        
+        countForGame = countForGame + 1.0
+        time.text = "\(Int(Double(countForGame / 60)))'\(Int(round(Double(countForGame.truncatingRemainder(dividingBy: 60)))))''"
+        
+        if !GameStatus.sharedInstance.ifStarted {
+            timerForGame.invalidate()
         }
     }
 }

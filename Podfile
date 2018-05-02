@@ -6,6 +6,9 @@ target 'MakePauU' do
   use_frameworks!
 
 pod 'Firebase/Core'
+pod 'Firebase/Database’
+pod 'Firebase/Auth’
+pod 'Firebase/Storage’
 pod 'ARCL'
 pod 'Alamofire',
     :git => 'https://github.com/Alamofire/Alamofire.git' 

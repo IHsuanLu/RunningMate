@@ -13,7 +13,7 @@ class ApiService: NSObject{
     
     static let sharedInstance = ApiService()
     
-    func postResgister(registerInfo: RegisterInfo, completion: @escaping (Bool) -> ()){
+    func postResgister(registerInfo: RegisterInfo, completion: @escaping (Bool, String) -> ()){
         
         let checkSessionURL = URL(string: "http://runningmatelab.hopto.org/register_member/")
         
@@ -54,10 +54,13 @@ class ApiService: NSObject{
 
                     if let register_status = json["register_status"] as? String{
                         
-                        if register_status == "註冊成功"{
-                            completion(true)
-                        } else {
-                            completion(false)
+                        if let member_id = json["member_id"] as? String{
+                            
+                            if register_status == "註冊成功"{
+                                completion(true, member_id)
+                            } else {
+                                completion(false, "")
+                            }
                         }
                     }
                 }

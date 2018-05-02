@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import FirebaseStorage
 
 //imagePickerController 需要 UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
@@ -48,8 +51,13 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     var sex: String!
     var sex_prefer: String!
     
-    //
+    // profileImageURL
+    var profileImageURL: String!
+    var member_id: String!
+    
+    //是否成功
     var registerStatus: Bool!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,8 +88,11 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     // info contains our image data
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        let userSelectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        photoImageView.image = userSelectedImage
+        if let editImage = info[UIImagePickerControllerEditedImage] as? UIImage{
+            photoImageView.image = editImage
+        } else if let userSelectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+            photoImageView.image = userSelectedImage
+        }
         
         picker.dismiss(animated: true, completion: nil)
     }
@@ -89,6 +100,8 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -101,10 +114,14 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     }
     
     @IBAction func selectPhotoBtnPressed(_ sender: UIButton) {
-        
+        setImagePicker()
+    }
+    
+    func setImagePicker(){
         // imagePickerController things
         let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self 
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
         
         
         let actionSheet = UIAlertController(title: "照片來源", message: "選擇大頭貼照片來源", preferredStyle: .actionSheet)
@@ -208,18 +225,72 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         
         print("Button Pressed")
         
+        // 確定有資料
         gatherInfo(completion: {
-            // APIRequest
-            ApiService.sharedInstance.postResgister(registerInfo: registerInfo, completion: { registerStatus in
+            
+            // 確定有照片
+            if let photo = photoImageView.image  {
+               
+                if photo != #imageLiteral(resourceName: "photo") {
+
+                    // APIRequest
+                    ApiService.sharedInstance.postResgister(registerInfo: registerInfo, completion: { registerStatus, member_id in
+                        
+                        //把成功與否傳回來
+                        self.registerStatus = registerStatus
+                        
+                        if self.registerStatus == true {
+                            self.member_id = member_id  //if let
+                            self.uplaodImage(photo)
+                        }
+                        
+                        self.setAlert()
+                    })
+                    
+                } else {
+                    
+                    let alert = UIAlertController(title: "請選擇照片", message: "", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: nil))
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
                 
-                //把成功與否傳回來
-                self.registerStatus = registerStatus
-                print(self.registerStatus)
-                
-                self.setAlert()
-            })
+            }
         })
     }
+    
+    //progressBlock -> completion handler
+    func uplaodImage(_ photo: UIImage){
+        
+        // get reference to the storage (get id)
+        let ref = Storage.storage().reference().child("\(member_id!)").child("first pic")
+        
+        if let uploadData = UIImagePNGRepresentation(photo) {
+            
+            _ = ref.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                
+                if let profileImageURL = metadata?.downloadURL()?.absoluteString{
+                    self.profileImageURL = profileImageURL
+                    print(profileImageURL)
+                    
+                    self.writeURL()
+                }
+            })
+        }
+    }
+    
+    func writeURL(){
+        
+        let ref = Database.database().reference()
+        ref.child("members").child("\(member_id!)").updateChildValues(["profileImageURL":["\(profileImageURL!)"]])
+    }
+    
+    
     
     func gatherInfo(completion: () -> ()){
         

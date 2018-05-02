@@ -60,6 +60,9 @@
 		8CBBDFE32070C4C400C89FBB /* IntroItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFE22070C4C400C89FBB /* IntroItem.swift */; };
 		8CBBDFE52070D4BF00C89FBB /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFE42070D4BF00C89FBB /* LoginVC.swift */; };
 		8CBBDFE72070E1B200C89FBB /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFE62070E1B200C89FBB /* LoginTextField.swift */; };
+		8CBEB8D32099C62E00B13C42 /* SettingEnding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBEB8D22099C62E00B13C42 /* SettingEnding.swift */; };
+		8CBEB8D52099C89F00B13C42 /* TestEndingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBEB8D42099C89F00B13C42 /* TestEndingVC.swift */; };
+		8CBEB8D72099FF3900B13C42 /* EndingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBEB8D62099FF3900B13C42 /* EndingView.swift */; };
 		8CD8D895206CD1B100E980AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8D894206CD1B100E980AD /* AppDelegate.swift */; };
 		8CD8D89A206CD1B100E980AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CD8D898206CD1B100E980AD /* Main.storyboard */; };
 		8CD8D89C206CD1B100E980AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CD8D89B206CD1B100E980AD /* Assets.xcassets */; };
@@ -136,6 +139,9 @@
 		8CBBDFE22070C4C400C89FBB /* IntroItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroItem.swift; sourceTree = "<group>"; };
 		8CBBDFE42070D4BF00C89FBB /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		8CBBDFE62070E1B200C89FBB /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
+		8CBEB8D22099C62E00B13C42 /* SettingEnding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingEnding.swift; sourceTree = "<group>"; };
+		8CBEB8D42099C89F00B13C42 /* TestEndingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEndingVC.swift; sourceTree = "<group>"; };
+		8CBEB8D62099FF3900B13C42 /* EndingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingView.swift; sourceTree = "<group>"; };
 		8CD8D891206CD1B100E980AD /* MakePauU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakePauU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CD8D894206CD1B100E980AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CD8D899206CD1B100E980AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -206,6 +212,7 @@
 			children = (
 				8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */,
 				8C11BA062084879000DDCDBF /* CountDownVC.swift */,
+				8CBEB8D22099C62E00B13C42 /* SettingEnding.swift */,
 			);
 			name = StartGame;
 			sourceTree = "<group>";
@@ -296,6 +303,7 @@
 				8C6E9D01208C7923000551D1 /* AR */,
 				8C34F75B20959F02003958FD /* UserVC.swift */,
 				8C8C58BD2096F91400FB31C0 /* EditUserVC.swift */,
+				8CBEB8D42099C89F00B13C42 /* TestEndingVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -338,6 +346,7 @@
 				8C08FF0D207A284D0021B343 /* ProfileImageView.swift */,
 				8C08FF0F207A2BB10021B343 /* StartButton.swift */,
 				8C52B9DD208A4A4A003002AE /* MenuBar.swift */,
+				8CBEB8D62099FF3900B13C42 /* EndingView.swift */,
 			);
 			path = SubClass;
 			sourceTree = "<group>";
@@ -563,14 +572,18 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-MakePauU/Pods-MakePauU-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ARCL/ARCL.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ARCL.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -638,10 +651,12 @@
 				8C34F7652095A848003958FD /* ResgisterInfo.swift in Sources */,
 				8CBBDFE12070C4A100C89FBB /* IntroCell.swift in Sources */,
 				8CBBDFE52070D4BF00C89FBB /* LoginVC.swift in Sources */,
+				8CBEB8D72099FF3900B13C42 /* EndingView.swift in Sources */,
 				8C11B9F92083544F00DDCDBF /* RoomMemberCell.swift in Sources */,
 				8C08FF0A207A12D80021B343 /* CustomTabBar.swift in Sources */,
 				8C52B9EE208C603C003002AE /* RankItem.swift in Sources */,
 				8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */,
+				8CBEB8D32099C62E00B13C42 /* SettingEnding.swift in Sources */,
 				8C34F75C20959F02003958FD /* UserVC.swift in Sources */,
 				8C08FF042079E05D0021B343 /* CustomButton.swift in Sources */,
 				8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */,
@@ -666,6 +681,7 @@
 				8CBBDFE32070C4C400C89FBB /* IntroItem.swift in Sources */,
 				8C34F7602095A020003958FD /* UserImageItem.swift in Sources */,
 				8C11B9FB2083557A00DDCDBF /* RoomMemberItem.swift in Sources */,
+				8CBEB8D52099C89F00B13C42 /* TestEndingVC.swift in Sources */,
 				8CAEA1EB207DDCA9005A3B5F /* StartGameVC.swift in Sources */,
 				8C08FF022079DC620021B343 /* DLRadioButton.m in Sources */,
 				8C08FF0C207A19B20021B343 /* UIViewExt.swift in Sources */,
