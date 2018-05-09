@@ -62,7 +62,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     //等待倒數
     var timer = Timer()
-    var count = 2 //倒數時間
+    var count =  0 //倒數時間
     
     var timerForRoute = Timer()
     var countForRoute = 5
@@ -72,6 +72,11 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     var timerForGame = Timer()
     var countForGame = 0.0
+    
+    var timerForCluster = Timer()
+    var countForCluster = 0.0
+    var ifClustered: Bool!
+    var matchCount: Int = 0
     
     //圈
     var circle: MKCircle!
@@ -171,7 +176,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
         if GameStatus.sharedInstance.ifStarted == true {
             
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!")
             if startLocation == nil {
                 startLocation = locations.first
             } else if let location = locations.last {
@@ -225,13 +229,46 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     @IBAction func confirmBtnPressed(_ sender: DLRadioButton) {
         
+        
+        ApiService.sharedInstance.postUserPosition(userLocation: self.mapView.userLocation.coordinate, completion: {
+    
+            
+            while self.ifClustered != true {
+                    
+                FirebaseService.sharedInstance.checkIfCluster { (ifSuccess) in
+                    self.ifClustered = ifSuccess
+                    
+                    if ifSuccess == true {
+                        self.timer.invalidate()
+                        self.performSegue(withIdentifier: "toFinalConfirmVC", sender: nil)
+                    }
+                }
+                    
+                print("!!!!!!!!!!!!!!!!!!!!!!\(self.ifClustered)")
+                
+                self.matchCount = self.matchCount + 1
+                if self.matchCount == 10 {
+                    print("Set Alert")
+                }
+                    
+                if self.ifClustered != true{
+                                
+                    sleep(20)
+                                
+                } else {
+                    break
+                }
+            }
+        })
+        
+        //如果配對成功的結果
         UIView.animate(withDuration: 0.3) {
             self.blackView.alpha = 0
-            //狀態改變
             self.timerLabel.isHidden = false
         }
         
-        setTimer_Waiting()
+        self.setTimer_Waiting()
+
     }
     
     
@@ -549,17 +586,9 @@ extension StartGameVC{
     
     @objc func updateTimer(){
         
-        if count >= 0 {
-            let seconds = String(count % 60)
-            timerLabel.text = seconds
-            count = count - 1
-        } else {
-            
-            // 設定if pressed / if not pressed的處理
-            performSegue(withIdentifier: "toFinalConfirmVC", sender: nil)
-            
-            timer.invalidate()
-        }
+        let seconds = String(count)
+        timerLabel.text = seconds
+        count = count + 1
     }
     
     @objc func updateRouteData(){

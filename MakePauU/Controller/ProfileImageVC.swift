@@ -10,9 +10,16 @@ import UIKit
 
 class ProfileImageVC: UIViewController {
 
+    @IBOutlet weak var imageView: CustomImageView!
+    
+    var image: UIImage!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        imageView.image = image
+        
         setDismiss()
     }
     

@@ -25,6 +25,13 @@ class FinalConfirmVC: UIViewController {
             RoomMemberItem(thumbImage: #imageLiteral(resourceName: "pic3"), title: "我剛剛跨完年")
         ]
         
+        FirebaseService.sharedInstance.setFinalConfirm(completion: { (estimate_distance) in
+            self.distanceLbl.text = String(format: "%.2f", estimate_distance)
+            
+            let seconds = estimate_distance * 450
+            self.timeLbl.text = "\(Int(Double(seconds / 60)))'\(Int(round(Double(seconds.truncatingRemainder(dividingBy: 60)))))''"
+        })
+        
         tableView.separatorStyle = .none
     }
     

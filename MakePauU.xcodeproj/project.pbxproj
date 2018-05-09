@@ -49,6 +49,12 @@
 		8C8C58BE2096F91400FB31C0 /* EditUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C58BD2096F91400FB31C0 /* EditUserVC.swift */; };
 		8C8C58C1209857F700FB31C0 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C58C0209857F700FB31C0 /* TextFieldCell.swift */; };
 		8C8C58C4209858C800FB31C0 /* TextFieldItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C58C3209858C800FB31C0 /* TextFieldItem.swift */; };
+		8CAD37A7209EFC6700AC92B9 /* EndingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD37A5209EFC6700AC92B9 /* EndingCell.swift */; };
+		8CAD37A8209EFC6700AC92B9 /* EndingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CAD37A6209EFC6700AC92B9 /* EndingCell.xib */; };
+		8CAD37AC209F0D6500AC92B9 /* EndingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD37AB209F0D6500AC92B9 /* EndingItem.swift */; };
+		8CAD37AE20A029EE00AC92B9 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD37AD20A029EE00AC92B9 /* FirebaseService.swift */; };
+		8CAD37B020A1D0B900AC92B9 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD37AF20A1D0B900AC92B9 /* CustomImageView.swift */; };
+		8CAD37B220A1D69700AC92B9 /* SetLoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD37B120A1D69700AC92B9 /* SetLoadingScreen.swift */; };
 		8CAEA1E7207DD6E5005A3B5F /* FirstPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1E6207DD6E5005A3B5F /* FirstPageVC.swift */; };
 		8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */; };
 		8CAEA1EB207DDCA9005A3B5F /* StartGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */; };
@@ -128,6 +134,12 @@
 		8C8C58BD2096F91400FB31C0 /* EditUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserVC.swift; sourceTree = "<group>"; };
 		8C8C58C0209857F700FB31C0 /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		8C8C58C3209858C800FB31C0 /* TextFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldItem.swift; sourceTree = "<group>"; };
+		8CAD37A5209EFC6700AC92B9 /* EndingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingCell.swift; sourceTree = "<group>"; };
+		8CAD37A6209EFC6700AC92B9 /* EndingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EndingCell.xib; sourceTree = "<group>"; };
+		8CAD37AB209F0D6500AC92B9 /* EndingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingItem.swift; sourceTree = "<group>"; };
+		8CAD37AD20A029EE00AC92B9 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		8CAD37AF20A1D0B900AC92B9 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		8CAD37B120A1D69700AC92B9 /* SetLoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLoadingScreen.swift; sourceTree = "<group>"; };
 		8CAEA1E6207DD6E5005A3B5F /* FirstPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageVC.swift; sourceTree = "<group>"; };
 		8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVC.swift; sourceTree = "<group>"; };
 		8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameVC.swift; sourceTree = "<group>"; };
@@ -221,8 +233,17 @@
 			isa = PBXGroup;
 			children = (
 				8C34F7622095A668003958FD /* ApiService.swift */,
+				8CAD37AD20A029EE00AC92B9 /* FirebaseService.swift */,
 			);
 			path = "Api Request";
+			sourceTree = "<group>";
+		};
+		8C45E175209D4BC10069CCE7 /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				8CAD37B120A1D69700AC92B9 /* SetLoadingScreen.swift */,
+			);
+			path = NSObject;
 			sourceTree = "<group>";
 		};
 		8C52B9E8208C452D003002AE /* RankVC */ = {
@@ -289,6 +310,23 @@
 			path = EditUserVC;
 			sourceTree = "<group>";
 		};
+		8CAD37A9209EFDC900AC92B9 /* EndingView */ = {
+			isa = PBXGroup;
+			children = (
+				8CAD37A5209EFC6700AC92B9 /* EndingCell.swift */,
+				8CAD37A6209EFC6700AC92B9 /* EndingCell.xib */,
+			);
+			path = EndingView;
+			sourceTree = "<group>";
+		};
+		8CAD37AA209EFDE100AC92B9 /* EndingView */ = {
+			isa = PBXGroup;
+			children = (
+				8CAD37AB209F0D6500AC92B9 /* EndingItem.swift */,
+			);
+			path = EndingView;
+			sourceTree = "<group>";
+		};
 		8CBBDFCA206D327F00C89FBB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +354,7 @@
 				8C52B9E8208C452D003002AE /* RankVC */,
 				8C8C58B92096DD8F00FB31C0 /* UserVC */,
 				8C8C58BF2098572A00FB31C0 /* EditUserVC */,
+				8CAD37A9209EFDC900AC92B9 /* EndingView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -331,6 +370,7 @@
 				8C6E2D6120905D090068D462 /* AR */,
 				8C8C58BA2096DE1200FB31C0 /* UserVC */,
 				8C8C58C2209858AE00FB31C0 /* EditUserVC */,
+				8CAD37AA209EFDE100AC92B9 /* EndingView */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -347,6 +387,7 @@
 				8C08FF0F207A2BB10021B343 /* StartButton.swift */,
 				8C52B9DD208A4A4A003002AE /* MenuBar.swift */,
 				8CBEB8D62099FF3900B13C42 /* EndingView.swift */,
+				8CAD37AF20A1D0B900AC92B9 /* CustomImageView.swift */,
 			);
 			path = SubClass;
 			sourceTree = "<group>";
@@ -388,6 +429,7 @@
 				8C34F7612095A5E9003958FD /* Api Request */,
 				8C11B9FC20835C1F00DDCDBF /* Singleton */,
 				8C08FEFE2079DC480021B343 /* RadioButton */,
+				8C45E175209D4BC10069CCE7 /* NSObject */,
 				8CBBDFDB2070BF9B00C89FBB /* Extension */,
 				8CBBDFDA2070BF9500C89FBB /* SubClass */,
 				8CBBDFD92070BF8B00C89FBB /* Model */,
@@ -516,6 +558,7 @@
 				8CD8D89C206CD1B100E980AD /* Assets.xcassets in Resources */,
 				8C6E9D00208C7803000551D1 /* art.scnassets in Resources */,
 				8CD8D89A206CD1B100E980AD /* Main.storyboard in Resources */,
+				8CAD37A8209EFC6700AC92B9 /* EndingCell.xib in Resources */,
 				8C08FF06207A02800021B343 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -658,6 +701,7 @@
 				8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */,
 				8CBEB8D32099C62E00B13C42 /* SettingEnding.swift in Sources */,
 				8C34F75C20959F02003958FD /* UserVC.swift in Sources */,
+				8CAD37B220A1D69700AC92B9 /* SetLoadingScreen.swift in Sources */,
 				8C08FF042079E05D0021B343 /* CustomButton.swift in Sources */,
 				8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */,
 				8C08FF0E207A284D0021B343 /* ProfileImageView.swift in Sources */,
@@ -665,7 +709,9 @@
 				8C8C58BE2096F91400FB31C0 /* EditUserVC.swift in Sources */,
 				8C8C58BC2096DE3900FB31C0 /* DataItem.swift in Sources */,
 				8C34F76B2095F1E7003958FD /* StatCell.swift in Sources */,
+				8CAD37AE20A029EE00AC92B9 /* FirebaseService.swift in Sources */,
 				8CBBDFDF2070BFFD00C89FBB /* UIButtonExt.swift in Sources */,
+				8CAD37B020A1D0B900AC92B9 /* CustomImageView.swift in Sources */,
 				8C08FF08207A0C930021B343 /* UITabBarControllerExt.swift in Sources */,
 				8C11BA072084879000DDCDBF /* CountDownVC.swift in Sources */,
 				8C52B9EA208C4544003002AE /* ContentViewCell.swift in Sources */,
@@ -688,10 +734,12 @@
 				8C11BA092088FC4700DDCDBF /* GameStatus.swift in Sources */,
 				8C6F29AA20987AA700FE40A2 /* TextViewCell.swift in Sources */,
 				8C6E2D652090EA070068D462 /* ARVC_New.swift in Sources */,
+				8CAD37A7209EFC6700AC92B9 /* EndingCell.swift in Sources */,
 				8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */,
 				8C08FEFB2079D3E70021B343 /* DateTextField.swift in Sources */,
 				8C52B9E2208A5249003002AE /* MenuBarCell.swift in Sources */,
 				8C08FEF92079C50F0021B343 /* RegisterVC.swift in Sources */,
+				8CAD37AC209F0D6500AC92B9 /* EndingItem.swift in Sources */,
 				8C52B9EC208C4E24003002AE /* RankCell.swift in Sources */,
 				8C6F29AC20987BD500FE40A2 /* TextViewItem.swift in Sources */,
 				8C52B9DE208A4A4A003002AE /* MenuBar.swift in Sources */,

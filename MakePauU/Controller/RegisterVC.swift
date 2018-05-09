@@ -108,6 +108,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         return false
     }
     
+    
     @IBAction func returnBtnPressed(_ sender: UIButton) {
         
         dismiss(animated: true, completion: nil)
@@ -118,6 +119,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     }
     
     func setImagePicker(){
+        
         // imagePickerController things
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self

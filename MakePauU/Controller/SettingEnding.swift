@@ -12,15 +12,15 @@ class SettingEnding: NSObject{
     
     let blackView = UIView()
     
-    var views = [UIView]()
-    var num = 5
+    //調整view位置
+    var centers = CGPoint()
     
+    var views = [UIView]()
+    var num = 5  // user numbers
+
     func showSetting(){
         
         if let window = UIApplication.shared.keyWindow{
-    
-            print(window.frame.size.width)
-            print(window.frame.size.height)
             
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.6)
             
@@ -29,25 +29,33 @@ class SettingEnding: NSObject{
             window.addSubview(blackView)
             
             
-            for _ in 1...num {
-                let view = EndingView()
+            centers = blackView.center
+            centers.y = blackView.center.y + 12
+            
+            
+            for i in 1...num {
+                
+                let view = EndingView(frame: .zero, counter: i)
                 views.append(view)
                 
-                view.center = blackView.center
+                view.center = centers
                 blackView.addSubview(view)
             }
-            
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 
                 self.blackView.alpha = 1
                 
-                for view in self.views{
-                    view.frame.size = CGSize(width: window.frame.size.width - 60, height: window.frame.size.height - 100)
-                    view.center = self.blackView.center
-                }
-                
             }, completion: nil)
+            
+            for view in self.views{
+                
+                view.frame.size = CGSize(width: window.frame.size.width - 60, height: window.frame.size.height - 100)
+                
+                self.centers.y = self.centers.y - CGFloat(3.5)
+                print(self.centers.y)
+                view.center = self.centers
+            }
         }
     }
     

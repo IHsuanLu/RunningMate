@@ -47,7 +47,7 @@ class UserVC: UIViewController {
         ]
         
         testArray3 = [
-            DataItem(title: "生日（年 / 月 / 日）：", content: "1996 / 12 / 20"),
+            DataItem(title: "生日：", content: "1996 / 12 / 20"),
             DataItem(title: "感情狀況：", content: "有三個小狼狗跟一個乾爹"),
             DataItem(title: "興趣愛好：", content: "喜歡看各種類型的電影和徹夜不眠追劇\n國中時喜歡看天真浪漫不切實際的愛情片\n幻想男主角都是我的老公/n年幼無知憧憬愛情\n殊不知 那只是電影 只是 電影老公們都是有收錢的\n最終娶的都不是我 :(\n傷了心\n高中時喜歡古裝武打片\n看古人們輕功飛簷走壁\n以為自己也可以傷了身"),
             DataItem(title: "最近的困擾：", content: "嘴巴上每天都說想減肥\n可是看到美食又忘記自己立下的毒誓\n希望有人可以陪我一起運動"),
@@ -105,8 +105,6 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             let array = ["總跑步次數", "總公里數", "成就達成"]
             cell.titleLbl.text = array[indexPath.row]
             cell.figureLbl.text = testArray2[indexPath.row].figure
-            
-        
             
             return cell
         }
