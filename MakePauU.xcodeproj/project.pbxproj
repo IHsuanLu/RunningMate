@@ -39,6 +39,9 @@
 		8C52B9EA208C4544003002AE /* ContentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9E9208C4544003002AE /* ContentViewCell.swift */; };
 		8C52B9EC208C4E24003002AE /* RankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9EB208C4E24003002AE /* RankCell.swift */; };
 		8C52B9EE208C603C003002AE /* RankItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9ED208C603C003002AE /* RankItem.swift */; };
+		8C6BBDAA20AC007900575B7C /* FriendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6BBDA920AC007900575B7C /* FriendListVC.swift */; };
+		8C6BBDAC20AC016900575B7C /* UISearchBarExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6BBDAB20AC016900575B7C /* UISearchBarExt.swift */; };
+		8C6BBDB020AC04B300575B7C /* SearchBarSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6BBDAF20AC04B300575B7C /* SearchBarSegue.swift */; };
 		8C6E2D6320905D150068D462 /* Ramp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6E2D6220905D150068D462 /* Ramp.swift */; };
 		8C6E2D652090EA070068D462 /* ARVC_New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6E2D642090EA070068D462 /* ARVC_New.swift */; };
 		8C6E9D00208C7803000551D1 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C6E9CFF208C7802000551D1 /* art.scnassets */; };
@@ -74,6 +77,8 @@
 		8CD8D89C206CD1B100E980AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CD8D89B206CD1B100E980AD /* Assets.xcassets */; };
 		8CD8D89F206CD1B100E980AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CD8D89D206CD1B100E980AD /* LaunchScreen.storyboard */; };
 		8CD8D8AA206CD1B100E980AD /* MakePauUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8D8A9206CD1B100E980AD /* MakePauUTests.swift */; };
+		8CF7300E20ADE99800908B34 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7300D20ADE99800908B34 /* SearchVC.swift */; };
+		8CF7301020AEAC6500908B34 /* PreloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7300F20AEAC6500908B34 /* PreloadVC.swift */; };
 		9F2699A4876544AAE4E25220 /* Pods_MakePauUTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6809CA67CDFA6C757047B47E /* Pods_MakePauUTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +129,9 @@
 		8C52B9E9208C4544003002AE /* ContentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewCell.swift; sourceTree = "<group>"; };
 		8C52B9EB208C4E24003002AE /* RankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankCell.swift; sourceTree = "<group>"; };
 		8C52B9ED208C603C003002AE /* RankItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankItem.swift; sourceTree = "<group>"; };
+		8C6BBDA920AC007900575B7C /* FriendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListVC.swift; sourceTree = "<group>"; };
+		8C6BBDAB20AC016900575B7C /* UISearchBarExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISearchBarExt.swift; sourceTree = "<group>"; };
+		8C6BBDAF20AC04B300575B7C /* SearchBarSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarSegue.swift; sourceTree = "<group>"; };
 		8C6E2D6220905D150068D462 /* Ramp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ramp.swift; sourceTree = "<group>"; };
 		8C6E2D642090EA070068D462 /* ARVC_New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARVC_New.swift; sourceTree = "<group>"; };
 		8C6E9CFF208C7802000551D1 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -163,6 +171,8 @@
 		8CD8D8A5206CD1B100E980AD /* MakePauUTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MakePauUTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CD8D8A9206CD1B100E980AD /* MakePauUTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePauUTests.swift; sourceTree = "<group>"; };
 		8CD8D8AB206CD1B100E980AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8CF7300D20ADE99800908B34 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		8CF7300F20AEAC6500908B34 /* PreloadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloadVC.swift; sourceTree = "<group>"; };
 		98AF5F1F8AFAA95E8B607C20 /* Pods-MakePauUTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakePauUTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MakePauUTests/Pods-MakePauUTests.release.xcconfig"; sourceTree = "<group>"; };
 		A5219AEAFF3404A4C051995C /* Pods-MakePauU.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakePauU.release.xcconfig"; path = "Pods/Target Support Files/Pods-MakePauU/Pods-MakePauU.release.xcconfig"; sourceTree = "<group>"; };
 		FB7431953B05FD8EAE1ADA1F /* Pods_MakePauU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MakePauU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +266,14 @@
 			path = RankVC;
 			sourceTree = "<group>";
 		};
+		8C6BBDAE20AC049800575B7C /* Segue */ = {
+			isa = PBXGroup;
+			children = (
+				8C6BBDAF20AC04B300575B7C /* SearchBarSegue.swift */,
+			);
+			path = Segue;
+			sourceTree = "<group>";
+		};
 		8C6E2D6120905D090068D462 /* AR */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +348,7 @@
 		8CBBDFCA206D327F00C89FBB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8CF7300F20AEAC6500908B34 /* PreloadVC.swift */,
 				8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */,
 				8CBBDFE42070D4BF00C89FBB /* LoginVC.swift */,
 				8C08FEF82079C50F0021B343 /* RegisterVC.swift */,
@@ -337,6 +356,8 @@
 				8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */,
 				8C11BA05208485E900DDCDBF /* StartGame */,
 				8C52B9DF208A50F1003002AE /* RankingVC.swift */,
+				8C6BBDA920AC007900575B7C /* FriendListVC.swift */,
+				8CF7300D20ADE99800908B34 /* SearchVC.swift */,
 				8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */,
 				8C6E9D01208C7923000551D1 /* AR */,
 				8C34F75B20959F02003958FD /* UserVC.swift */,
@@ -388,6 +409,7 @@
 				8C52B9DD208A4A4A003002AE /* MenuBar.swift */,
 				8CBEB8D62099FF3900B13C42 /* EndingView.swift */,
 				8CAD37AF20A1D0B900AC92B9 /* CustomImageView.swift */,
+				8C6BBDAE20AC049800575B7C /* Segue */,
 			);
 			path = SubClass;
 			sourceTree = "<group>";
@@ -399,6 +421,7 @@
 				8C08FF07207A0C930021B343 /* UITabBarControllerExt.swift */,
 				8CBBDFDE2070BFFD00C89FBB /* UIButtonExt.swift */,
 				8C08FF0B207A19B20021B343 /* UIViewExt.swift */,
+				8C6BBDAB20AC016900575B7C /* UISearchBarExt.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -699,8 +722,11 @@
 				8C08FF0A207A12D80021B343 /* CustomTabBar.swift in Sources */,
 				8C52B9EE208C603C003002AE /* RankItem.swift in Sources */,
 				8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */,
+				8CF7301020AEAC6500908B34 /* PreloadVC.swift in Sources */,
 				8CBEB8D32099C62E00B13C42 /* SettingEnding.swift in Sources */,
+				8C6BBDAC20AC016900575B7C /* UISearchBarExt.swift in Sources */,
 				8C34F75C20959F02003958FD /* UserVC.swift in Sources */,
+				8C6BBDB020AC04B300575B7C /* SearchBarSegue.swift in Sources */,
 				8CAD37B220A1D69700AC92B9 /* SetLoadingScreen.swift in Sources */,
 				8C08FF042079E05D0021B343 /* CustomButton.swift in Sources */,
 				8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */,
@@ -735,10 +761,12 @@
 				8C6F29AA20987AA700FE40A2 /* TextViewCell.swift in Sources */,
 				8C6E2D652090EA070068D462 /* ARVC_New.swift in Sources */,
 				8CAD37A7209EFC6700AC92B9 /* EndingCell.swift in Sources */,
+				8CF7300E20ADE99800908B34 /* SearchVC.swift in Sources */,
 				8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */,
 				8C08FEFB2079D3E70021B343 /* DateTextField.swift in Sources */,
 				8C52B9E2208A5249003002AE /* MenuBarCell.swift in Sources */,
 				8C08FEF92079C50F0021B343 /* RegisterVC.swift in Sources */,
+				8C6BBDAA20AC007900575B7C /* FriendListVC.swift in Sources */,
 				8CAD37AC209F0D6500AC92B9 /* EndingItem.swift in Sources */,
 				8C52B9EC208C4E24003002AE /* RankCell.swift in Sources */,
 				8C6F29AC20987BD500FE40A2 /* TextViewItem.swift in Sources */,

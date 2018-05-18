@@ -18,18 +18,23 @@ class FinalConfirmVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        items = [
-            RoomMemberItem(thumbImage: #imageLiteral(resourceName: "pic1"), title: "死亡少女"),
-            RoomMemberItem(thumbImage: #imageLiteral(resourceName: "pic2"), title: "尼好毒"),
-            RoomMemberItem(thumbImage: #imageLiteral(resourceName: "pic3"), title: "我剛剛跨完年")
-        ]
         
-        FirebaseService.sharedInstance.setFinalConfirm(completion: { (estimate_distance) in
+        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
+        
+        FirebaseService.sharedInstance.setFinalConfirm(completion: { (estimate_distance, member_items) in
+            
+            print("?????????????????????\(member_items.count)")
+            
             self.distanceLbl.text = String(format: "%.2f", estimate_distance)
             
             let seconds = estimate_distance * 450
             self.timeLbl.text = "\(Int(Double(seconds / 60)))'\(Int(round(Double(seconds.truncatingRemainder(dividingBy: 60)))))''"
+            
+            self.items = member_items
+            
+            self.tableView.reloadData()
+            
+            SetLoadingScreen.sharedInstance.stopActivityIndicator()
         })
         
         tableView.separatorStyle = .none
@@ -41,6 +46,12 @@ class FinalConfirmVC: UIViewController {
     }
     
     @IBAction func denyBtnPressed(_ sender: Any) {
+        
+        ApiService.sharedInstance.start_game_cancel {
+            print("Leave")
+        }
+        print(MemberId.sharedInstance.member_id)
+        
         StartStatus.sharedInstance.ifEntered = false
     }
 } 

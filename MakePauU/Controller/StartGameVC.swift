@@ -16,7 +16,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     //origin
     @IBOutlet weak var timerLabel: UILabel!
-    @IBOutlet weak var returnBtn: UIButton!
     @IBOutlet weak var confirmBtn: DLRadioButton!
     
     //enter
@@ -188,6 +187,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             }
             
             lastLocation = locations.last
+            
         } else {
             print("Not Yet")
         }
@@ -212,21 +212,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     }
     
     
-    @IBAction func returnBtnPressed(_ sender: Any) {
-        
-        // create the alert
-        let alert = UIAlertController(title: "確定離開房間？", message: "", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.default, handler: nil))
-        alert.addAction(UIAlertAction(title: "確定", style: UIAlertActionStyle.default, handler: { (action) in
-            self.dismiss(animated: true, completion: nil)
-        }))
-        
-        
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    
     @IBAction func confirmBtnPressed(_ sender: DLRadioButton) {
         
         
@@ -243,8 +228,8 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
                         self.performSegue(withIdentifier: "toFinalConfirmVC", sender: nil)
                     }
                 }
-                    
-                print("!!!!!!!!!!!!!!!!!!!!!!\(self.ifClustered)")
+                
+                print(self.ifClustered)
                 
                 self.matchCount = self.matchCount + 1
                 if self.matchCount == 10 {
@@ -354,7 +339,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     func hideOriginView(){
         
         timerLabel.isHidden = true 
-        returnBtn.isHidden = true
         confirmBtn.isHidden = true
     }
     

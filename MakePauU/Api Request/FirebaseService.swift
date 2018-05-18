@@ -73,22 +73,66 @@ class FirebaseService: NSObject{
         })
     }
     
-    func setFinalConfirm(completion: @escaping (Double) -> ()){
+    func setFinalConfirm(completion: @escaping (Double, [RoomMemberItem]) -> ()){
         
         var dbReference: DatabaseReference?
+        var storage: Storage?
+        
+        //把資料送回去
+        var items = [RoomMemberItem]()
+        
+        let myGroup = DispatchGroup()
         
         dbReference = Database.database().reference()
+        storage = Storage.storage()
 
         _ = dbReference?.child("running_player").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                 
-                if let estimate_distance = value["最遠直線距離"] as? Double{
-                    completion(estimate_distance)
+                let estimate_distance = value["最遠直線距離"] as! Double
+                
+                if let running_mate = value["跑友"] as? Dictionary<String, AnyObject> {
+                    
+                    for obj in running_mate {
+                        
+                        myGroup.enter()
+                        
+                        let name = obj.value["name"] as! String
+                                
+                        if let profileImages = obj.value["profileImageURL"] as? NSArray{
+                                    
+                            let profileImageURL = profileImages[0] as! String
+                                    
+                            let storageRef = storage?.reference(forURL: profileImageURL)
+                            storageRef?.downloadURL(completion: { (url, error) in
+                                        
+                                do {
+                                    
+                                    let data = try Data(contentsOf: url!)
+                                    let pic = UIImage(data: data)
+                                            
+                                    let item = RoomMemberItem(thumbImage: pic!, title: name)
+                                    items.append(item)
+                                            
+                                    myGroup.leave()
+                                    
+                                } catch {
+                                    print(error)
+                                }
+                            })
+                        }
+                    }
                 }
+                
+                myGroup.notify(queue: DispatchQueue.main, execute: {
+                    completion(estimate_distance, items)
+                })
             }
         })
     }
+    
+    
 }
 
 
