@@ -621,15 +621,28 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHS-Px-6Kt">
+                                <rect key="frame" x="80" y="545" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="iEd-EG-RA8"/>
+                                    <constraint firstAttribute="height" constant="50" id="xPm-34-fZV"/>
+                                </constraints>
+                                <state key="normal" image="return"/>
+                                <connections>
+                                    <action selector="returnBtnPressed:" destination="SjK-pu-pgw" eventType="touchUpInside" id="9YM-yD-iXb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="M9a-3B-QuD" firstAttribute="bottom" secondItem="V5n-mf-oVU" secondAttribute="bottom" constant="73" id="117-PW-hYZ"/>
+                            <constraint firstItem="5kn-Qo-tkC" firstAttribute="leading" secondItem="vHS-Px-6Kt" secondAttribute="trailing" constant="12" id="4e8-Mm-kZC"/>
                             <constraint firstItem="RNh-oJ-WDu" firstAttribute="leading" secondItem="M9a-3B-QuD" secondAttribute="leading" id="6wl-Xc-bY2"/>
                             <constraint firstItem="RNh-oJ-WDu" firstAttribute="top" secondItem="ZoJ-Ot-qSw" secondAttribute="bottom" constant="8" id="Ctw-aR-awR"/>
                             <constraint firstItem="RNh-oJ-WDu" firstAttribute="bottom" secondItem="M9a-3B-QuD" secondAttribute="bottom" id="FtS-uu-Faa"/>
                             <constraint firstItem="XkW-7I-weK" firstAttribute="leading" secondItem="M9a-3B-QuD" secondAttribute="leading" id="Hyp-g1-xAp"/>
                             <constraint firstItem="V5n-mf-oVU" firstAttribute="centerX" secondItem="eT3-Wy-5jN" secondAttribute="centerX" constant="-6" id="JgF-Nu-234"/>
+                            <constraint firstItem="vHS-Px-6Kt" firstAttribute="centerY" secondItem="5kn-Qo-tkC" secondAttribute="centerY" id="LuI-7O-DZ4"/>
                             <constraint firstItem="XkW-7I-weK" firstAttribute="top" secondItem="M9a-3B-QuD" secondAttribute="top" id="NVP-6b-D90"/>
                             <constraint firstItem="qXo-LV-Dsa" firstAttribute="bottom" secondItem="M9a-3B-QuD" secondAttribute="bottom" id="S6N-EX-8k6"/>
                             <constraint firstItem="M9a-3B-QuD" firstAttribute="bottom" secondItem="5kn-Qo-tkC" secondAttribute="bottom" constant="52" id="Yen-Fb-ayn"/>
@@ -669,6 +682,7 @@
                         <outlet property="remainDistance" destination="6D1-Zd-kae" id="6kG-nQ-KUb"/>
                         <outlet property="remainNumber" destination="758-Yj-54K" id="89F-Hz-jON"/>
                         <outlet property="remainTime" destination="l3l-9d-bGP" id="xpq-I9-Qcy"/>
+                        <outlet property="returnBtn" destination="vHS-Px-6Kt" id="JC1-IS-9BC"/>
                         <outlet property="routeDistance" destination="bGQ-0c-m0r" id="nny-6j-aFu"/>
                         <outlet property="routeTime" destination="71t-Bd-Y8f" id="CEN-hH-J1T"/>
                         <outlet property="time" destination="Ny1-jc-bho" id="ksC-yq-I6x"/>
@@ -2619,6 +2633,7 @@
         <image name="photo" width="138" height="138"/>
         <image name="pic1" width="1024" height="1024"/>
         <image name="placeholder-1" width="20" height="20"/>
+        <image name="return" width="128" height="128"/>
         <image name="return_yellow" width="48" height="48"/>
         <image name="right" width="51" height="51"/>
         <image name="running-1" width="40" height="40"/>

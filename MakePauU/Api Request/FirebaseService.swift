@@ -11,6 +11,8 @@ import Firebase
 import FirebaseDatabase
 import FirebaseStorage
 
+import MapKit
+
 class FirebaseService: NSObject{
     
     static let sharedInstance = FirebaseService()
@@ -132,7 +134,46 @@ class FirebaseService: NSObject{
         })
     }
     
-    
+    func setCircle(completion: @escaping ([CLLocation]) -> ()){
+
+        var dbReference: DatabaseReference?
+        var locations: [CLLocation] = []
+
+        dbReference = Database.database().reference()
+        
+        let myGroup = DispatchGroup()
+        
+        _ = dbReference?.child("running_player").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? Dictionary<String, AnyObject> {
+                
+                if let firstCircle = value["第一圈圓心"] as? Dictionary<String, AnyObject>, let secondCircle = value["第二圈圓心"] as? Dictionary<String, AnyObject>, let thirdCircle = value["第三圈圓心"] as? Dictionary<String, AnyObject>, let forthCircle = value["第四圈圓心"] as? Dictionary<String, AnyObject> {
+                   
+                    
+                    let circles: [Dictionary<String, AnyObject>] = [firstCircle, secondCircle, thirdCircle, forthCircle]
+                    
+                    for obj in circles {
+                        
+                        myGroup.enter()
+                        
+                        if let x = obj["x"] as? CLLocationDegrees, let y = obj["y"] as? CLLocationDegrees{
+                            
+                            let location = CLLocation(latitude: y, longitude: x)
+                            
+                            locations.append(location)
+                            
+                            myGroup.leave()
+                        }
+                    }
+                }
+                
+                
+                myGroup.notify(queue: DispatchQueue.main, execute: {
+                    completion(locations)
+                })
+            }
+        })
+    }
 }
 
 

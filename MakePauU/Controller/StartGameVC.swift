@@ -17,6 +17,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     //origin
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var confirmBtn: DLRadioButton!
+    @IBOutlet weak var returnBtn: UIButton!
     
     //enter
     @IBOutlet weak var baseView: UIView!
@@ -63,20 +64,23 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     var timer = Timer()
     var count =  0 //倒數時間
     
+    //延遲route
     var timerForRoute = Timer()
     var countForRoute = 5
     
+    //延遲route2
     var timerForRoute2 = Timer()
     var countForRoute2 = 5
     
+    //跑步計時器
     var timerForGame = Timer()
     var countForGame = 0.0
     
+    //等待時間
     var timerForCluster = Timer()
     var countForCluster = 0.0
     var ifClustered: Bool!
-    var matchCount: Int = 0
-    
+
     //圈
     var circle: MKCircle!
     
@@ -101,6 +105,10 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     //location manager
     let locationManager = CLLocationManager()
+    
+    
+    //alert for no match
+    var alertForNoMatch = UIAlertController()
     
     
     override func viewDidLoad() {
@@ -189,6 +197,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             lastLocation = locations.last
             
         } else {
+            
             print("Not Yet")
         }
     }
@@ -214,6 +223,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     @IBAction func confirmBtnPressed(_ sender: DLRadioButton) {
         
+        returnBtn.isHidden = false
         
         ApiService.sharedInstance.postUserPosition(userLocation: self.mapView.userLocation.coordinate, completion: {
     
@@ -228,13 +238,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
                         self.performSegue(withIdentifier: "toFinalConfirmVC", sender: nil)
                     }
                 }
-                
-                print(self.ifClustered)
-                
-                self.matchCount = self.matchCount + 1
-                if self.matchCount == 10 {
-                    print("Set Alert")
-                }
+            
                     
                 if self.ifClustered != true{
                                 
@@ -256,6 +260,19 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
 
     }
     
+    @IBAction func returnBtnPressed(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "確定離開配對？", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "確定", style: UIAlertActionStyle.default, handler: { (action) in
+            ApiService.sharedInstance.delete_from_main_pool {
+            
+            }
+            self.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
     @IBAction func downLeftExpandBtnPressed(_ sender: UIButton) {
         
@@ -328,9 +345,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             hideOriginView()
             showEnterView()
             
-            // 先預設
-            let location = CLLocation(latitude: 24.9863769611342 as CLLocationDegrees, longitude: 121.576758940876 as CLLocationDegrees)
-            addRadiusCircle(location: location)
+            setCircle()
             
             annotationWork()
         }
@@ -340,6 +355,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         
         timerLabel.isHidden = true 
         confirmBtn.isHidden = true
+        returnBtn.isHidden = true
     }
     
     func showEnterView(){
@@ -353,12 +369,22 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         ARButton.isHidden = false
     }
     
-    
-    
     // draw circle
-    func addRadiusCircle(location: CLLocation){
-        circle = MKCircle(center: location.coordinate, radius: 300 as CLLocationDistance)
+    func addRadiusCircle(location: CLLocation, radius: Int){
+        circle = MKCircle(center: location.coordinate, radius: CLLocationDistance(radius))
         self.mapView.add(circle)
+    }
+    
+    // 縮圈設定ㄦ
+    func setCircle(){
+        
+        FirebaseService.sharedInstance.setCircle(completion: { (circles) in
+            
+        })
+        
+        let location = CLLocation(latitude: 24.9863769611342 as CLLocationDegrees, longitude: 121.576758940876 as CLLocationDegrees)
+        
+        addRadiusCircle(location: location, radius: 300)
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
