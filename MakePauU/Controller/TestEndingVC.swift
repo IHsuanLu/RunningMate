@@ -11,6 +11,7 @@ import UIKit
 class TestEndingVC: UIViewController {
 
     var settingEnding = SettingEnding()
+    var setting = Setting()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,7 @@ class TestEndingVC: UIViewController {
     }
     
     @IBAction func buttonPressed(_ sender: Any) {
-        settingEnding.showSetting()
+        setting.showSetting()
+//        settingEnding.showSetting()
     }
 }

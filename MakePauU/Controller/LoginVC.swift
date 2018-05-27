@@ -78,6 +78,12 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         })
     }
     
+    @IBAction func backtoLogin(_ sender: UIStoryboardSegue){
+        
+        MemberId.sharedInstance.member_id = ""
+        print("Logged Out!")
+    }
+    
     @IBAction func dismissBtnPressed(_ sender: UIButton) {
         
         dismiss(animated: true, completion: nil)

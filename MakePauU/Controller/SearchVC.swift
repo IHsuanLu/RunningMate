@@ -14,13 +14,16 @@ class SearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        DispatchQueue.main.async {
-            self.searchBar.becomeFirstResponder()
-        }
+        
+        self.searchBar.becomeFirstResponder()
+        
+        searchBar.delegate = self
     }
+}
+
+extension SearchVC: UISearchBarDelegate{
     
-    @IBAction func cancelBtnPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }

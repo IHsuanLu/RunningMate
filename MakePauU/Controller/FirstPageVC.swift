@@ -19,6 +19,13 @@ class FirstPageVC: UIViewController {
     
     var pic = UIImage()
     
+    lazy var setting: Setting = {
+        let setting = Setting()
+        setting.firstPageVC = self
+        
+        return setting
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +49,10 @@ class FirstPageVC: UIViewController {
         performSegue(withIdentifier: "toProfileImageVC", sender: nil)
     }
     
+    @IBAction func settingBtnPressed(_ sender: Any) {
+        setting.showSetting()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toProfileImageVC"{
@@ -51,5 +62,17 @@ class FirstPageVC: UIViewController {
         }
     }
     
-    
+    @IBAction func backFromMailBox(segue: UIStoryboardSegue) {
+        
+        guard let mailboxobj = segue.source as? MailboxVC else { return }
+        
+        print(mailboxobj.mailStatuschange)
+        
+        for i in mailboxobj.mailStatuschange {
+            FirebaseService.sharedInstance.updateInbox(number: i)
+        }
+        
+        self.tabBarController?.selectedIndex = 0
+        print("We are back")
+    }
 }

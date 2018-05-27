@@ -42,17 +42,19 @@ class FinalConfirmVC: UIViewController {
     
     
     @IBAction func confirmBtnPressed(_ sender: Any) {
-        StartStatus.sharedInstance.ifEntered = true
+        StartStatus.sharedInstance.ifEntered = true //for startgameVC 判斷
+        EnterRoomStatus.sharedInstance.ifEnteredRoom = true
     }
     
     @IBAction func denyBtnPressed(_ sender: Any) {
         
         ApiService.sharedInstance.start_game_cancel {
-            print("Leave")
+            print("start_game_cancel")
         }
         print(MemberId.sharedInstance.member_id)
         
         StartStatus.sharedInstance.ifEntered = false
+        EnterRoomStatus.sharedInstance.ifEnteredRoom = false
     }
 } 
 

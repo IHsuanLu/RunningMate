@@ -8,6 +8,9 @@
 
 import UIKit
 
+
+//把暱稱也送過來
+
 class EditUserVC: UIViewController {
     
     @IBOutlet weak var imageView1: UIImageView!
@@ -24,13 +27,16 @@ class EditUserVC: UIViewController {
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
     
     var whichImageView: Int!
+    
+    var datas: [DataItem]!
+    
     var testArray: [TextFieldItem]!
     var testArray2: [TextViewItem]!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         testArray = [
             TextFieldItem(title: "暱稱: ", content: "Jamie"),
             TextFieldItem(title: "性別: ", content: "女生"),
@@ -135,7 +141,7 @@ class EditUserVC: UIViewController {
         actionSheet.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
-    }
+    } 
     
     func adjustConstraint(){
         
@@ -203,9 +209,9 @@ extension EditUserVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if tableView == textFieldTabe{
-            return testArray.count
+            return 6
         } else if tableView == textViewTable{
-            return testArray2.count
+            return 3
         }
         
         return 0
@@ -217,8 +223,11 @@ extension EditUserVC: UITableViewDelegate, UITableViewDataSource{
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             
-            cell.titleLbl.text = testArray[indexPath.row].title
-            cell.contentTextField.text = testArray[indexPath.row].content
+            var titleArray = ["暱稱: ", "性別: ", "居住地: ", "就讀於 / 任職於: ", "生日: ", "感情取向: "]
+            var contentArray = ["死亡少女", "女", "台北市", "政治大學資管系", datas[0].content, datas[1].content]
+        
+            cell.titleLbl.text = titleArray[indexPath.row]
+            cell.contentTextField.text = contentArray[indexPath.row]
             
             return cell
         
@@ -226,9 +235,12 @@ extension EditUserVC: UITableViewDelegate, UITableViewDataSource{
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
             
-            cell.titleLbl.text = testArray2[indexPath.row].title
-            cell.contentTextView.text = testArray2[indexPath.row].content
+            var titleArray = ["興趣愛好: ", "最近的困擾: ", "想嘗試的事："]
+            var contentArray = [datas[2].content, datas[3].content, datas[4].content]
             
+            cell.titleLbl.text = titleArray[indexPath.row]
+            cell.contentTextView.text = contentArray[indexPath.row]
+
             cell.contentTextView.translatesAutoresizingMaskIntoConstraints = false
             
             return cell

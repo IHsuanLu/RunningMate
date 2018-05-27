@@ -17,10 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         FirebaseApp.configure()
-
-//        ApiService.sharedInstance.logout {
-//            print("Done!")
-//        }
+        
+        let navigationBarAppearace = UINavigationBar.appearance()
+        navigationBarAppearace.isTranslucent = false
+        
+        UINavigationBar.appearance()
         
         return true
     }
@@ -46,8 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         
-        ApiService.sharedInstance.app_terminate {
-            print("Quit")
+        if EnterRoomStatus.sharedInstance.ifEnteredRoom == true{
+            ApiService.sharedInstance.app_terminate {
+                print("app_terminate")
+            }
+        } else {
+            ApiService.sharedInstance.start_game_cancel {
+                print("start_game_cancel")
+            }
         }
         
         sleep(3)

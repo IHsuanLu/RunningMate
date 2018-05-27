@@ -180,7 +180,6 @@ class EndingView: UIView {
     func adjustFrame(){
         
         scrollView.contentSize.height = tableView.contentSize.height + self.frame.height - 120
-        
         tableView.frame.size.height = scrollView.contentSize.height - (self.frame.width + 78)
     }
     

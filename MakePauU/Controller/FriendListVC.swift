@@ -11,10 +11,12 @@ import UIKit
 class FriendListVC: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        searchBar.delegate = self
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -23,6 +25,12 @@ class FriendListVC: UIViewController, UISearchBarDelegate {
         
         searchBar.endEditing(true)
         searchBar.reloadInputViews()
+    }
+    
+    @IBAction func backFromSearch(segue: UIStoryboardSegue) {
+        
+        self.tabBarController?.selectedIndex = 2
+        print("We are back")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

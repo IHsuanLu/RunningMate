@@ -17,7 +17,11 @@ class FirebaseService: NSObject{
     
     static let sharedInstance = FirebaseService()
     
-    func setFirstPage(completion: @escaping (String, Int, Int, Double, UIImage) -> ()){
+    private override init() {
+        
+    }
+    
+    func setFirstPage(completion: @escaping (String, Int, Double, Double, UIImage) -> ()){
        
         var dbReference: DatabaseReference?
         var storage: Storage?
@@ -31,13 +35,12 @@ class FirebaseService: NSObject{
                 
                 let name = value["name"] as! String
                 let count = value["total_count"] as! Int
-                let distance = value["total_distance(km)"] as! Int
+                let distance = value["total_distance(km)"] as! Double
                 let average_time = value["average_time"] as! Double
                 
                 if let profileImages = value["profileImageURL"] as? NSArray{
                     if let profileImageURL = profileImages[0] as? String{
                         
-                        print(profileImageURL)
                         let storageRef = storage?.reference(forURL: profileImageURL)
                         
                         storageRef?.downloadURL(completion: { (url, error) in
@@ -59,7 +62,7 @@ class FirebaseService: NSObject{
         })
     }
     
-    func checkIfCluster(completion: @escaping (Bool) -> ()){
+    func checkIfCluster(completion: @escaping (Bool, Int) -> ()){
         
         var dbReference: DatabaseReference?
         
@@ -67,10 +70,15 @@ class FirebaseService: NSObject{
 
         _ = dbReference?.child("running_player").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
             
-            if let _ = snapshot.value as? Dictionary<String, AnyObject> {
-                completion(true)
+            if let value = snapshot.value as? Dictionary<String, AnyObject> {
+                if let mate = value["跑友"] as? Dictionary<String, AnyObject> {
+                                    
+                    let numberOfmates = mate.count + 1
+                    
+                    completion(true, numberOfmates)
+                }
             } else {
-                completion(false)
+                completion(false, 0)
             }
         })
     }
@@ -149,7 +157,6 @@ class FirebaseService: NSObject{
                 
                 if let firstCircle = value["第一圈圓心"] as? Dictionary<String, AnyObject>, let secondCircle = value["第二圈圓心"] as? Dictionary<String, AnyObject>, let thirdCircle = value["第三圈圓心"] as? Dictionary<String, AnyObject>, let forthCircle = value["第四圈圓心"] as? Dictionary<String, AnyObject> {
                    
-                    
                     let circles: [Dictionary<String, AnyObject>] = [firstCircle, secondCircle, thirdCircle, forthCircle]
                     
                     for obj in circles {
@@ -170,6 +177,104 @@ class FirebaseService: NSObject{
                 
                 myGroup.notify(queue: DispatchQueue.main, execute: {
                     completion(locations)
+                })
+            }
+        })
+    }
+    
+    func setAirDrop(completion: @escaping ([CLLocation], [String]) -> ()){
+        
+        var dbReference: DatabaseReference?
+        dbReference = Database.database().reference()
+        
+        var locations: [CLLocation] = []
+        var gifts: [String] = []
+        
+        
+        let myGroup = DispatchGroup()
+        
+        _ = dbReference?.child("running_player").child(MemberId.sharedInstance.member_id).child("空投").observe(.value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? Dictionary<String, AnyObject>{
+            
+                if let firstAirDrop = value["first"] as? Dictionary<String, AnyObject>, let secondAirDrop = value["second"] as? Dictionary<String, AnyObject>, let thirdAirDrop = value["third"] as? Dictionary<String, AnyObject> {
+                    
+                    let airdrops : [Dictionary<String, AnyObject>] = [firstAirDrop, secondAirDrop, thirdAirDrop]
+                    
+                    for obj in airdrops {
+                        
+                        myGroup.enter()
+                        
+                        if let x = obj["x"] as? CLLocationDegrees, let y = obj["y"] as? CLLocationDegrees, let gift = obj["gift"] as? String{
+                            
+                            let location = CLLocation(latitude: y, longitude: x)
+                            
+                            locations.append(location)
+                            gifts.append(gift)
+                            
+                            myGroup.leave()
+                        }
+                    }
+                    
+                    myGroup.notify(queue: DispatchQueue.main, execute: {
+                        completion(locations, gifts)
+                    })
+                }
+            }
+        })
+    }
+    
+    func updateInbox(number: Int){
+        
+        let dbReference = Database.database().reference()
+        
+        dbReference.child("email").child(MemberId.sharedInstance.member_id).child("第\(number)封").updateChildValues(["狀態":1])
+    }
+    
+    func setInbox(completion: @escaping ([MailboxItem]) -> ()){
+        
+        var dbReference: DatabaseReference?
+        dbReference = Database.database().reference()
+        
+        let myGroup = DispatchGroup()
+
+        var emails: [MailboxItem] = []
+        
+        _ = dbReference?.child("email").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? Dictionary<String, AnyObject>{
+                
+                //if let first = value["第1封"] as? Dictionary<String, AnyObject>
+                var letters: [Dictionary<String, AnyObject>] = []
+                
+                for i in 1...value.count {
+                    if let letter = value["第\(i)封"] as? Dictionary<String, AnyObject>{
+                        letters.append(letter)
+                    }
+                }
+                
+                for obj in letters {
+                    
+                    myGroup.enter()
+                    
+                    var email = MailboxItem()
+                    
+                    if let content = obj["內容"] as? String, let sender = obj["寄件者"] as? String, let date = obj["收件時間"] as? String, let status = obj["狀態"] as? Int, let title = obj["標題"] as? String {
+                        
+                        email.content = content
+                        email.sender = sender
+                        email.date = date
+                        email.ifSeen = status
+                        email.title = title
+                        
+                        emails.append(email)
+                        
+                        myGroup.leave()
+                    }
+                }
+                
+                myGroup.notify(queue: DispatchQueue.main, execute: {
+                    completion(emails)
                 })
             }
         })

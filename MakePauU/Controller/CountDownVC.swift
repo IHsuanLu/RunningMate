@@ -72,6 +72,8 @@ class CountDownVC: NSObject{
             
             // 計時開始
             startGameVC.setTimer_Game()
+            startGameVC.setTimer_Circle()
+            startGameVC.setFirstCircle()
             
             // 遊戲開始
             GameStatus.sharedInstance.ifStarted = true

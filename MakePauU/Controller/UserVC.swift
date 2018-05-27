@@ -21,14 +21,18 @@ class UserVC: UIViewController {
     @IBOutlet weak var nameAndAgeLbl: UILabel!
     @IBOutlet weak var fansLbl: UILabel!
     @IBOutlet weak var introLbl: UILabel!
+    @IBOutlet weak var pageControl: UIPageControl!
     
-    var testArray: [UserImageItem]!
-    var testArray2: [StatItem]!
-    var testArray3: [DataItem]!
 
     @IBOutlet weak var imageCollectionHeight: NSLayoutConstraint!
     @IBOutlet weak var dataTableHeight: NSLayoutConstraint!
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var pagecontrolToTop: NSLayoutConstraint!
+    
+    
+    var testArray: [UserImageItem]!
+    var testArray2: [StatItem]!
+    var testArray3: [DataItem]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +60,8 @@ class UserVC: UIViewController {
         
         adjustConstraint()
         
+        pageControl.numberOfPages = testArray.count
+        
         dataTable.estimatedRowHeight = 60.0
         dataTable.rowHeight = UITableViewAutomaticDimension
     }
@@ -67,8 +73,28 @@ class UserVC: UIViewController {
         self.contentViewHeight.constant = self.view.frame.width + 290 + dataTableHeight.constant
     }
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width / 1.05)
+    }
+    
     func adjustConstraint(){
         imageCollectionHeight.constant = self.view.frame.width
+        pagecontrolToTop.constant = self.imageCollection.frame.size.width - 55
+    }
+    
+    @IBAction func editBtnpressed(_ sender: Any) {
+        performSegue(withIdentifier: "toEditUserVC", sender: testArray3)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toEditUserVC"{
+            if let destination = segue.destination as? EditUserVC {
+                if let dataobj = sender as? [DataItem] {
+                    destination.datas = dataobj
+                }
+            }
+        }
     }
 }
 
@@ -115,7 +141,7 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if collectionView == imageCollection {
-            return CGSize(width: collectionView.frame.size.width, height: self.view.frame.size.height * 375)
+            return CGSize(width: collectionView.frame.size.width, height: self.view.frame.size.width)
         } else if collectionView == statCollection {
             return CGSize(width: (collectionView.frame.size.width - (collectionView.frame.size.width - 240)) / 3, height: collectionView.frame.size.height)
         }

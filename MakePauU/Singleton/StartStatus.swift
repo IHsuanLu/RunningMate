@@ -8,6 +8,7 @@
 
 import Foundation
 
+//for startgameVC 判斷
 class StartStatus {
     
     static var sharedInstance = StartStatus()
