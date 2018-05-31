@@ -276,13 +276,24 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
                     return
                 }
                 
-                if let profileImageURL = metadata?.downloadURL()?.absoluteString{
+                self.downloadURL()
+            })
+        }
+    }
+    
+    func downloadURL(){
+        
+        let ref = Storage.storage().reference().child("\(member_id!)").child("first pic")
+        
+        ref.downloadURL { (url, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let profileImageURL = url?.absoluteString {
                     self.profileImageURL = profileImageURL
-                    print(profileImageURL)
-                    
                     self.writeURL()
                 }
-            })
+            }
         }
     }
     

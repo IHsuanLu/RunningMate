@@ -13,8 +13,8 @@ class EndingView: UIView {
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.frame = CGRect(x: 0, y: 34, width: self.frame.width, height: self.frame.width)
-        imageView.image = #imageLiteral(resourceName: "pic1")
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -31,7 +31,6 @@ class EndingView: UIView {
         label.frame = CGRect(x: 16, y: self.frame.width + 44, width: 150, height: 30)
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = UIColor(netHex: 0x333333)
-        label.text = "Jamie, 22"
         return label
     }()
     
@@ -81,6 +80,15 @@ class EndingView: UIView {
     var counter: Int!
     var testArray: [EndingItem]!
     
+    //data
+    var id: String!
+    var name: String!
+    var birth: String!
+    var profileImage: UIImage!
+    var sex: String!
+    
+    var favoriteFriendsID: [String] = []
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -107,11 +115,16 @@ class EndingView: UIView {
             titleLabel.text = "本局其他跑友"
             self.addSubview(titleLabel)
             
-            
-            scrollView.addSubview(imageView)
-            scrollView.addSubview(nameAndAgeLbl)
             scrollView.addSubview(likeImageView)
             scrollView.addSubview(fansNumberLbl)
+
+            
+            imageView.image = profileImage
+            scrollView.addSubview(imageView)
+            
+            nameAndAgeLbl.text = name
+            scrollView.addSubview(nameAndAgeLbl)
+            
             scrollView.addSubview(tableView)
             self.addSubview(tagImageView)
             
@@ -150,7 +163,7 @@ class EndingView: UIView {
                     
                     self.frame = CGRect(x: window.frame.size.width * -1 , y: self.frame.origin.y + 40, width: self.frame.width, height: self.frame.height)
                     self.tagImageView.image = #imageLiteral(resourceName: "like 2")
-                
+                    
                     print(self.counter)
                     
                 
@@ -167,12 +180,24 @@ class EndingView: UIView {
                    
                     self.tagImageView.image = #imageLiteral(resourceName: "dislike")
                     
+                    
+                    if let id = self.id{
+                        print(id)
+                        self.favoriteFriendsID.append(id)
+                    }
+                    
                     print(self.counter)
                     
                 }, completion: { (finish: Bool) in
                     
                     self.isHidden = true
                 })
+            }
+        }
+        
+        if self.counter == 0 {
+            ApiService.sharedInstance.add_to_friend(favoriteFriendsID: favoriteFriendsID) {
+                print("Done!")
             }
         }
     }
@@ -183,19 +208,25 @@ class EndingView: UIView {
         tableView.frame.size.height = scrollView.contentSize.height - (self.frame.width + 78)
     }
     
-    
-    init(frame: CGRect, counter: Int) {
+    //self.? = ? 帶過來
+    init(frame: CGRect, counter: Int, id: String, name: String, birth: String, profileImage: UIImage, sex: String) {
         super.init(frame:frame)
         
         self.backgroundColor = UIColor.white
         self.counter = counter
         
+        self.id = id
+        self.name = name
+        self.birth = birth
+        self.profileImage = profileImage
+        self.sex = sex
+        
         testArray = [
             EndingItem(title: "暱稱: ", content: "死亡少女"),
-            EndingItem(title: "性別: ", content: "女"),
+            EndingItem(title: "性別: ", content: "\(sex)"),
             EndingItem(title: "居住地: ", content: "台北市"),
             EndingItem(title: "就讀於 / 任職於: ", content: "政治大學"),
-            EndingItem(title: "生日: ", content: "1996 / 12 / 20"),
+            EndingItem(title: "生日: ", content: "\(birth)"),
             EndingItem(title: "感情取向: ", content: "喜歡男生"),
             EndingItem(title: "興趣愛好: ", content: "喜歡看各種類型的電影和徹夜不眠追劇\n國中時喜歡看天真浪漫不切實際的愛情片\n幻想男主角都是我的老公/n年幼無知憧憬愛情\n殊不知 那只是電影 只是 電影老公們都是有收錢的\n最終娶的都不是我 :(\n傷了心\n高中時喜歡古裝武打片\n看古人們輕功飛簷走壁\n以為自己也可以傷了身"),
             EndingItem(title: "最近的困擾: ", content: "嘴巴上每天都說想減肥\n可是看到美食又忘記自己立下的毒誓\n希望有人可以陪我一起運動"),

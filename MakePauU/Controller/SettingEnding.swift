@@ -16,7 +16,8 @@ class SettingEnding: NSObject{
     var centers = CGPoint()
     
     var views = [UIView]()
-    var num = 5  // user numbers
+    
+    var endingInfos: [EndingInfo]!
 
     func showSetting(){
         
@@ -28,14 +29,14 @@ class SettingEnding: NSObject{
             blackView.alpha = 0
             window.addSubview(blackView)
             
-            
             centers = blackView.center
             centers.y = blackView.center.y + 12
             
             
-            for i in 1...num {
+            for i in 0...endingInfos.count - 1 {
                 
-                let view = EndingView(frame: .zero, counter: i)
+                let view = EndingView(frame: .zero, counter: i, id: endingInfos[i].id!, name: endingInfos[i].name, birth: endingInfos[i].birth, profileImage: endingInfos[i].image, sex: endingInfos[i].sex)
+                
                 views.append(view)
                 
                 view.center = centers
@@ -56,6 +57,17 @@ class SettingEnding: NSObject{
                 print(self.centers.y)
                 view.center = self.centers
             }
+        }
+    }
+    
+    func getFriendInfo(completion: @escaping () -> ()){
+        
+        FirebaseService.sharedInstance.getFriendInfo { (endingInfos) in
+            self.endingInfos = endingInfos
+            
+            self.showSetting()
+            
+            completion()
         }
     }
     

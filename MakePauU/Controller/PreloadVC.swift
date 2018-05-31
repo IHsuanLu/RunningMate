@@ -18,10 +18,8 @@ class PreloadVC: UIViewController {
             print(ifLogged)
             
             if ifLogged {
-                
                 self.performSegue(withIdentifier: "initToFirstPageVC", sender: nil)
             } else {
-                
                 self.performSegue(withIdentifier: "initToIntroVC", sender: nil)
             }
         }

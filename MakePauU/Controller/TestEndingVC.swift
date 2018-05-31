@@ -19,7 +19,7 @@ class TestEndingVC: UIViewController {
     }
     
     @IBAction func buttonPressed(_ sender: Any) {
-        setting.showSetting()
-//        settingEnding.showSetting()
+//        setting.showSetting()
+        settingEnding.showSetting()
     }
 }

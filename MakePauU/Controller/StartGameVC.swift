@@ -36,12 +36,14 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     @IBOutlet weak var topRightView: UIView!
     @IBOutlet weak var downLeftView: UIView!
     @IBOutlet weak var ARButton: UIButton!
+    @IBOutlet weak var pinButton: UIButton!
     @IBOutlet weak var exitButton: UIButton!
     
     
     @IBOutlet weak var blackView: UIView!
     
     //topleft
+    @IBOutlet weak var topLeftTitle: UILabel!
     @IBOutlet weak var countDownView: CountDownView!
     @IBOutlet weak var countDownLbl: UILabel!
     
@@ -71,11 +73,9 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     //延遲route
     var timerForRoute = Timer()
-    var countForRoute = 5
     
     //延遲route2
     var timerForRoute2 = Timer()
-    var countForRoute2 = 5
     
     //跑步計時器
     var timerForGame = Timer()
@@ -88,11 +88,14 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     //縮圈控制
     var timerForCircle = Timer()
-    var countForCircle = 10.0 //第一次的時間
+    var countForCircle = 2.0 //第一次的時間
     var term: Int = 0 // 0 for the first time, 1 for the second time...
     
     //距離縮圈(每兩秒呼叫一次)
     var timerForDistanceToCircle = Timer()
+    
+    //距離空頭(每兩秒呼叫一次)
+    var timerForDistanceToAirDrop = Timer()
     
     //出局控制
     var timerForOut = Timer()
@@ -109,7 +112,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     var expectedTime: TimeInterval!
     
     //downleft
-    var ifExpanded = true
+    var ifExpanded = false
     
     //user location
     var mapHasCenteredInBeginning = false
@@ -123,9 +126,17 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     //location manager
     let locationManager = CLLocationManager()
 
-    
+    //track circles
     var locations: [CLLocation] = []
+    //track airdrops
+    var airdrops: [CLLocation] = []
+    var whichAirDrop = Int()
+    var gifts = [String]()
+    var giftsTaken: [String] = []
+    
+    var settingEnding = SettingEnding()
     var statsInfo = StatsInfo()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,6 +148,10 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         setMapView()
         
         downLeftExpandBtn.backgroundColor = UIColor(white: 1, alpha: 0.75)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        mapView.delegate = nil
     }
     
     
@@ -161,7 +176,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         mapView.showsCompass = false
         
         let compassBtn = MKCompassButton(mapView:mapView)
-        compassBtn.frame.origin = CGPoint(x: self.view.frame.width - 48, y: self.view.frame.height - 176)
+        compassBtn.frame.origin = CGPoint(x: self.view.frame.width - 50, y: self.view.frame.height - 256)
         compassBtn.compassVisibility = .adaptive
         self.view.addSubview(compassBtn)
     }
@@ -214,7 +229,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
                 startLocation = locations.first
             } else if let location = locations.last {
                 traveledDistance += lastLocation.distance(from: location)
-                print("Traveled Distance:",  traveledDistance)
                 
                 let toKm = traveledDistance / 1000.0
                 
@@ -274,8 +288,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
                 }
             }
         })
-        
-        
         
         //如果配對成功的結果
         UIView.animate(withDuration: 0.3) {
@@ -348,7 +360,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             
             self.gatherFigure {
                 ApiService.sharedInstance.during_game_cancel(statsInfo: self.statsInfo, completion: {
-                    
+                    self.timer.invalidate()
                     self.dismiss(animated: true, completion: nil)
                 })
             }
@@ -359,9 +371,16 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     }
     
     @IBAction func ARBtnPressed(_ sender: Any) {
+        
+        giftsTaken.append(gifts[whichAirDrop])
         performSegue(withIdentifier: "toARVCNew", sender: nil)
         
         print("!!!!!!!!!!!!!!!!!!!\(mapView.overlays)")
+    }
+    
+    
+    @IBAction func pinBtnPressed(_ sender: Any) {
+        pinButton.setImage(#imageLiteral(resourceName: "black pin"), for: .normal)
     }
     
     
@@ -381,9 +400,24 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             hideOriginView()
             showEnterView()
             
+            
             setRouteAnnotation()
         }
     }
+    
+    @IBAction func unwindFromARVC(_ sender: UIStoryboardSegue){
+        mapView.delegate = self
+    }
+    
+    @IBAction func unwindFromAREnding(_ sender: UIStoryboardSegue){
+        
+        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
+        
+        settingEnding.getFriendInfo {
+            SetLoadingScreen.sharedInstance.stopActivityIndicator()
+        }
+    }
+    
     
     func hideOriginView(){
         
@@ -401,6 +435,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         downLeftExpandBtn.isHidden = false
         exitButton.isHidden = false
         ARButton.isHidden = false
+        pinButton.isHidden = false
     }
     
     
@@ -425,9 +460,15 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
 
             let centre3: CLLocation = locations[2]
             self.addRadiusCircle(location: centre3, radius: 750)
-
-            let centre4: CLLocation = locations[3]
-            self.addRadiusCircle(location: centre4, radius: 100)
+ 
+            
+            //for test
+            let centre4: CLLocation = self.getUserLocationLocation()
+            self.locations[3] = self.getUserLocationLocation()
+            self.addRadiusCircle(location: centre4, radius: 50)
+            
+//            let centre4: CLLocation = locations[3]
+//            self.addRadiusCircle(location: centre4, radius: 50)
             
             self.mapView.renderer(for: self.mapView.overlays[2])?.alpha = 0
             self.mapView.renderer(for: self.mapView.overlays[3])?.alpha = 0
@@ -435,11 +476,18 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         })
         
         FirebaseService.sharedInstance.setAirDrop { (airdropLocs, gifts) in
-            print(airdropLocs)
-            print(gifts)
             
-            let firstAirDrop = AirDropAnnotation(coordinate: airdropLocs[0].coordinate)
+            self.airdrops = airdropLocs
+            self.gifts = gifts
+            
+            //for test
+            let userloc: CLLocation = self.getUserLocationLocation()
+            self.airdrops[0] = userloc
+            let firstAirDrop = AirDropAnnotation(coordinate: userloc.coordinate)
             self.mapView.addAnnotation(firstAirDrop)
+            
+//            let firstAirDrop = AirDropAnnotation(coordinate: airdropLocs[0].coordinate)
+//            self.mapView.addAnnotation(firstAirDrop)
 
             let secondAirDrop = AirDropAnnotation(coordinate: airdropLocs[1].coordinate)
             self.mapView.addAnnotation(secondAirDrop)
@@ -447,7 +495,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             let thirdAirDrop = AirDropAnnotation(coordinate: airdropLocs[2].coordinate)
             self.mapView.addAnnotation(thirdAirDrop)
             
-            print(self.mapView.annotations)
+            self.setTimer_DistanceToAirDrop()
         }
     }
     
@@ -496,53 +544,58 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     func setRouteAnnotation(){
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(setAnnotation_Route))
+        gestureRecognizer.delegate = self
         mapView.addGestureRecognizer(gestureRecognizer)
     }
     
     @objc func setAnnotation_Route(gestureRecognizer: UITapGestureRecognizer){
         
-        
-        let touchLocation = gestureRecognizer.location(in: mapView)
-        locationCoordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)
-        
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = locationCoordinate
-        
-        DispatchQueue.global().async {
-            DispatchQueue.main.sync {
-                //add annotation and route
-                if self.mapView.annotations.count < 5 {
-                    
-                    //第一個
-                    self.mapView.addAnnotation(annotation)
-                    self.setRoute(locationCoordinate: self.locationCoordinate)
-                    
-                    self.setTimer_Route()
-                    
-                    print(self.mapView.annotations)
-                    
-                } else {
-
-                    print(self.mapView.annotations)
-                    
-                    sleep(UInt32(0.5))
-                    
-                    //刪掉上一個
-                    for obj in self.mapView.annotations{
-                        if obj.isKind(of: MKPointAnnotation.self){
-                            
-                            self.mapView.removeAnnotation(obj)
+        if pinButton.imageView?.image == #imageLiteral(resourceName: "black pin") {
+            
+            pinButton.setImage(#imageLiteral(resourceName: "color pin"), for: .normal)
+            
+            let touchLocation = gestureRecognizer.location(in: mapView)
+            locationCoordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)
+            
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = locationCoordinate
+            
+            DispatchQueue.global().async {
+                DispatchQueue.main.sync {
+                    //add annotation and route
+                    if self.mapView.annotations.count < 5 {
+                        
+                        //第一個
+                        self.mapView.addAnnotation(annotation)
+                        self.setRoute(locationCoordinate: self.locationCoordinate)
+                        
+                        self.setTimer_Route()
+                        
+                    } else {
+                        
+                        sleep(UInt32(0.5))
+                        
+                        //刪掉上一個
+                        for obj in self.mapView.annotations{
+                            if obj.isKind(of: MKPointAnnotation.self){
+                                
+                                self.mapView.removeAnnotation(obj)
+                            }
                         }
+                        
+                        
+                        self.mapView.remove(self.mapView.overlays[0])
+                        
+                        self.mapView.addAnnotation(annotation)
+                        self.setRoute(locationCoordinate: self.locationCoordinate)
+                        
+                        self.setTimer_Route2()
                     }
-                    
-                    self.mapView.remove(self.mapView.overlays[0])
-
-                    self.mapView.addAnnotation(annotation)
-                    self.setRoute(locationCoordinate: self.locationCoordinate)
-                    
-                    self.setTimer_Route2()
                 }
             }
+            
+        } else {
+            return
         }
     }
 
@@ -598,23 +651,20 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             
             annotationView = dequeuedAnnotationView
             annotationView?.annotation = annotation
-            annotationView?.canShowCallout = true
+            annotationView?.canShowCallout = false
             
         } else {
             let av = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-            av.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             annotationView = av
         }
         
     
-        
         if let annotationView = annotationView, let _ = annotation as? AirDropAnnotation {
             annotationView.image = #imageLiteral(resourceName: "present")
         } else if let _ = annotation as? MKAnnotation{
             annotationView?.image = #imageLiteral(resourceName: "placeholder-1")
         }
-        
-        
+    
         return annotationView
     }
     
@@ -655,13 +705,23 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         //toARVCNew
         if segue.identifier == "toARVCNew"{
             
-            if let arVCNew = segue.destination as? ARVC_New, let loc = locationCoordinate, let dis = distance {
-                arVCNew.locationCoordinate = loc
-                arVCNew.distance = dis
+            if let destination = segue.destination as? ARVC_New {
+                
+                destination.gift = gifts[whichAirDrop]
+    
+                if let loc = locationCoordinate, let dis = distance {
+                
+                    destination.locationCoordinate = loc
+                    destination.distance = dis
+                }
             } else {
                 print("no tag")
                 _ = segue.destination as! ARVC_New
             }
+        }
+        
+        if segue.identifier == "toARVC_Ending" {
+             _ = segue.destination as? ARVC_Ending
         }
     }
     
@@ -671,11 +731,13 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         let alert = UIAlertController(title: "您已被淘汰！", message: "原因：停留在非指定範圍的時間過長", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "確定", style: UIAlertActionStyle.default, handler: { (action) in
             
-            self.countForOut = 60.0
+            self.countForOut = 20.0
             GameStatus.sharedInstance.ifStarted = false
             
             self.gatherFigure {
                 ApiService.sharedInstance.during_game_cancel(statsInfo: self.statsInfo, completion: {
+                   
+                    self.timer.invalidate()
                     EnterRoomStatus.sharedInstance.ifEnteredRoom = false
                     GameStatus.sharedInstance.ifStarted = false
                     self.dismiss(animated: true, completion: nil)
@@ -695,6 +757,17 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     }
 }
 
+extension StartGameVC: UIGestureRecognizerDelegate{
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if timerForRoute2.isValid == false {
+            return true
+        }
+        
+        return false
+    }
+}
+
 //set Timer
 extension StartGameVC{
     
@@ -705,13 +778,13 @@ extension StartGameVC{
     }
     
     func setTimer_Route(){
-        
-        timerForRoute = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateRouteData), userInfo: nil, repeats: true)
+
+        timerForRoute = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateRouteData), userInfo: nil, repeats: true)
     }
     
     func setTimer_Route2(){
-        
-        timerForRoute2 = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateRouteData2), userInfo: nil, repeats: true)
+
+        timerForRoute2 = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateRouteData2), userInfo: nil, repeats: true)
     }
     
     func setTimer_Game(){
@@ -726,9 +799,14 @@ extension StartGameVC{
     
     func setTimer_DistanceToCircle(){
         
-        timerForDistanceToCircle = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(startTracking), userInfo: nil, repeats: true)
+        timerForDistanceToCircle = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(startTracking_circles), userInfo: nil, repeats: true)
     }
     
+    func setTimer_DistanceToAirDrop(){
+        
+        timerForDistanceToAirDrop = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(startTracking_airdrops), userInfo: nil, repeats: true)
+    }
+
     func setTimer_Out(){
         timerForOut = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(startTiming), userInfo: nil, repeats: true)
     }
@@ -747,7 +825,6 @@ extension StartGameVC{
     }
     
     @objc func updateRouteData2(){
-        
         
         self.disPlayRouteInfo()
         self.timerForRoute2.invalidate()
@@ -770,7 +847,7 @@ extension StartGameVC{
         
         if countForCircle == 0.0 && term == 0{
             //第一次縮圈
-            countForCircle = 10.0
+            countForCircle = 2.0
             term = 1
             setSecondCircle()
             
@@ -779,18 +856,49 @@ extension StartGameVC{
             
         } else if countForCircle == 0.0 && term == 1 {
             //第二次縮圈
-            countForCircle = 10.0
+            countForCircle = 2.0
             term = 2
             setThirdCircle()
+            
         } else if countForCircle == 0.0 && term == 2 {
+           
             //第三次縮圈
+            topLeftTitle.text = "距離遊戲結束還有："
+            topLeftView.backgroundColor = UIColor(netHex: 0x25AE88)
+            topLeftView.alpha = 0.8
+            
+            countForCircle = 2.0
             term = 3
             setForthCircle()
+        
+        } else if countForCircle == 0.0 && term == 3 {
+            
+            //先被淘汰，在結束遊戲
+            //準備結束。
             timerForCircle.invalidate()
+            
+            if timerForOut.isValid {
+                //在圈外
+                eliminatedFromGame()
+            } else {
+                //在圈內
+                print("贏了")
+                
+                GameStatus.sharedInstance.ifStarted = false
+                
+                self.gatherFigure {
+                    ApiService.sharedInstance.add_to_history(giftsTaken: self.giftsTaken, statsInfo: self.statsInfo, completion: {
+                        self.timer.invalidate()
+                    })
+                }
+                
+                //接結束
+                self.performSegue(withIdentifier: "toARVC_Ending", sender: nil)
+            }
         }
     }
     
-    @objc func startTracking(){
+    @objc func startTracking_circles(){
         
         let toCentre = getUserLocationLocation().distance(from: locations[term])
 
@@ -802,13 +910,13 @@ extension StartGameVC{
         case 2:
             radius = 750
         case 3:
-            radius = 100
+            radius = 50
         default:
             radius = 0
         }
         
         if toCentre - radius > 0 {
-
+            
             countDownLbl.isHidden = false
             countDownView.isHidden = false
             
@@ -821,19 +929,51 @@ extension StartGameVC{
             
         } else {
         
-            countDownLbl.isHidden = true
-            countDownView.isHidden = true
-            
-            distanceToCircle = 0.0
-            
+
             if timerForOut.isValid {
                 //危機解除
+                
+                countDownLbl.isHidden = true
+                countDownView.isHidden = true
+                
+                distanceToCircle = 0.0
+                
                 timerForOut.invalidate()
                 countForOut = 20.0
             }
         }
         
         remainDistance.text = String(format: "%.2f", distanceToCircle / 1000)
+    }
+    
+    @objc func startTracking_airdrops(){
+        
+        //airdrops
+        let toAirDrop1 = getUserLocationLocation().distance(from: airdrops[0])
+        let toAirDrop2 = getUserLocationLocation().distance(from: airdrops[1])
+        let toAirDrop3 = getUserLocationLocation().distance(from: airdrops[2])
+        
+        let toAirDrops = [toAirDrop1, toAirDrop2, toAirDrop3]
+        
+        if toAirDrops[0] - 30 < 0 || toAirDrops[1] - 30 < 0 || toAirDrops[2] - 30 < 0{
+            //觸發空投
+            self.ARButton.isEnabled = true
+            
+            //決定是哪個空投 for performSegue
+            if toAirDrops[0] - 30 < 0 {
+                whichAirDrop = 0
+            } else if toAirDrops[1] - 30 < 0 {
+                whichAirDrop = 1
+            } else {
+                whichAirDrop = 2
+            }
+            
+            //震動！
+            
+        } else {
+            //平常
+            self.ARButton.isEnabled = false
+        }
     }
     
     @objc func startTiming(){

@@ -279,6 +279,68 @@ class FirebaseService: NSObject{
             }
         })
     }
+    
+    func getFriendInfo(completion: @escaping ([EndingInfo]) -> ()){
+        
+        var dbReference: DatabaseReference?
+        dbReference = Database.database().reference()
+        
+        var storage: Storage?
+        storage = Storage.storage()
+        
+        let myGroup = DispatchGroup()
+        
+        var friendInfos: [EndingInfo] = []
+        
+        _ = dbReference?.child("running_player").child(MemberId.sharedInstance.member_id).child("跑友").observe(.value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? Dictionary<String, AnyObject>{
+                
+                for obj in value {
+
+                    myGroup.enter()
+                    
+                    var friendInfo = EndingInfo()
+                    
+                    friendInfo.id = obj.key
+                    
+                    if let birth_day = obj.value["birth_day"] as? String, let birth_month = obj.value["birth_month"] as? String, let birth_year = obj.value["birth_year"] as? String, let name = obj.value["name"] as? String, let profileImages = obj.value["profileImageURL"] as? NSArray, let sex = obj.value["sex"] as? String{
+                        
+                        friendInfo.name = name
+                        friendInfo.birth = "\(birth_year) / \(birth_month) / \(birth_day)"
+                        friendInfo.sex = sex
+                        
+                        if let profileImageURL = profileImages[0] as? String{
+                            
+                            let storageRef = storage?.reference(forURL: profileImageURL)
+                            
+                            storageRef?.downloadURL(completion: { (url, error) in
+                                
+                                do {
+                                    let data = try Data(contentsOf: url!)
+                                    let pic = UIImage(data: data)
+                                    
+                                    friendInfo.image = pic!
+                                    
+                                    friendInfos.append(friendInfo)
+                                    
+                                    myGroup.leave()
+                                    
+                                } catch {
+                                    print(error)
+                                }
+                            })
+                        }
+                        
+                    }
+                }
+                
+                myGroup.notify(queue: DispatchQueue.main, execute: {
+                    completion(friendInfos)
+                })
+            }
+        })
+    }
 }
 
 

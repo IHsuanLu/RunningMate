@@ -13,7 +13,6 @@
 		8C08FEFD2079D7EF0021B343 /* DateTextFieldLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FEFC2079D7EF0021B343 /* DateTextFieldLong.swift */; };
 		8C08FF022079DC620021B343 /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF012079DC620021B343 /* DLRadioButton.m */; };
 		8C08FF042079E05D0021B343 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF032079E05D0021B343 /* CustomButton.swift */; };
-		8C08FF06207A02800021B343 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C08FF05207A02800021B343 /* GoogleService-Info.plist */; };
 		8C08FF08207A0C930021B343 /* UITabBarControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF07207A0C930021B343 /* UITabBarControllerExt.swift */; };
 		8C08FF0A207A12D80021B343 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF09207A12D80021B343 /* CustomTabBar.swift */; };
 		8C08FF0C207A19B20021B343 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08FF0B207A19B20021B343 /* UIViewExt.swift */; };
@@ -24,6 +23,7 @@
 		8C11B9FE20835CAD00DDCDBF /* StartStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11B9FD20835CAD00DDCDBF /* StartStatus.swift */; };
 		8C11BA072084879000DDCDBF /* CountDownVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11BA062084879000DDCDBF /* CountDownVC.swift */; };
 		8C11BA092088FC4700DDCDBF /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11BA082088FC4700DDCDBF /* GameStatus.swift */; };
+		8C2D8CE020C0199300369D30 /* EndingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2D8CDF20C0199300369D30 /* EndingInfo.swift */; };
 		8C34F75C20959F02003958FD /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C34F75B20959F02003958FD /* UserVC.swift */; };
 		8C34F75E20959FC0003958FD /* UserImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C34F75D20959FC0003958FD /* UserImageCell.swift */; };
 		8C34F7602095A020003958FD /* UserImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C34F75F2095A020003958FD /* UserImageItem.swift */; };
@@ -33,6 +33,7 @@
 		8C34F7692095C188003958FD /* MemberId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C34F7682095C188003958FD /* MemberId.swift */; };
 		8C34F76B2095F1E7003958FD /* StatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C34F76A2095F1E7003958FD /* StatCell.swift */; };
 		8C34F76D2095F27A003958FD /* StatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C34F76C2095F27A003958FD /* StatItem.swift */; };
+		8C3E565120BEB41400D4B293 /* ARVC_Ending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E565020BEB41400D4B293 /* ARVC_Ending.swift */; };
 		8C425A1B20B710B800CB7E39 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C425A1920B710B800CB7E39 /* SettingCell.swift */; };
 		8C425A1C20B710B800CB7E39 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C425A1A20B710B800CB7E39 /* SettingCell.xib */; };
 		8C52B9DE208A4A4A003002AE /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9DD208A4A4A003002AE /* MenuBar.swift */; };
@@ -61,6 +62,7 @@
 		8C8C58BE2096F91400FB31C0 /* EditUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C58BD2096F91400FB31C0 /* EditUserVC.swift */; };
 		8C8C58C1209857F700FB31C0 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C58C0209857F700FB31C0 /* TextFieldCell.swift */; };
 		8C8C58C4209858C800FB31C0 /* TextFieldItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C58C3209858C800FB31C0 /* TextFieldItem.swift */; };
+		8C9FA2EA20BEC5DE00664689 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C9FA2E920BEC5DE00664689 /* GoogleService-Info.plist */; };
 		8CAD37A7209EFC6700AC92B9 /* EndingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD37A5209EFC6700AC92B9 /* EndingCell.swift */; };
 		8CAD37A8209EFC6700AC92B9 /* EndingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CAD37A6209EFC6700AC92B9 /* EndingCell.xib */; };
 		8CAD37AC209F0D6500AC92B9 /* EndingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD37AB209F0D6500AC92B9 /* EndingItem.swift */; };
@@ -71,6 +73,7 @@
 		8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */; };
 		8CAEA1EB207DDCA9005A3B5F /* StartGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */; };
 		8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */; };
+		8CB7482C20BFC2DA00FF8684 /* StatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB7482B20BFC2DA00FF8684 /* StatVC.swift */; };
 		8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */; };
 		8CBBDFDD2070BFD700C89FBB /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */; };
 		8CBBDFDF2070BFFD00C89FBB /* UIButtonExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFDE2070BFFD00C89FBB /* UIButtonExt.swift */; };
@@ -117,7 +120,6 @@
 		8C08FF002079DC620021B343 /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
 		8C08FF012079DC620021B343 /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
 		8C08FF032079E05D0021B343 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
-		8C08FF05207A02800021B343 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8C08FF07207A0C930021B343 /* UITabBarControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarControllerExt.swift; sourceTree = "<group>"; };
 		8C08FF09207A12D80021B343 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		8C08FF0B207A19B20021B343 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		8C11B9FD20835CAD00DDCDBF /* StartStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartStatus.swift; sourceTree = "<group>"; };
 		8C11BA062084879000DDCDBF /* CountDownVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownVC.swift; sourceTree = "<group>"; };
 		8C11BA082088FC4700DDCDBF /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
+		8C2D8CDF20C0199300369D30 /* EndingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingInfo.swift; sourceTree = "<group>"; };
 		8C34F75B20959F02003958FD /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
 		8C34F75D20959FC0003958FD /* UserImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageCell.swift; sourceTree = "<group>"; };
 		8C34F75F2095A020003958FD /* UserImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageItem.swift; sourceTree = "<group>"; };
@@ -137,6 +140,7 @@
 		8C34F7682095C188003958FD /* MemberId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberId.swift; sourceTree = "<group>"; };
 		8C34F76A2095F1E7003958FD /* StatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCell.swift; sourceTree = "<group>"; };
 		8C34F76C2095F27A003958FD /* StatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatItem.swift; sourceTree = "<group>"; };
+		8C3E565020BEB41400D4B293 /* ARVC_Ending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARVC_Ending.swift; sourceTree = "<group>"; };
 		8C425A1920B710B800CB7E39 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		8C425A1A20B710B800CB7E39 /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		8C52B9DD208A4A4A003002AE /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -165,6 +169,7 @@
 		8C8C58BD2096F91400FB31C0 /* EditUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserVC.swift; sourceTree = "<group>"; };
 		8C8C58C0209857F700FB31C0 /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		8C8C58C3209858C800FB31C0 /* TextFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldItem.swift; sourceTree = "<group>"; };
+		8C9FA2E920BEC5DE00664689 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8CAD37A5209EFC6700AC92B9 /* EndingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingCell.swift; sourceTree = "<group>"; };
 		8CAD37A6209EFC6700AC92B9 /* EndingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EndingCell.xib; sourceTree = "<group>"; };
 		8CAD37AB209F0D6500AC92B9 /* EndingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingItem.swift; sourceTree = "<group>"; };
@@ -175,6 +180,7 @@
 		8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVC.swift; sourceTree = "<group>"; };
 		8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameVC.swift; sourceTree = "<group>"; };
 		8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalConfirmVC.swift; sourceTree = "<group>"; };
+		8CB7482B20BFC2DA00FF8684 /* StatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatVC.swift; sourceTree = "<group>"; };
 		8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
 		8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		8CBBDFDE2070BFFD00C89FBB /* UIButtonExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExt.swift; sourceTree = "<group>"; };
@@ -325,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				8C6E2D642090EA070068D462 /* ARVC_New.swift */,
+				8C3E565020BEB41400D4B293 /* ARVC_Ending.swift */,
 			);
 			name = AR;
 			sourceTree = "<group>";
@@ -405,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				8CAD37AB209F0D6500AC92B9 /* EndingItem.swift */,
+				8C2D8CDF20C0199300369D30 /* EndingInfo.swift */,
 			);
 			path = EndingView;
 			sourceTree = "<group>";
@@ -429,6 +437,7 @@
 				8CBEB8D42099C89F00B13C42 /* TestEndingVC.swift */,
 				8C80218D20BA5CF60051EF3D /* MailboxVC.swift */,
 				8C80219A20BA9AC70051EF3D /* MailVC.swift */,
+				8CB7482B20BFC2DA00FF8684 /* StatVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -554,7 +563,7 @@
 				8CD8D898206CD1B100E980AD /* Main.storyboard */,
 				8CD8D89D206CD1B100E980AD /* LaunchScreen.storyboard */,
 				8CD8D8A0206CD1B100E980AD /* Info.plist */,
-				8C08FF05207A02800021B343 /* GoogleService-Info.plist */,
+				8C9FA2E920BEC5DE00664689 /* GoogleService-Info.plist */,
 			);
 			path = MakePauU;
 			sourceTree = "<group>";
@@ -589,7 +598,6 @@
 				8CD8D88E206CD1B100E980AD /* Frameworks */,
 				8CD8D88F206CD1B100E980AD /* Resources */,
 				1E04C548D06F92BD15E241EC /* [CP] Embed Pods Frameworks */,
-				6EBDB5C22D0D034F9DDB07E5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -608,8 +616,6 @@
 				8CD8D8A1206CD1B100E980AD /* Sources */,
 				8CD8D8A2206CD1B100E980AD /* Frameworks */,
 				8CD8D8A3206CD1B100E980AD /* Resources */,
-				CA37B39BCFAED01838B40821 /* [CP] Embed Pods Frameworks */,
-				1971CB8C40A61E882DD81780 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -671,9 +677,9 @@
 				8CD8D89C206CD1B100E980AD /* Assets.xcassets in Resources */,
 				8C425A1C20B710B800CB7E39 /* SettingCell.xib in Resources */,
 				8C6E9D00208C7803000551D1 /* art.scnassets in Resources */,
+				8C9FA2EA20BEC5DE00664689 /* GoogleService-Info.plist in Resources */,
 				8CD8D89A206CD1B100E980AD /* Main.storyboard in Resources */,
 				8CAD37A8209EFC6700AC92B9 /* EndingCell.xib in Resources */,
-				8C08FF06207A02800021B343 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,21 +693,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1971CB8C40A61E882DD81780 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MakePauUTests/Pods-MakePauUTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		199CFDE742A33564CB2EE2DC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -748,21 +739,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MakePauU/Pods-MakePauU-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6EBDB5C22D0D034F9DDB07E5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MakePauU/Pods-MakePauU-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B50578B2E3D01C30B95B6AD0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -779,21 +755,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CA37B39BCFAED01838B40821 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MakePauUTests/Pods-MakePauUTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -814,6 +775,8 @@
 				8C08FF0A207A12D80021B343 /* CustomTabBar.swift in Sources */,
 				8C52B9EE208C603C003002AE /* RankItem.swift in Sources */,
 				8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */,
+				8CB7482C20BFC2DA00FF8684 /* StatVC.swift in Sources */,
+				8C2D8CE020C0199300369D30 /* EndingInfo.swift in Sources */,
 				8CF7301020AEAC6500908B34 /* PreloadVC.swift in Sources */,
 				8CBEB8D32099C62E00B13C42 /* SettingEnding.swift in Sources */,
 				8C6BBDAC20AC016900575B7C /* UISearchBarExt.swift in Sources */,
@@ -865,6 +828,7 @@
 				8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */,
 				8C08FEFB2079D3E70021B343 /* DateTextField.swift in Sources */,
 				8C52B9E2208A5249003002AE /* MenuBarCell.swift in Sources */,
+				8C3E565120BEB41400D4B293 /* ARVC_Ending.swift in Sources */,
 				8C08FEF92079C50F0021B343 /* RegisterVC.swift in Sources */,
 				8C6BBDAA20AC007900575B7C /* FriendListVC.swift in Sources */,
 				8C80219620BA7DA90051EF3D /* CustomSearchBar.swift in Sources */,
@@ -1042,7 +1006,7 @@
 				DEVELOPMENT_TEAM = LMNXHHZE26;
 				INFOPLIST_FILE = MakePauU/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = henry.MakePauUForReal;
+				PRODUCT_BUNDLE_IDENTIFIER = henry.MakePauU2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MakePauU/RadioButton/MakePauU-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1061,7 +1025,7 @@
 				DEVELOPMENT_TEAM = LMNXHHZE26;
 				INFOPLIST_FILE = MakePauU/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = henry.MakePauUForReal;
+				PRODUCT_BUNDLE_IDENTIFIER = henry.MakePauU2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MakePauU/RadioButton/MakePauU-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

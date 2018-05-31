@@ -14,21 +14,23 @@ import CoreLocation
 
 class ARVC_New: UIViewController, ARSCNViewDelegate {
 
-    var selectedRampName: String!
     var selectedRamp: SCNNode!
     
     var sceneLocationView = SceneLocationView()
-    var locationCoordinate = CLLocationCoordinate2D()
-    var distance = CLLocationDistance()
     
     var scene: SCNScene!
     var annotationNode: LocationNode!
     
+    //Segue
+    var locationCoordinate = CLLocationCoordinate2D()
+    var distance = CLLocationDistance()
+    var gift: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("!!!!!!!!!!!!!!!!!\(locationCoordinate.latitude) \(locationCoordinate.longitude)")
+        print("!!!!!!!!!!!!!!!!!\(gift!)")
+        print("!!!!!!!!!!!\(locationCoordinate)")
         
         
         sceneLocationView.run()
@@ -76,37 +78,6 @@ class ARVC_New: UIViewController, ARSCNViewDelegate {
         sceneLocationView.session.pause()
     }
     
-    
-    //視覺化水平面
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        
-        
-        // 1
-        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
-
-        // 2
-        let width = CGFloat(planeAnchor.extent.x)
-        let height = CGFloat(planeAnchor.extent.z)
-        let plane = SCNPlane(width: width, height: height)
-
-        // 3
-        plane.materials.first?.diffuse.contents = UIColor.yellow
-
-        // 4
-        let planeNode = SCNNode(geometry: plane)
-
-        // 5
-        let x = CGFloat(planeAnchor.center.x)
-        let y = CGFloat(planeAnchor.center.y)
-        let z = CGFloat(planeAnchor.center.z)
-        planeNode.position = SCNVector3(x,y,z)
-        planeNode.eulerAngles.x = -.pi / 2
-
-        // 6
-        node.addChildNode(planeNode)
-    }
-    
-    
     //分辨是不是被點了
     @objc func handleTap(_ gestureRecognizer: UIGestureRecognizer){
         
@@ -134,15 +105,15 @@ class ARVC_New: UIViewController, ARSCNViewDelegate {
     }
     
     @objc func returnBtnPressed(){
-        dismiss(animated: true, completion: {
-            self.deleteTag()
-        })
+        
+        deleteTag()
+        performSegue(withIdentifier: "unwindFromARVC", sender: nil)
     }
     
     func setAlert(){
         
         // create the alert
-        let alert = UIAlertController(title: "恭喜您！\n 獲得折價券 乙張", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "恭喜您！\n 獲得折價券 乙張", message: "\(gift!)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: { (action) in
             
             if let ramp = self.selectedRamp{

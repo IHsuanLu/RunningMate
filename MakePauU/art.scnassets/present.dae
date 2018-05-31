@@ -4,8 +4,8 @@
   <contributor>
    <authoring_tool>SceneKit Collada Exporter v1.0</authoring_tool>
   </contributor>
-  <created>2018-04-25T07:10:53Z</created>
-  <modified>2018-04-25T07:10:53Z</modified>
+  <created>2018-05-28T11:45:56Z</created>
+  <modified>2018-05-28T11:45:56Z</modified>
   <unit meter="1.000000"/>
   <up_axis>Y_UP</up_axis>
  </asset>
@@ -117,6 +117,7 @@
  <library_visual_scenes>
   <visual_scene id="scene8">
    <node id="christmas" name="present">
+    <matrix>1 0 0 0 0 1 0 846.2836 0 0 1 0 0 0 0 1 </matrix>
     <instance_geometry url="#geometry3">
      <bind_material>
       <technique_common>
