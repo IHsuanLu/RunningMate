@@ -13,10 +13,12 @@ class FriendListCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var chatBtn: UIButton!
+    @IBOutlet weak var metTimesLbl: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        profileImageView.layer.cornerRadius = 27.5
         chatBtn.layer.cornerRadius = 12.5
     }
 }

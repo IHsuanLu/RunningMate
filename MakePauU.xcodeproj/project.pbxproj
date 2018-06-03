@@ -24,6 +24,7 @@
 		8C11BA072084879000DDCDBF /* CountDownVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11BA062084879000DDCDBF /* CountDownVC.swift */; };
 		8C11BA092088FC4700DDCDBF /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11BA082088FC4700DDCDBF /* GameStatus.swift */; };
 		8C2D8CE020C0199300369D30 /* EndingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2D8CDF20C0199300369D30 /* EndingInfo.swift */; };
+		8C341B4720C3D26C00F2AFD3 /* AdjustKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C341B4620C3D26C00F2AFD3 /* AdjustKeyboard.swift */; };
 		8C34F75C20959F02003958FD /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C34F75B20959F02003958FD /* UserVC.swift */; };
 		8C34F75E20959FC0003958FD /* UserImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C34F75D20959FC0003958FD /* UserImageCell.swift */; };
 		8C34F7602095A020003958FD /* UserImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C34F75F2095A020003958FD /* UserImageItem.swift */; };
@@ -62,6 +63,9 @@
 		8C8C58BE2096F91400FB31C0 /* EditUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C58BD2096F91400FB31C0 /* EditUserVC.swift */; };
 		8C8C58C1209857F700FB31C0 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C58C0209857F700FB31C0 /* TextFieldCell.swift */; };
 		8C8C58C4209858C800FB31C0 /* TextFieldItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C58C3209858C800FB31C0 /* TextFieldItem.swift */; };
+		8C9EAA2420C422EB00F25E4F /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9EAA2320C422EB00F25E4F /* FriendList.swift */; };
+		8C9EAA2620C431EC00F25E4F /* FriendListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9EAA2520C431EC00F25E4F /* FriendListSection.swift */; };
+		8C9EAA2920C4403D00F25E4F /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9EAA2820C4403D00F25E4F /* SearchCell.swift */; };
 		8C9FA2EA20BEC5DE00664689 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C9FA2E920BEC5DE00664689 /* GoogleService-Info.plist */; };
 		8CAD37A7209EFC6700AC92B9 /* EndingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD37A5209EFC6700AC92B9 /* EndingCell.swift */; };
 		8CAD37A8209EFC6700AC92B9 /* EndingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CAD37A6209EFC6700AC92B9 /* EndingCell.xib */; };
@@ -73,10 +77,10 @@
 		8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */; };
 		8CAEA1EB207DDCA9005A3B5F /* StartGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */; };
 		8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */; };
+		8CAF531620C3F8C700A3DA47 /* FavoriteFriendIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAF531520C3F8C700A3DA47 /* FavoriteFriendIDs.swift */; };
 		8CB7482C20BFC2DA00FF8684 /* StatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB7482B20BFC2DA00FF8684 /* StatVC.swift */; };
 		8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */; };
 		8CBBDFDD2070BFD700C89FBB /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */; };
-		8CBBDFDF2070BFFD00C89FBB /* UIButtonExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFDE2070BFFD00C89FBB /* UIButtonExt.swift */; };
 		8CBBDFE12070C4A100C89FBB /* IntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFE02070C4A100C89FBB /* IntroCell.swift */; };
 		8CBBDFE32070C4C400C89FBB /* IntroItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFE22070C4C400C89FBB /* IntroItem.swift */; };
 		8CBBDFE52070D4BF00C89FBB /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFE42070D4BF00C89FBB /* LoginVC.swift */; };
@@ -131,6 +135,7 @@
 		8C11BA062084879000DDCDBF /* CountDownVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownVC.swift; sourceTree = "<group>"; };
 		8C11BA082088FC4700DDCDBF /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		8C2D8CDF20C0199300369D30 /* EndingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingInfo.swift; sourceTree = "<group>"; };
+		8C341B4620C3D26C00F2AFD3 /* AdjustKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustKeyboard.swift; sourceTree = "<group>"; };
 		8C34F75B20959F02003958FD /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
 		8C34F75D20959FC0003958FD /* UserImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageCell.swift; sourceTree = "<group>"; };
 		8C34F75F2095A020003958FD /* UserImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageItem.swift; sourceTree = "<group>"; };
@@ -169,6 +174,9 @@
 		8C8C58BD2096F91400FB31C0 /* EditUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserVC.swift; sourceTree = "<group>"; };
 		8C8C58C0209857F700FB31C0 /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		8C8C58C3209858C800FB31C0 /* TextFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldItem.swift; sourceTree = "<group>"; };
+		8C9EAA2320C422EB00F25E4F /* FriendList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendList.swift; sourceTree = "<group>"; };
+		8C9EAA2520C431EC00F25E4F /* FriendListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListSection.swift; sourceTree = "<group>"; };
+		8C9EAA2820C4403D00F25E4F /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		8C9FA2E920BEC5DE00664689 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8CAD37A5209EFC6700AC92B9 /* EndingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingCell.swift; sourceTree = "<group>"; };
 		8CAD37A6209EFC6700AC92B9 /* EndingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EndingCell.xib; sourceTree = "<group>"; };
@@ -180,10 +188,10 @@
 		8CAEA1E8207DD703005A3B5F /* ProfileImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVC.swift; sourceTree = "<group>"; };
 		8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameVC.swift; sourceTree = "<group>"; };
 		8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalConfirmVC.swift; sourceTree = "<group>"; };
+		8CAF531520C3F8C700A3DA47 /* FavoriteFriendIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFriendIDs.swift; sourceTree = "<group>"; };
 		8CB7482B20BFC2DA00FF8684 /* StatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatVC.swift; sourceTree = "<group>"; };
 		8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
 		8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
-		8CBBDFDE2070BFFD00C89FBB /* UIButtonExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExt.swift; sourceTree = "<group>"; };
 		8CBBDFE02070C4A100C89FBB /* IntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCell.swift; sourceTree = "<group>"; };
 		8CBBDFE22070C4C400C89FBB /* IntroItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroItem.swift; sourceTree = "<group>"; };
 		8CBBDFE42070D4BF00C89FBB /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -260,6 +268,7 @@
 				8C11BA082088FC4700DDCDBF /* GameStatus.swift */,
 				8C34F7682095C188003958FD /* MemberId.swift */,
 				8CBE3D7A20B6A53700B07F77 /* EnterRoomStatus.swift */,
+				8CAF531520C3F8C700A3DA47 /* FavoriteFriendIDs.swift */,
 			);
 			path = Singleton;
 			sourceTree = "<group>";
@@ -297,6 +306,7 @@
 			children = (
 				8CAD37B120A1D69700AC92B9 /* SetLoadingScreen.swift */,
 				8CBE3D7820B5BFE500B07F77 /* Setting.swift */,
+				8C341B4620C3D26C00F2AFD3 /* AdjustKeyboard.swift */,
 			);
 			path = NSObject;
 			sourceTree = "<group>";
@@ -399,6 +409,23 @@
 			path = EditUserVC;
 			sourceTree = "<group>";
 		};
+		8C9EAA2020C422A500F25E4F /* FriendVC */ = {
+			isa = PBXGroup;
+			children = (
+				8C9EAA2320C422EB00F25E4F /* FriendList.swift */,
+				8C9EAA2520C431EC00F25E4F /* FriendListSection.swift */,
+			);
+			path = FriendVC;
+			sourceTree = "<group>";
+		};
+		8C9EAA2720C4400800F25E4F /* SearchVC */ = {
+			isa = PBXGroup;
+			children = (
+				8C9EAA2820C4403D00F25E4F /* SearchCell.swift */,
+			);
+			path = SearchVC;
+			sourceTree = "<group>";
+		};
 		8CAD37A9209EFDC900AC92B9 /* EndingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -454,6 +481,7 @@
 				8C425A1820B7109900CB7E39 /* Setting */,
 				8C80218F20BA68550051EF3D /* Mailbox */,
 				8C80219720BA88970051EF3D /* FriendList */,
+				8C9EAA2720C4400800F25E4F /* SearchVC */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -471,6 +499,7 @@
 				8CAD37AA209EFDE100AC92B9 /* EndingView */,
 				8CBE3D7020B57FB000B07F77 /* Annotation */,
 				8C80219220BA696C0051EF3D /* MailBox */,
+				8C9EAA2020C422A500F25E4F /* FriendVC */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -500,7 +529,6 @@
 			children = (
 				8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */,
 				8C08FF07207A0C930021B343 /* UITabBarControllerExt.swift */,
-				8CBBDFDE2070BFFD00C89FBB /* UIButtonExt.swift */,
 				8C08FF0B207A19B20021B343 /* UIViewExt.swift */,
 				8C6BBDAB20AC016900575B7C /* UISearchBarExt.swift */,
 			);
@@ -772,10 +800,12 @@
 				8CBBDFE52070D4BF00C89FBB /* LoginVC.swift in Sources */,
 				8CBEB8D72099FF3900B13C42 /* EndingView.swift in Sources */,
 				8C11B9F92083544F00DDCDBF /* RoomMemberCell.swift in Sources */,
+				8C341B4720C3D26C00F2AFD3 /* AdjustKeyboard.swift in Sources */,
 				8C08FF0A207A12D80021B343 /* CustomTabBar.swift in Sources */,
 				8C52B9EE208C603C003002AE /* RankItem.swift in Sources */,
 				8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */,
 				8CB7482C20BFC2DA00FF8684 /* StatVC.swift in Sources */,
+				8C9EAA2420C422EB00F25E4F /* FriendList.swift in Sources */,
 				8C2D8CE020C0199300369D30 /* EndingInfo.swift in Sources */,
 				8CF7301020AEAC6500908B34 /* PreloadVC.swift in Sources */,
 				8CBEB8D32099C62E00B13C42 /* SettingEnding.swift in Sources */,
@@ -783,6 +813,7 @@
 				8C34F75C20959F02003958FD /* UserVC.swift in Sources */,
 				8C6BBDB020AC04B300575B7C /* SearchBarSegue.swift in Sources */,
 				8CBE3D7D20B6B7B800B07F77 /* AirDropAnnotation.swift in Sources */,
+				8C9EAA2620C431EC00F25E4F /* FriendListSection.swift in Sources */,
 				8CAD37B220A1D69700AC92B9 /* SetLoadingScreen.swift in Sources */,
 				8C425A1B20B710B800CB7E39 /* SettingCell.swift in Sources */,
 				8C08FF042079E05D0021B343 /* CustomButton.swift in Sources */,
@@ -796,7 +827,6 @@
 				8C80219B20BA9AC70051EF3D /* MailVC.swift in Sources */,
 				8CBE3D6F20B56E6A00B07F77 /* CountDownView.swift in Sources */,
 				8CAD37AE20A029EE00AC92B9 /* FirebaseService.swift in Sources */,
-				8CBBDFDF2070BFFD00C89FBB /* UIButtonExt.swift in Sources */,
 				8CAD37B020A1D0B900AC92B9 /* CustomImageView.swift in Sources */,
 				8C08FF08207A0C930021B343 /* UITabBarControllerExt.swift in Sources */,
 				8C11BA072084879000DDCDBF /* CountDownVC.swift in Sources */,
@@ -816,6 +846,7 @@
 				8C34F7602095A020003958FD /* UserImageItem.swift in Sources */,
 				8C11B9FB2083557A00DDCDBF /* RoomMemberItem.swift in Sources */,
 				8CBEB8D52099C89F00B13C42 /* TestEndingVC.swift in Sources */,
+				8CAF531620C3F8C700A3DA47 /* FavoriteFriendIDs.swift in Sources */,
 				8CAEA1EB207DDCA9005A3B5F /* StartGameVC.swift in Sources */,
 				8C80218E20BA5CF60051EF3D /* MailboxVC.swift in Sources */,
 				8C08FF022079DC620021B343 /* DLRadioButton.m in Sources */,
@@ -834,6 +865,7 @@
 				8C80219620BA7DA90051EF3D /* CustomSearchBar.swift in Sources */,
 				8CAD37AC209F0D6500AC92B9 /* EndingItem.swift in Sources */,
 				8C52B9EC208C4E24003002AE /* RankCell.swift in Sources */,
+				8C9EAA2920C4403D00F25E4F /* SearchCell.swift in Sources */,
 				8C6F29AC20987BD500FE40A2 /* TextViewItem.swift in Sources */,
 				8C80219D20BAA4AD0051EF3D /* MailCell.swift in Sources */,
 				8CBE3D7B20B6A53700B07F77 /* EnterRoomStatus.swift in Sources */,

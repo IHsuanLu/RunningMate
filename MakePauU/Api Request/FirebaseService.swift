@@ -341,6 +341,98 @@ class FirebaseService: NSObject{
             }
         })
     }
+    
+    func getLatestStat(completion: @escaping (Double, Double, Double) -> ()){
+        
+        var dbReference: DatabaseReference?
+        dbReference = Database.database().reference()
+        
+        _ = dbReference?.child("historical_data").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? Dictionary<String, AnyObject>{
+                
+                //if let first = value["第1封"] as? Dictionary<String, AnyObject>
+                var datas: [Dictionary<String, AnyObject>] = []
+                
+                for i in 1...value.count {
+                    if let data = value["第\(i)筆"] as? Dictionary<String, AnyObject>{
+                        datas.append(data)
+                    }
+                }
+                
+                if let total_distance = datas[datas.count - 1]["total_distance(km)"] as? Double, let average_time = datas[datas.count - 1]["average_time"] as? Double, let total_time = datas[datas.count - 1]["total_time"] as? Double{
+                    
+                    completion(total_distance, average_time, total_time)
+                }
+            }
+        })
+    }
+    
+    func getFriendList(completion: @escaping ([FriendList]) -> ()){
+        
+        var dbReference: DatabaseReference?
+        dbReference = Database.database().reference()
+        
+        var storage: Storage?
+        storage = Storage.storage()
+        
+        let myGroup = DispatchGroup()
+        
+        var friendLists: [FriendList] = []
+        
+        _ = dbReference?.child("friends_list").child(MemberId.sharedInstance.member_id).child("好友").observe(.value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? Dictionary<String, AnyObject>{
+                                
+                for obj in value {
+                    
+                    myGroup.enter()
+                    
+                    var ifFavorite: Bool = false
+                    
+                    if let personalData = obj.value["個人資料"] as? Dictionary<String, AnyObject>, let type = obj.value["好友種類"] as? String, let metTimes = obj.value["遇到次數"] as? Int {
+                        
+                        let name = personalData["name"] as! String
+                        
+                        if type == "一般" {
+                            ifFavorite = false
+                        } else {
+                            ifFavorite = true
+                        }
+                        
+                        if let profileImages = personalData["profileImageURL"] as? NSArray{
+                            
+                            let profileImageURL = profileImages[0] as! String
+                            
+                            let storageRef = storage?.reference(forURL: profileImageURL)
+                            storageRef?.downloadURL(completion: { (url, error) in
+                                
+                                do {
+                                    
+                                    let data = try Data(contentsOf: url!)
+                                    let pic = UIImage(data: data)
+                                    
+                                    let friendList = FriendList(thumbImage: pic!, title: name, ifFavorite: ifFavorite, metTimes: metTimes)
+                                    
+                                    friendLists.append(friendList)
+                                    
+                                    myGroup.leave()
+                                    
+                                } catch {
+                                    print(error)
+                                }
+                            })
+                        }
+                        
+                    }
+                }
+                
+                myGroup.notify(queue: DispatchQueue.main, execute: {
+                    completion(friendLists)
+                })
+            }
+        })
+    }
 }
 
 

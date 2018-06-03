@@ -80,7 +80,7 @@ class ARVC_Ending: UIViewController, ARSCNViewDelegate {
             }
             
             //先跳出來
-            self.performSegue(withIdentifier: "unwindFromAREnding", sender: nil)            
+            self.performSegue(withIdentifier: "unwindFromAREnding", sender: nil)      
         }))
         
         // show the alert

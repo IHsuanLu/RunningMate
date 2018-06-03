@@ -11,52 +11,84 @@ import UIKit
 class StatVC: UIViewController {
 
     
+    @IBOutlet weak var confirmBtn: UIButton!
     @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
     
+    var total_distance: Double!
+    var average_time: Double!
+    var total_time: Double!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        confirmBtn.setTitleColor(UIColor.white, for: .selected)
+        confirmBtn.setTitleColor(UIColor.white, for: .normal)
+        
+        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
+        
+        FirebaseService.sharedInstance.getLatestStat { (total_distance, average_time, total_time) in
+            
+            self.confirmBtn.reloadInputViews()
+            
+            self.total_distance = total_distance
+            self.average_time = average_time
+            self.total_time = total_time
+            self.addNumbers()
+            
+            SetLoadingScreen.sharedInstance.stopActivityIndicator()
+            
+            self.addLabels()
+            self.addShapeLayer()
+            
+            self.view.reloadInputViews()
+        }
 
         contentViewHeight.constant = 700
         
-        addNumbers()
-        addLabels()
-        addShapeLayer()
+        self.view.reloadInputViews()
     }
     
     func addNumbers(){
         
         let label1 = UILabel()
-        label1.frame = CGRect(x: contentView.frame.width / 2 - 75, y: contentViewHeight.constant / 4 - 55, width: 150, height: 50)
-        label1.text = "本次跑步距離"
+        label1.frame = CGRect(x: contentView.frame.width / 2 - 75, y: contentViewHeight.constant / 4 - 65, width: 150, height: 50)
+        label1.text = "\(total_distance!)"
         label1.textColor = UIColor(netHex: 0x666666)
-        label1.font = UIFont.boldSystemFont(ofSize: 24)
+        label1.font = UIFont.boldSystemFont(ofSize: 32)
         label1.textAlignment = .center
         contentView.addSubview(label1)
         
         let label2 = UILabel()
         label2.frame = CGRect(x: contentView.frame.width / 2 - 75, y: contentViewHeight.constant / 2 - 20, width: 150, height: 50)
-        label2.text = "本次跑步時間"
+        label2.text = "\(Int(Double(total_time / 60)))'\(Int(round(Double(total_time.truncatingRemainder(dividingBy: 60)))))''"
         label2.textColor = UIColor(netHex: 0x666666)
-        label2.font = UIFont.boldSystemFont(ofSize: 24)
+        label2.font = UIFont.boldSystemFont(ofSize: 32)
         label2.textAlignment = .center
         contentView.addSubview(label2)
 
         
         let label3 = UILabel()
         label3.frame = CGRect(x: contentView.frame.width / 2 - 75, y: (contentViewHeight.constant * 3) / 4 + 20, width: 150, height: 35)
-        label3.text = "本次平均速率"
+        label3.text = "\(Int(Double(average_time / 60)))'\(Int(round(Double(average_time.truncatingRemainder(dividingBy: 60)))))''"
         label3.textColor = UIColor(netHex: 0x666666)
-        label3.font = UIFont.boldSystemFont(ofSize: 24)
+        label3.font = UIFont.boldSystemFont(ofSize: 32)
         label3.textAlignment = .center
         contentView.addSubview(label3)
     }
     
     func addLabels(){
         
+        let label = UILabel()
+        label.frame = CGRect(x: contentView.frame.width - 218, y: 8, width: 210, height: 25)
+        label.text = "註：百分比為與本局其他玩家之比較"
+        label.textColor = UIColor(netHex: 0x999999)
+        label.font = UIFont(name: "Helvetica Neue", size: 12)
+        contentView.addSubview(label)
+        
         let label1 = UILabel()
-        label1.frame = CGRect(x: contentView.frame.width / 2 - 58, y: contentViewHeight.constant / 4 - 10, width: 120, height: 25)
+        label1.frame = CGRect(x: contentView.frame.width / 2 - 58, y: contentViewHeight.constant / 4 - 20, width: 120, height: 25)
         label1.text = "本次跑步距離 (km)"
         label1.textColor = UIColor(netHex: 0x999999)
         label1.font = UIFont.boldSystemFont(ofSize: 12)
@@ -74,7 +106,7 @@ class StatVC: UIViewController {
         
         let label3 = UILabel()
         label3.frame = CGRect(x: contentView.frame.width / 2 - 58, y: (contentViewHeight.constant * 3) / 4 + 55, width: 120, height: 25)
-        label3.text = "本次平均速率"
+        label3.text = "本次平均時間"
         label3.textColor = UIColor(netHex: 0x999999)
         label3.font = UIFont.boldSystemFont(ofSize: 12)
         label3.textAlignment = .center
@@ -86,17 +118,17 @@ class StatVC: UIViewController {
         let shapeLayer1 = CAShapeLayer()
         let center1 = CGPoint(x: contentView.frame.width / 2, y: contentViewHeight.constant / 4 - 35)
         setShapeLayer(shapeLayer: shapeLayer1, center: center1)
-        animateCircle(shapeLayer: shapeLayer1)
+        animateCircle(shapeLayer: shapeLayer1, toValue: 0.3)
         
         let shapeLayer2 = CAShapeLayer()
         let center2 = CGPoint(x: contentView.frame.width / 2, y: contentViewHeight.constant / 2)
         setShapeLayer(shapeLayer: shapeLayer2, center: center2)
-        animateCircle(shapeLayer: shapeLayer2)
+        animateCircle(shapeLayer: shapeLayer2, toValue: 0.7)
 
         let shapeLayer3 = CAShapeLayer()
         let center3 = CGPoint(x: contentView.frame.width / 2, y: (contentViewHeight.constant * 3) / 4 + 35)
         setShapeLayer(shapeLayer: shapeLayer3, center: center3)
-        animateCircle(shapeLayer: shapeLayer3)
+        animateCircle(shapeLayer: shapeLayer3, toValue: 0.5)
     }
     
     func setShapeLayer(shapeLayer: CAShapeLayer, center: CGPoint){
@@ -127,11 +159,11 @@ class StatVC: UIViewController {
         contentView.layer.addSublayer(shapeLayer)
     }
     
-    func animateCircle(shapeLayer: CAShapeLayer){
+    func animateCircle(shapeLayer: CAShapeLayer, toValue: Double){
         
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         
-        basicAnimation.toValue = 1
+        basicAnimation.toValue = toValue
         basicAnimation.duration = 1.8
         //停住
         basicAnimation.fillMode = kCAFillModeForwards
@@ -141,6 +173,8 @@ class StatVC: UIViewController {
     }
     
     @IBAction func confirmBtnPressed(_ sender: Any) {
+        
+        FavoriteFriendIDs.sharedInstance.favoriteFriends = []
         
         dismiss(animated: true, completion: nil)
     }

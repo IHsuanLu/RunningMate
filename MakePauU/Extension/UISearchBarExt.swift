@@ -16,7 +16,7 @@ extension UISearchBar {
         // TextField Color Customization
         let textFieldInsideSearchBar = self.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor(netHex: 0xE9A11A)
-        
+         
         
         // Glass Icon Customization
         let glassIconView = textFieldInsideSearchBar?.leftView as? UIImageView

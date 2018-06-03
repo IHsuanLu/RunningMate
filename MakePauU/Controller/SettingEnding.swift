@@ -18,10 +18,14 @@ class SettingEnding: NSObject{
     var views = [UIView]()
     
     var endingInfos: [EndingInfo]!
+    
+    var firstPageVC = FirstPageVC()
 
     func showSetting(){
         
         if let window = UIApplication.shared.keyWindow{
+            
+            
             
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.6)
             
@@ -37,11 +41,14 @@ class SettingEnding: NSObject{
                 
                 let view = EndingView(frame: .zero, counter: i, id: endingInfos[i].id!, name: endingInfos[i].name, birth: endingInfos[i].birth, profileImage: endingInfos[i].image, sex: endingInfos[i].sex)
                 
+                view.delegate = self
+                
                 views.append(view)
                 
                 view.center = centers
                 blackView.addSubview(view)
             }
+            
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 
@@ -56,6 +63,8 @@ class SettingEnding: NSObject{
                 self.centers.y = self.centers.y - CGFloat(3.5)
                 print(self.centers.y)
                 view.center = self.centers
+                
+                SetLoadingScreen.sharedInstance.stopActivityIndicator()
             }
         }
     }
@@ -65,15 +74,33 @@ class SettingEnding: NSObject{
         FirebaseService.sharedInstance.getFriendInfo { (endingInfos) in
             self.endingInfos = endingInfos
             
+            SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.blackView)
+            
             self.showSetting()
             
             completion()
         }
     }
-    
+     
     // serve as viewDidLoad
     override init() {
         super.init()
+    }
+}
+
+extension SettingEnding: EndingViewDelegate {
+    
+    func dismissBlackView() {
         
+        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            
+            DispatchQueue.main.async {
+                self.blackView.alpha = 0
+            }
+            
+        }, completion: nil)
+        
+        //叫出結算頁面
+        firstPageVC.performSegue(withIdentifier: "toStatVC", sender: nil)
     }
 }

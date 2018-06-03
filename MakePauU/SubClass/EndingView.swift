@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol EndingViewDelegate: class {
+    
+    func dismissBlackView()
+}
+
 class EndingView: UIView {
     
     lazy var imageView: UIImageView = {
@@ -87,7 +92,7 @@ class EndingView: UIView {
     var profileImage: UIImage!
     var sex: String!
     
-    var favoriteFriendsID: [String] = []
+    weak var delegate: EndingViewDelegate?
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
@@ -162,7 +167,7 @@ class EndingView: UIView {
                 UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     
                     self.frame = CGRect(x: window.frame.size.width * -1 , y: self.frame.origin.y + 40, width: self.frame.width, height: self.frame.height)
-                    self.tagImageView.image = #imageLiteral(resourceName: "like 2")
+                    self.tagImageView.image = #imageLiteral(resourceName: "dislike")
                     
                     print(self.counter)
                     
@@ -178,12 +183,11 @@ class EndingView: UIView {
                     
                     self.frame = CGRect(x: window.frame.size.width * 1 , y: self.frame.origin.y + 40, width: self.frame.width, height: self.frame.height)
                    
-                    self.tagImageView.image = #imageLiteral(resourceName: "dislike")
-                    
+                    self.tagImageView.image = #imageLiteral(resourceName: "favorite")
                     
                     if let id = self.id{
                         print(id)
-                        self.favoriteFriendsID.append(id)
+                        FavoriteFriendIDs.sharedInstance.favoriteFriends.append(id)
                     }
                     
                     print(self.counter)
@@ -195,9 +199,13 @@ class EndingView: UIView {
             }
         }
         
-        if self.counter == 0 {
-            ApiService.sharedInstance.add_to_friend(favoriteFriendsID: favoriteFriendsID) {
-                print("Done!")
+        if let counter = self.counter {
+            if counter == 0 {
+                ApiService.sharedInstance.add_to_friend(favoriteFriendsID: FavoriteFriendIDs.sharedInstance.favoriteFriends) {
+                    
+                    self.delegate?.dismissBlackView()
+                    print("Done!")
+                }
             }
         }
     }
@@ -263,6 +271,4 @@ extension EndingView: UITableViewDelegate, UITableViewDataSource{
 
         return UITableViewCell()
     }
-    
-    
 }

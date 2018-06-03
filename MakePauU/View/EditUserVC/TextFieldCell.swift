@@ -12,4 +12,21 @@ class TextFieldCell: UITableViewCell {
 
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var contentTextField: UITextField!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        contentTextField.delegate = self
+    }
+}
+
+extension TextFieldCell: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+
+    }
 }

@@ -26,6 +26,13 @@ class FirstPageVC: UIViewController {
         return setting
     }()
     
+    //接應countDown
+    lazy var settingEnding: SettingEnding = {
+        let se = SettingEnding()
+        se.firstPageVC = self
+        return se
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,12 +67,16 @@ class FirstPageVC: UIViewController {
                 destination.image = self.pic
             }
         }
+        
+        if segue.identifier == "toStatVC" {
+            _ = segue.destination as? StatVC
+        }
     }
     
     @IBAction func backFromMailBox(segue: UIStoryboardSegue) {
         
         guard let mailboxobj = segue.source as? MailboxVC else { return }
-        
+    
         print(mailboxobj.mailStatuschange)
         
         for i in mailboxobj.mailStatuschange {
@@ -74,5 +85,14 @@ class FirstPageVC: UIViewController {
         
         self.tabBarController?.selectedIndex = 0
         print("We are back")
+    }
+    
+    @IBAction func unwindFromAREnding(_ sender: UIStoryboardSegue){
+        
+        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
+        
+        settingEnding.getFriendInfo {
+            SetLoadingScreen.sharedInstance.stopActivityIndicator()
+        }
     }
 }

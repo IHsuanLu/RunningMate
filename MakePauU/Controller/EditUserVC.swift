@@ -22,6 +22,7 @@ class EditUserVC: UIViewController {
     
     @IBOutlet weak var textFieldTabe: UITableView!
     @IBOutlet weak var textViewTable: UITableView!
+    @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var textViewTableHeight: NSLayoutConstraint!
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
@@ -29,30 +30,18 @@ class EditUserVC: UIViewController {
     var whichImageView: Int!
     
     var datas: [DataItem]!
-    
-    var testArray: [TextFieldItem]!
-    var testArray2: [TextViewItem]!
-    
+    var textViewContentArray: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        testArray = [
-            TextFieldItem(title: "暱稱: ", content: "Jamie"),
-            TextFieldItem(title: "性別: ", content: "女生"),
-            TextFieldItem(title: "居住地: ", content: ""),
-            TextFieldItem(title: "就讀於 / 任職於: ", content: ""),
-            TextFieldItem(title: "生日: ", content: ""),
-            TextFieldItem(title: "感情取向: ", content: "")
-        ]
-        
-        testArray2 = [
-            TextViewItem(title: "興趣愛好: ", content: " \n \n \n \n \n \n"),
-            TextViewItem(title: "最近的困擾: ", content: " \n \n \n \n \n \n"),
-            TextViewItem(title: "想嘗試的事: ", content: " \n \n \n \n \n \n")
-        ]
-        
         adjustConstraint()
+        
+        textViewTable.rowHeight = UITableViewAutomaticDimension
+        textViewTable.estimatedRowHeight = 300
+        
+        textFieldTabe.rowHeight = UITableViewAutomaticDimension
+        textFieldTabe.estimatedRowHeight = 300
     }
     
     override func viewWillLayoutSubviews() {
@@ -61,6 +50,7 @@ class EditUserVC: UIViewController {
         
         self.contentViewHeight.constant = 315 + self.view.frame.width + self.textViewTableHeight.constant + 20
     }
+    
     
     @IBAction func onButton1(_ sender: Any) {
         whichImageView = 1
@@ -160,12 +150,6 @@ class EditUserVC: UIViewController {
             }
         }
     }
-    
-    func adjustUITextViewHeight(arg : UITextView){
-        
-        arg.translatesAutoresizingMaskIntoConstraints = true
-        arg.sizeToFit()
-    }
 }
 
 extension EditUserVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -236,11 +220,11 @@ extension EditUserVC: UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
             
             var titleArray = ["興趣愛好: ", "最近的困擾: ", "想嘗試的事："]
-            var contentArray = [datas[2].content, datas[3].content, datas[4].content]
+            textViewContentArray = [datas[2].content, datas[3].content, datas[4].content]
             
             cell.titleLbl.text = titleArray[indexPath.row]
-            cell.contentTextView.text = contentArray[indexPath.row]
-
+            cell.contentTextView.text = textViewContentArray[indexPath.row]
+            
             cell.contentTextView.translatesAutoresizingMaskIntoConstraints = false
             
             return cell

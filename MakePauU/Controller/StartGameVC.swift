@@ -134,9 +134,9 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     var gifts = [String]()
     var giftsTaken: [String] = []
     
-    var settingEnding = SettingEnding()
     var statsInfo = StatsInfo()
     
+    var test = "saodjfdsofmdsaiofaimoisf"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -387,6 +387,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     @IBAction func unwindFromFinalConfirm(_ sender: UIStoryboardSegue){
         
         print(StartStatus.sharedInstance.ifEntered)
+    
         
         if StartStatus.sharedInstance.ifEntered == false{
             dismiss(animated: true, completion: nil)
@@ -407,15 +408,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     @IBAction func unwindFromARVC(_ sender: UIStoryboardSegue){
         mapView.delegate = self
-    }
-    
-    @IBAction func unwindFromAREnding(_ sender: UIStoryboardSegue){
-        
-        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
-        
-        settingEnding.getFriendInfo {
-            SetLoadingScreen.sharedInstance.stopActivityIndicator()
-        }
     }
     
     
