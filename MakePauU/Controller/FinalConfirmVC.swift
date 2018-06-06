@@ -29,7 +29,7 @@ class FinalConfirmVC: UIViewController {
         
         SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
         
-        FirebaseService.sharedInstance.setFinalConfirm(completion: { (estimate_distance, member_items) in
+        FirebaseService.shared().setFinalConfirm(completion: { (estimate_distance, member_items) in
             
             print("?????????????????????\(member_items.count)")
             
@@ -66,6 +66,7 @@ class FinalConfirmVC: UIViewController {
             if ifEntered == true {
                 StartStatus.sharedInstance.ifEntered = true //for startgameVC 判斷
                 EnterRoomStatus.sharedInstance.ifEnteredRoom = true
+                
                 
                 performSegue(withIdentifier: "unwindFromFinalConfirm", sender: nil)
             } else {

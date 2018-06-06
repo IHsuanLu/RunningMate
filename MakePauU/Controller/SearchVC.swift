@@ -18,12 +18,11 @@ class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchHistory = ["死亡少女", "我剛剛跨完年", "醜醜阿臻", "洗廁所一哥", "拿鐵好喝"]
-        
-        self.searchBar.becomeFirstResponder()
-        
         searchBar.delegate = self
         
+        searchHistory = ["死亡少女", "我剛剛跨完年", "醜醜阿臻", "洗廁所一哥", "拿鐵好喝"]
+        
+        searchBar.becomeFirstResponder()
         tableView.tableFooterView = UIView()
     }
 }
@@ -32,6 +31,8 @@ extension SearchVC: UISearchBarDelegate{
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        
+        performSegue(withIdentifier: "backFromSearch_Enter", sender: nil)
     }
 }
 
@@ -49,8 +50,12 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
         
-        cell.title.text = searchHistory[indexPath.row]
+        cell.titleLbl.text = searchHistory[indexPath.row]
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }

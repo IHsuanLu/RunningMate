@@ -39,9 +39,9 @@ class Ramp{
     class func getTrophy() -> SCNNode{
         
         //grabbing the entire scene
-        let obj = SCNScene(named: "art.scnassets/present.dae")
+        let obj = SCNScene(named: "art.scnassets/booook.dae")
         //grab the node outta scene
-        let node = obj?.rootNode.childNode(withName: "present", recursively: true)
+        let node = obj?.rootNode.childNode(withName: "booook", recursively: true)
         node?.scale = SCNVector3Make(1, 1, 1)  //大小
         node?.position = SCNVector3Make(0, -1, -2) //位置
         //throw it into scene

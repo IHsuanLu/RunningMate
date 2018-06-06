@@ -275,7 +275,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
                     return
                 }
                 
-                self.downloadURL()
+                self.downloadURL() 
             })
         }
     }

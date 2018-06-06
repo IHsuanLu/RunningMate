@@ -15,21 +15,38 @@ import MapKit
 
 class FirebaseService: NSObject{
     
-    static let sharedInstance = FirebaseService()
+    static private var _sharedInstance: FirebaseService?
+    
+    var dbReference: DatabaseReference = Database.database().reference()
+    
+    final class func shared() -> FirebaseService { // change class to final to prevent override
+        
+        guard let uwShared = _sharedInstance else {
+            _sharedInstance = FirebaseService()
+            return _sharedInstance!
+        }
+        
+        return uwShared
+    }
+    
+    class func destroy() {
+        _sharedInstance = nil
+    }
     
     private override init() {
-        
+        print("init singleton")
+    }
+    
+    deinit {
+        print("deinit singleton")
     }
     
     func setFirstPage(completion: @escaping (String, Int, Double, Double, UIImage) -> ()){
        
-        var dbReference: DatabaseReference?
         var storage: Storage?
-        
-        dbReference = Database.database().reference()
         storage = Storage.storage()
         
-        _ = dbReference?.child("members").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
+        _ = dbReference.child("members").child(MemberId.sharedInstance.member_id).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                 
@@ -56,28 +73,23 @@ class FirebaseService: NSObject{
                         })
                     }
                 }
-                
-                //如何存image
             }
         })
     }
     
     func checkIfCluster(completion: @escaping (Bool, Int) -> ()){
-        
-        var dbReference: DatabaseReference?
-        
-        dbReference = Database.database().reference()
-
-        _ = dbReference?.child("running_player").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
+    
+        _ = dbReference.child("running_player").child(MemberId.sharedInstance.member_id).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject> {
                 if let mate = value["跑友"] as? Dictionary<String, AnyObject> {
-                                    
+                    
                     let numberOfmates = mate.count + 1
                     
                     completion(true, numberOfmates)
                 }
             } else {
+                
                 completion(false, 0)
             }
         })
@@ -85,18 +97,15 @@ class FirebaseService: NSObject{
     
     func setFinalConfirm(completion: @escaping (Double, [RoomMemberItem]) -> ()){
         
-        var dbReference: DatabaseReference?
         var storage: Storage?
+        storage = Storage.storage()
         
         //把資料送回去
         var items = [RoomMemberItem]()
         
         let myGroup = DispatchGroup()
         
-        dbReference = Database.database().reference()
-        storage = Storage.storage()
-
-        _ = dbReference?.child("running_player").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
+        _ = dbReference.child("running_player").child(MemberId.sharedInstance.member_id).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                 
@@ -136,6 +145,7 @@ class FirebaseService: NSObject{
                 }
                 
                 myGroup.notify(queue: DispatchQueue.main, execute: {
+                    
                     completion(estimate_distance, items)
                 })
             }
@@ -143,15 +153,12 @@ class FirebaseService: NSObject{
     }
     
     func setCircle(completion: @escaping ([CLLocation]) -> ()){
-
-        var dbReference: DatabaseReference?
-        var locations: [CLLocation] = []
-
-        dbReference = Database.database().reference()
         
         let myGroup = DispatchGroup()
         
-        _ = dbReference?.child("running_player").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
+        var locations: [CLLocation] = []
+        
+        _ = dbReference.child("running_player").child(MemberId.sharedInstance.member_id).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject> {
                 
@@ -184,16 +191,12 @@ class FirebaseService: NSObject{
     
     func setAirDrop(completion: @escaping ([CLLocation], [String]) -> ()){
         
-        var dbReference: DatabaseReference?
-        dbReference = Database.database().reference()
+        let myGroup = DispatchGroup()
         
         var locations: [CLLocation] = []
         var gifts: [String] = []
         
-        
-        let myGroup = DispatchGroup()
-        
-        _ = dbReference?.child("running_player").child(MemberId.sharedInstance.member_id).child("空投").observe(.value, with: { (snapshot) in
+        _ = dbReference.child("running_player").child(MemberId.sharedInstance.member_id).child("空投").observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
             
@@ -225,22 +228,17 @@ class FirebaseService: NSObject{
     }
     
     func updateInbox(number: Int){
-        
-        let dbReference = Database.database().reference()
-        
+
         dbReference.child("email").child(MemberId.sharedInstance.member_id).child("第\(number)封").updateChildValues(["狀態":1])
     }
     
     func setInbox(completion: @escaping ([MailboxItem]) -> ()){
         
-        var dbReference: DatabaseReference?
-        dbReference = Database.database().reference()
-        
         let myGroup = DispatchGroup()
 
         var emails: [MailboxItem] = []
         
-        _ = dbReference?.child("email").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
+        _ = dbReference.child("email").child(MemberId.sharedInstance.member_id).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                 
@@ -281,18 +279,15 @@ class FirebaseService: NSObject{
     }
     
     func getFriendInfo(completion: @escaping ([EndingInfo]) -> ()){
-        
-        var dbReference: DatabaseReference?
-        dbReference = Database.database().reference()
-        
+
         var storage: Storage?
-        storage = Storage.storage()
+        storage = Storage.storage() 
         
         let myGroup = DispatchGroup()
         
         var friendInfos: [EndingInfo] = []
         
-        _ = dbReference?.child("running_player").child(MemberId.sharedInstance.member_id).child("跑友").observe(.value, with: { (snapshot) in
+        _ = dbReference.child("running_player").child(MemberId.sharedInstance.member_id).child("跑友").observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                 
@@ -325,13 +320,11 @@ class FirebaseService: NSObject{
                                     friendInfos.append(friendInfo)
                                     
                                     myGroup.leave()
-                                    
                                 } catch {
                                     print(error)
                                 }
                             })
                         }
-                        
                     }
                 }
                 
@@ -344,10 +337,7 @@ class FirebaseService: NSObject{
     
     func getLatestStat(completion: @escaping (Double, Double, Double) -> ()){
         
-        var dbReference: DatabaseReference?
-        dbReference = Database.database().reference()
-        
-        _ = dbReference?.child("historical_data").child(MemberId.sharedInstance.member_id).observe(.value, with: { (snapshot) in
+        _ = dbReference.child("historical_data").child(MemberId.sharedInstance.member_id).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                 
@@ -370,9 +360,6 @@ class FirebaseService: NSObject{
     
     func getFriendList(completion: @escaping ([FriendList]) -> ()){
         
-        var dbReference: DatabaseReference?
-        dbReference = Database.database().reference()
-        
         var storage: Storage?
         storage = Storage.storage()
         
@@ -380,7 +367,7 @@ class FirebaseService: NSObject{
         
         var friendLists: [FriendList] = []
         
-        _ = dbReference?.child("friends_list").child(MemberId.sharedInstance.member_id).child("好友").observe(.value, with: { (snapshot) in
+        _ = dbReference.child("friends_list").child(MemberId.sharedInstance.member_id).child("好友").observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                                 
@@ -410,9 +397,9 @@ class FirebaseService: NSObject{
                                 do {
                                     
                                     let data = try Data(contentsOf: url!)
-                                    let pic = UIImage(data: data)
+                                    let pic = UIImage(data: data) 
                                     
-                                    let friendList = FriendList(thumbImage: pic!, title: name, ifFavorite: ifFavorite, metTimes: metTimes)
+                                    let friendList = FriendList(thumbImage: pic!, title: name, ifFavorite: ifFavorite, metTimes: metTimes, ifAdded: false)
                                     
                                     friendLists.append(friendList)
                                     
@@ -423,7 +410,6 @@ class FirebaseService: NSObject{
                                 }
                             })
                         }
-                        
                     }
                 }
                 

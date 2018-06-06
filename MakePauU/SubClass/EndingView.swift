@@ -201,6 +201,7 @@ class EndingView: UIView {
         
         if let counter = self.counter {
             if counter == 0 {
+                self.counter = nil
                 ApiService.sharedInstance.add_to_friend(favoriteFriendsID: FavoriteFriendIDs.sharedInstance.favoriteFriends) {
                     
                     self.delegate?.dismissBlackView()

@@ -25,8 +25,9 @@ class MailboxVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.tableFooterView = UIView()
         
-        FirebaseService.sharedInstance.setInbox { (emails) in
+        FirebaseService.shared().setInbox { (emails) in
             self.emails = emails
             self.tableView.delegate = self
             self.tableView.dataSource = self
@@ -68,12 +69,15 @@ class MailboxVC: UIViewController {
     }
     
     @IBAction func backFromMail(segue: UIStoryboardSegue) {
-        
-        
-        
         tableView.reloadData()
     }
-
+    
+    
+    @IBAction func airdropBtnPressed(_ sender: Any) {
+        
+        performSegue(withIdentifier: "toAirdropVC", sender: nil)
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toMailVC" {
@@ -82,6 +86,11 @@ class MailboxVC: UIViewController {
                     destination.email = email
                 }
             }
+        }
+        
+        if segue.identifier == "toAirdropVC"{
+            let destinationNavigationController = segue.destination as! UINavigationController
+            _ = destinationNavigationController.topViewController
         }
     }
 }

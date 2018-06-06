@@ -37,6 +37,10 @@
 		8C3E565120BEB41400D4B293 /* ARVC_Ending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E565020BEB41400D4B293 /* ARVC_Ending.swift */; };
 		8C425A1B20B710B800CB7E39 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C425A1920B710B800CB7E39 /* SettingCell.swift */; };
 		8C425A1C20B710B800CB7E39 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C425A1A20B710B800CB7E39 /* SettingCell.xib */; };
+		8C45B77820C7A72A001C1003 /* AirdropVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45B77720C7A72A001C1003 /* AirdropVC.swift */; };
+		8C45B77B20C7A7AB001C1003 /* AirdropRecCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45B77A20C7A7AB001C1003 /* AirdropRecCell.swift */; };
+		8C45B77D20C7B045001C1003 /* AirdropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45B77C20C7B045001C1003 /* AirdropCell.swift */; };
+		8C45B77F20C7BADE001C1003 /* QRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45B77E20C7BADE001C1003 /* QRCodeVC.swift */; };
 		8C52B9DE208A4A4A003002AE /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9DD208A4A4A003002AE /* MenuBar.swift */; };
 		8C52B9E0208A50F1003002AE /* RankingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9DF208A50F1003002AE /* RankingVC.swift */; };
 		8C52B9E2208A5249003002AE /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9E1208A5249003002AE /* MenuBarCell.swift */; };
@@ -66,6 +70,7 @@
 		8C9EAA2420C422EB00F25E4F /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9EAA2320C422EB00F25E4F /* FriendList.swift */; };
 		8C9EAA2620C431EC00F25E4F /* FriendListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9EAA2520C431EC00F25E4F /* FriendListSection.swift */; };
 		8C9EAA2920C4403D00F25E4F /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9EAA2820C4403D00F25E4F /* SearchCell.swift */; };
+		8C9EAA2B20C57C6700F25E4F /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9EAA2A20C57C6700F25E4F /* ChatLogController.swift */; };
 		8C9FA2EA20BEC5DE00664689 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C9FA2E920BEC5DE00664689 /* GoogleService-Info.plist */; };
 		8CAD37A7209EFC6700AC92B9 /* EndingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD37A5209EFC6700AC92B9 /* EndingCell.swift */; };
 		8CAD37A8209EFC6700AC92B9 /* EndingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CAD37A6209EFC6700AC92B9 /* EndingCell.xib */; };
@@ -148,6 +153,10 @@
 		8C3E565020BEB41400D4B293 /* ARVC_Ending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARVC_Ending.swift; sourceTree = "<group>"; };
 		8C425A1920B710B800CB7E39 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		8C425A1A20B710B800CB7E39 /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
+		8C45B77720C7A72A001C1003 /* AirdropVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirdropVC.swift; sourceTree = "<group>"; };
+		8C45B77A20C7A7AB001C1003 /* AirdropRecCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirdropRecCell.swift; sourceTree = "<group>"; };
+		8C45B77C20C7B045001C1003 /* AirdropCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirdropCell.swift; sourceTree = "<group>"; };
+		8C45B77E20C7BADE001C1003 /* QRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeVC.swift; sourceTree = "<group>"; };
 		8C52B9DD208A4A4A003002AE /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		8C52B9DF208A50F1003002AE /* RankingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingVC.swift; sourceTree = "<group>"; };
 		8C52B9E1208A5249003002AE /* MenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarCell.swift; sourceTree = "<group>"; };
@@ -177,6 +186,7 @@
 		8C9EAA2320C422EB00F25E4F /* FriendList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendList.swift; sourceTree = "<group>"; };
 		8C9EAA2520C431EC00F25E4F /* FriendListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListSection.swift; sourceTree = "<group>"; };
 		8C9EAA2820C4403D00F25E4F /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		8C9EAA2A20C57C6700F25E4F /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		8C9FA2E920BEC5DE00664689 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8CAD37A5209EFC6700AC92B9 /* EndingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingCell.swift; sourceTree = "<group>"; };
 		8CAD37A6209EFC6700AC92B9 /* EndingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EndingCell.xib; sourceTree = "<group>"; };
@@ -299,6 +309,15 @@
 				8C425A1A20B710B800CB7E39 /* SettingCell.xib */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		8C45B77920C7A770001C1003 /* AirDropVC */ = {
+			isa = PBXGroup;
+			children = (
+				8C45B77A20C7A7AB001C1003 /* AirdropRecCell.swift */,
+				8C45B77C20C7B045001C1003 /* AirdropCell.swift */,
+			);
+			path = AirDropVC;
 			sourceTree = "<group>";
 		};
 		8C45E175209D4BC10069CCE7 /* NSObject */ = {
@@ -456,6 +475,7 @@
 				8C11BA05208485E900DDCDBF /* StartGame */,
 				8C52B9DF208A50F1003002AE /* RankingVC.swift */,
 				8C6BBDA920AC007900575B7C /* FriendListVC.swift */,
+				8C9EAA2A20C57C6700F25E4F /* ChatLogController.swift */,
 				8CF7300D20ADE99800908B34 /* SearchVC.swift */,
 				8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */,
 				8C6E9D01208C7923000551D1 /* AR */,
@@ -465,6 +485,8 @@
 				8C80218D20BA5CF60051EF3D /* MailboxVC.swift */,
 				8C80219A20BA9AC70051EF3D /* MailVC.swift */,
 				8CB7482B20BFC2DA00FF8684 /* StatVC.swift */,
+				8C45B77720C7A72A001C1003 /* AirdropVC.swift */,
+				8C45B77E20C7BADE001C1003 /* QRCodeVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -482,6 +504,7 @@
 				8C80218F20BA68550051EF3D /* Mailbox */,
 				8C80219720BA88970051EF3D /* FriendList */,
 				8C9EAA2720C4400800F25E4F /* SearchVC */,
+				8C45B77920C7A770001C1003 /* AirDropVC */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -794,6 +817,7 @@
 			files = (
 				8CBBDFE72070E1B200C89FBB /* LoginTextField.swift in Sources */,
 				8CBE3D7520B596D000B07F77 /* StatsInfo.swift in Sources */,
+				8C45B77820C7A72A001C1003 /* AirdropVC.swift in Sources */,
 				8C34F75E20959FC0003958FD /* UserImageCell.swift in Sources */,
 				8C34F7652095A848003958FD /* ResgisterInfo.swift in Sources */,
 				8CBBDFE12070C4A100C89FBB /* IntroCell.swift in Sources */,
@@ -802,7 +826,9 @@
 				8C11B9F92083544F00DDCDBF /* RoomMemberCell.swift in Sources */,
 				8C341B4720C3D26C00F2AFD3 /* AdjustKeyboard.swift in Sources */,
 				8C08FF0A207A12D80021B343 /* CustomTabBar.swift in Sources */,
+				8C9EAA2B20C57C6700F25E4F /* ChatLogController.swift in Sources */,
 				8C52B9EE208C603C003002AE /* RankItem.swift in Sources */,
+				8C45B77F20C7BADE001C1003 /* QRCodeVC.swift in Sources */,
 				8CAEA1E9207DD703005A3B5F /* ProfileImageVC.swift in Sources */,
 				8CB7482C20BFC2DA00FF8684 /* StatVC.swift in Sources */,
 				8C9EAA2420C422EB00F25E4F /* FriendList.swift in Sources */,
@@ -819,7 +845,9 @@
 				8C08FF042079E05D0021B343 /* CustomButton.swift in Sources */,
 				8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */,
 				8C80219420BA69850051EF3D /* MailboxItem.swift in Sources */,
+				8C45B77D20C7B045001C1003 /* AirdropCell.swift in Sources */,
 				8C08FF0E207A284D0021B343 /* ProfileImageView.swift in Sources */,
+				8C45B77B20C7A7AB001C1003 /* AirdropRecCell.swift in Sources */,
 				8C11B9FE20835CAD00DDCDBF /* StartStatus.swift in Sources */,
 				8C8C58BE2096F91400FB31C0 /* EditUserVC.swift in Sources */,
 				8C8C58BC2096DE3900FB31C0 /* DataItem.swift in Sources */,

@@ -28,7 +28,7 @@ class StatVC: UIViewController {
         
         SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
         
-        FirebaseService.sharedInstance.getLatestStat { (total_distance, average_time, total_time) in
+        FirebaseService.shared().getLatestStat { (total_distance, average_time, total_time) in
             
             self.confirmBtn.reloadInputViews()
             
@@ -175,6 +175,16 @@ class StatVC: UIViewController {
     @IBAction func confirmBtnPressed(_ sender: Any) {
         
         FavoriteFriendIDs.sharedInstance.favoriteFriends = []
+        EnterRoomStatus.sharedInstance.ifEnteredRoom = false
+        GameStatus.sharedInstance.ifStarted = false
+        StartStatus.sharedInstance.ifEntered = false
+        
+        FirebaseService.destroy()
+        
+        print(FavoriteFriendIDs.sharedInstance.favoriteFriends)
+        print(EnterRoomStatus.sharedInstance.ifEnteredRoom)
+        print(GameStatus.sharedInstance.ifStarted)
+        print(StartStatus.sharedInstance.ifEntered)
         
         dismiss(animated: true, completion: nil)
     }

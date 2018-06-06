@@ -37,8 +37,7 @@ class FirstPageVC: UIViewController {
         super.viewDidLoad()
         
         SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
-        
-        FirebaseService.sharedInstance.setFirstPage(completion: { (name, count, distance, average_time, pic)  in
+        FirebaseService.shared().setFirstPage(completion: { (name, count, distance, average_time, pic)  in
             
             self.nameLbl.text = name
             self.countLbl.text = "\(count)"
@@ -51,7 +50,7 @@ class FirstPageVC: UIViewController {
             SetLoadingScreen.sharedInstance.stopActivityIndicator()
         })
     }
-    
+
     @IBAction func profileBtnPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "toProfileImageVC", sender: nil)
     }
@@ -80,7 +79,7 @@ class FirstPageVC: UIViewController {
         print(mailboxobj.mailStatuschange)
         
         for i in mailboxobj.mailStatuschange {
-            FirebaseService.sharedInstance.updateInbox(number: i)
+            FirebaseService.shared().updateInbox(number: i)
         }
         
         self.tabBarController?.selectedIndex = 0
@@ -90,8 +89,10 @@ class FirstPageVC: UIViewController {
     @IBAction func unwindFromAREnding(_ sender: UIStoryboardSegue){
         
         SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
-        
+
         settingEnding.getFriendInfo {
+            
+            self.settingEnding.showSetting()
             SetLoadingScreen.sharedInstance.stopActivityIndicator()
         }
     }

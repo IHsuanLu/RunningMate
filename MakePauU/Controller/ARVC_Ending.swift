@@ -20,9 +20,7 @@ class ARVC_Ending: UIViewController, ARSCNViewDelegate {
     
     var scene: SCNScene!
     var annotationNode: LocationNode!
-    
-    let settingEnding = SettingEnding()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,7 +66,7 @@ class ARVC_Ending: UIViewController, ARSCNViewDelegate {
         sceneLocationView.session.pause()
     }
     
-    func setAlert(){
+    private func setAlert(){
         
         // create the alert
         let alert = UIAlertController(title: "點擊打開朋友資訊！", message: "", preferredStyle: .alert)

@@ -17,15 +17,13 @@ class SettingEnding: NSObject{
     
     var views = [UIView]()
     
-    var endingInfos: [EndingInfo]!
+    var endingInfos: [EndingInfo] = []
     
     var firstPageVC = FirstPageVC()
 
     func showSetting(){
         
         if let window = UIApplication.shared.keyWindow{
-            
-            
             
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.6)
             
@@ -70,13 +68,12 @@ class SettingEnding: NSObject{
     }
     
     func getFriendInfo(completion: @escaping () -> ()){
-        
-        FirebaseService.sharedInstance.getFriendInfo { (endingInfos) in
+         
+        FirebaseService.shared().getFriendInfo { (endingInfos) in
+            print("FUCK!!!!!!!!!!!!!!!!!!!!!!!!!")
             self.endingInfos = endingInfos
             
             SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.blackView)
-            
-            self.showSetting()
             
             completion()
         }
@@ -91,14 +88,11 @@ class SettingEnding: NSObject{
 extension SettingEnding: EndingViewDelegate {
     
     func dismissBlackView() {
-        
-        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
-            DispatchQueue.main.async {
-                self.blackView.alpha = 0
-            }
-            
-        }, completion: nil)
+        DispatchQueue.main.async {
+            sleep(UInt32(1))
+            self.blackView.alpha = 0
+        }
         
         //叫出結算頁面
         firstPageVC.performSegue(withIdentifier: "toStatVC", sender: nil)

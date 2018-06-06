@@ -13,6 +13,16 @@ class FriendListVC: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(handleRefresh),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.red
+        
+        return refreshControl
+    }()
+    
     var sections = [
         FriendListSection(section: "摯友", thumbnailImages: [], titles: [], metTimes: []),
         FriendListSection(section: "普通朋友", thumbnailImages: [], titles: [], metTimes: [])
@@ -23,28 +33,39 @@ class FriendListVC: UIViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         
+
+        
+        tableView.addSubview(refreshControl)
         tableView.tableFooterView = UIView()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        FirebaseService.sharedInstance.getFriendList { (friendLists) in
-            
-            for friendList in friendLists {
-                if friendList.ifFavorite == true {
-                    self.sections[0].titles.append(friendList.title)
-                    self.sections[0].thumbnailImages.append(friendList.thumbImage)
-                    self.sections[0].metTimes.append(friendList.metTimes)
-                } else {
-                    self.sections[1].titles.append(friendList.title)
-                    self.sections[1].thumbnailImages.append(friendList.thumbImage)
-                    self.sections[1].metTimes.append(friendList.metTimes)
-                }
-            }
+        if let tableView = tableView {
+            tableView.reloadData()
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+//        FirebaseService.shared().getFriendList { (friendLists) in
+//
+//            for friendList in friendLists {
+//                if friendList.ifFavorite == true && friendList.ifAdded == false {
+//                    self.sections[0].titles.append(friendList.title)
+//                    self.sections[0].thumbnailImages.append(friendList.thumbImage)
+//                    self.sections[0].metTimes.append(friendList.metTimes)
+//                } else if friendList.ifFavorite == false {
+//                    self.sections[1].titles.append(friendList.title)
+//                    self.sections[1].thumbnailImages.append(friendList.thumbImage)
+//                    self.sections[1].metTimes.append(friendList.metTimes)
+//                }
+//            }
+//
+//            print("---------------\(self.sections[0].titles)")
+//        }
+    }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
@@ -60,11 +81,37 @@ class FriendListVC: UIViewController, UISearchBarDelegate {
         print("We are back")
     }
     
+    
+    @IBAction func backFromSearch_Enter(segue: UIStoryboardSegue) {
+        
+        self.tabBarController?.selectedIndex = 2
+        
+        guard let searchVC = segue.source as? SearchVC else { return }
+        
+        self.searchBar.text = searchVC.searchBar.text
+    }
+    
+    @IBAction func chatBtnPressed(_ sender: Any) {
+        showchatController()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toSearchVC"{
             _ = segue.destination as! SearchVC
         }
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+    
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
+    //出現聊天頁面
+    func showchatController() {
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(chatLogController, animated: true)
     }
 }
 

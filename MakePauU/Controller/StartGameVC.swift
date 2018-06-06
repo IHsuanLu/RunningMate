@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import AudioToolbox
+
 
 class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -65,6 +67,10 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         let cd = CountDownVC()
         cd.startGameVC = self
         return cd
+    }()
+    
+    var vibrateForOnce: () = {
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
     }()
     
     //等待倒數
@@ -270,7 +276,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             
             while self.ifClustered != true {
                     
-                FirebaseService.sharedInstance.checkIfCluster { (ifSuccess, numberOfMates) in
+                FirebaseService.shared().checkIfCluster { (ifSuccess, numberOfMates) in
                     self.ifClustered = ifSuccess
                         
                     self.remainNumber.text = "\(numberOfMates) / \(numberOfMates)"
@@ -440,7 +446,8 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     // 縮圈設定
     func setFirstCircle(){
-        FirebaseService.sharedInstance.setCircle(completion: { (locations) in
+        
+        FirebaseService.shared().setCircle(completion: { (locations) in
             
             self.locations = locations
             
@@ -467,7 +474,8 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             
         })
         
-        FirebaseService.sharedInstance.setAirDrop { (airdropLocs, gifts) in
+        
+        FirebaseService.shared().setAirDrop { (airdropLocs, gifts) in
             
             self.airdrops = airdropLocs
             self.gifts = gifts
@@ -951,16 +959,25 @@ extension StartGameVC{
             //觸發空投
             self.ARButton.isEnabled = true
             
+            
+            
             //決定是哪個空投 for performSegue
             if toAirDrops[0] - 30 < 0 {
                 whichAirDrop = 0
+                
+                //once
+                _ = vibrateForOnce
             } else if toAirDrops[1] - 30 < 0 {
                 whichAirDrop = 1
+                
+                //once
+                _ = vibrateForOnce
             } else {
                 whichAirDrop = 2
+                
+                //once
+                _ = vibrateForOnce
             }
-            
-            //震動！
             
         } else {
             //平常
