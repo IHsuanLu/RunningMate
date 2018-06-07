@@ -20,6 +20,8 @@ class StatVC: UIViewController {
     var average_time: Double!
     var total_time: Double!
     
+    var friendListVC = FriendListVC()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -17,14 +17,33 @@ class AirdropVC: UIViewController {
     
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
     
-    var airdrops = ["舒跑買一送一"]
     var ifExpanded = true
+    
+    var titles: [String] = []
+    var QRcodes: [UIImage] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        SetLoadingScreen.sharedInstance.startActivityIndicator(view: tableView)
         
-        tableView.tableFooterView = UIView()
+        FirebaseService.shared().getAirdrops { (titles, QRcodes) in
+            self.titles = titles
+            self.QRcodes = QRcodes
+            
+            self.tableView.delegate = self
+            self.tableView.dataSource = self
+            
+            SetLoadingScreen.sharedInstance.stopActivityIndicator()
+            
+            self.tableView.tableFooterView = UIView()
+        }
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
     }
     
     @IBAction func expandBtnPressed(_ sender: Any) {
@@ -59,10 +78,17 @@ class AirdropVC: UIViewController {
         }
     }
     
+    @IBAction func returnBtnPressed(_ sender: Any) {
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toQRCodeVC"{
-            
+            if let destination = segue.destination as? QRCodeVC {
+                destination.airdropDetail = sender as! AirdropDetail
+            }
         }
     }
 }
@@ -98,20 +124,21 @@ extension AirdropVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return airdrops.count
+        return titles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AirdropCell", for: indexPath) as! AirdropCell
         
-        cell.titleLbl.text = airdrops[indexPath.row]
+        cell.titleLbl.text = titles[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        performSegue(withIdentifier: "toQRCodeVC", sender: nil)
+    
+        let airdropDetail = AirdropDetail(title: titles[indexPath.row], QRcode: QRcodes[indexPath.row])
+        performSegue(withIdentifier: "toQRCodeVC", sender: airdropDetail)
     }
 }

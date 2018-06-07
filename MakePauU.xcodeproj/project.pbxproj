@@ -41,6 +41,9 @@
 		8C45B77B20C7A7AB001C1003 /* AirdropRecCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45B77A20C7A7AB001C1003 /* AirdropRecCell.swift */; };
 		8C45B77D20C7B045001C1003 /* AirdropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45B77C20C7B045001C1003 /* AirdropCell.swift */; };
 		8C45B77F20C7BADE001C1003 /* QRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45B77E20C7BADE001C1003 /* QRCodeVC.swift */; };
+		8C45B78120C82913001C1003 /* GiftsTaken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45B78020C82913001C1003 /* GiftsTaken.swift */; };
+		8C45B78420C928F2001C1003 /* AirdropDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45B78320C928F2001C1003 /* AirdropDetail.swift */; };
+		8C45B78620C972BF001C1003 /* UsedAirdropAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C45B78520C972BF001C1003 /* UsedAirdropAnnotation.swift */; };
 		8C52B9DE208A4A4A003002AE /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9DD208A4A4A003002AE /* MenuBar.swift */; };
 		8C52B9E0208A50F1003002AE /* RankingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9DF208A50F1003002AE /* RankingVC.swift */; };
 		8C52B9E2208A5249003002AE /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C52B9E1208A5249003002AE /* MenuBarCell.swift */; };
@@ -157,6 +160,9 @@
 		8C45B77A20C7A7AB001C1003 /* AirdropRecCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirdropRecCell.swift; sourceTree = "<group>"; };
 		8C45B77C20C7B045001C1003 /* AirdropCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirdropCell.swift; sourceTree = "<group>"; };
 		8C45B77E20C7BADE001C1003 /* QRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeVC.swift; sourceTree = "<group>"; };
+		8C45B78020C82913001C1003 /* GiftsTaken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftsTaken.swift; sourceTree = "<group>"; };
+		8C45B78320C928F2001C1003 /* AirdropDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirdropDetail.swift; sourceTree = "<group>"; };
+		8C45B78520C972BF001C1003 /* UsedAirdropAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedAirdropAnnotation.swift; sourceTree = "<group>"; };
 		8C52B9DD208A4A4A003002AE /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		8C52B9DF208A50F1003002AE /* RankingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingVC.swift; sourceTree = "<group>"; };
 		8C52B9E1208A5249003002AE /* MenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarCell.swift; sourceTree = "<group>"; };
@@ -320,6 +326,14 @@
 			path = AirDropVC;
 			sourceTree = "<group>";
 		};
+		8C45B78220C928DB001C1003 /* Airdrop */ = {
+			isa = PBXGroup;
+			children = (
+				8C45B78320C928F2001C1003 /* AirdropDetail.swift */,
+			);
+			path = Airdrop;
+			sourceTree = "<group>";
+		};
 		8C45E175209D4BC10069CCE7 /* NSObject */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,6 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				8C6E2D6220905D150068D462 /* Ramp.swift */,
+				8C45B78020C82913001C1003 /* GiftsTaken.swift */,
 			);
 			path = AR;
 			sourceTree = "<group>";
@@ -523,6 +538,7 @@
 				8CBE3D7020B57FB000B07F77 /* Annotation */,
 				8C80219220BA696C0051EF3D /* MailBox */,
 				8C9EAA2020C422A500F25E4F /* FriendVC */,
+				8C45B78220C928DB001C1003 /* Airdrop */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -562,6 +578,7 @@
 			isa = PBXGroup;
 			children = (
 				8CBE3D7C20B6B7B800B07F77 /* AirDropAnnotation.swift */,
+				8C45B78520C972BF001C1003 /* UsedAirdropAnnotation.swift */,
 			);
 			path = Annotation;
 			sourceTree = "<group>";
@@ -846,6 +863,7 @@
 				8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */,
 				8C80219420BA69850051EF3D /* MailboxItem.swift in Sources */,
 				8C45B77D20C7B045001C1003 /* AirdropCell.swift in Sources */,
+				8C45B78120C82913001C1003 /* GiftsTaken.swift in Sources */,
 				8C08FF0E207A284D0021B343 /* ProfileImageView.swift in Sources */,
 				8C45B77B20C7A7AB001C1003 /* AirdropRecCell.swift in Sources */,
 				8C11B9FE20835CAD00DDCDBF /* StartStatus.swift in Sources */,
@@ -865,6 +883,7 @@
 				8C80219920BA89A50051EF3D /* FriendListCell.swift in Sources */,
 				8C52B9E0208A50F1003002AE /* RankingVC.swift in Sources */,
 				8C8C58C4209858C800FB31C0 /* TextFieldItem.swift in Sources */,
+				8C45B78620C972BF001C1003 /* UsedAirdropAnnotation.swift in Sources */,
 				8C34F7632095A668003958FD /* ApiService.swift in Sources */,
 				8CBBDFDD2070BFD700C89FBB /* UIColorExt.swift in Sources */,
 				8C80219120BA68730051EF3D /* MailboxCell.swift in Sources */,
@@ -879,6 +898,7 @@
 				8C80218E20BA5CF60051EF3D /* MailboxVC.swift in Sources */,
 				8C08FF022079DC620021B343 /* DLRadioButton.m in Sources */,
 				8C08FF0C207A19B20021B343 /* UIViewExt.swift in Sources */,
+				8C45B78420C928F2001C1003 /* AirdropDetail.swift in Sources */,
 				8C11BA092088FC4700DDCDBF /* GameStatus.swift in Sources */,
 				8C6F29AA20987AA700FE40A2 /* TextViewCell.swift in Sources */,
 				8C6E2D652090EA070068D462 /* ARVC_New.swift in Sources */,

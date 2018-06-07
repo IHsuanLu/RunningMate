@@ -12,7 +12,5 @@ struct FriendList {
     
     var thumbImage: UIImage
     var title: String
-    var ifFavorite: Bool
     var metTimes: Int
-    var ifAdded: Bool
 }

@@ -69,7 +69,9 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         return cd
     }()
     
-    var vibrateForOnce: () = {
+    lazy var vibrateForOnce: () = {
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
     }()
     
@@ -94,7 +96,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     //縮圈控制
     var timerForCircle = Timer()
-    var countForCircle = 2.0 //第一次的時間
+    var countForCircle = 5.0 //第一次的時間
     var term: Int = 0 // 0 for the first time, 1 for the second time...
     
     //距離縮圈(每兩秒呼叫一次)
@@ -134,11 +136,22 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
 
     //track circles
     var locations: [CLLocation] = []
+    
     //track airdrops
-    var airdrops: [CLLocation] = []
     var whichAirDrop = Int()
-    var gifts = [String]()
-    var giftsTaken: [String] = []
+    var giftsTaken: [GiftsTaken] = []
+    
+    
+    var airdrops: [CLLocation] = []
+    var gifts: [String] = [] //帶
+    var airdrop_urls: [String] = [] //帶
+    var statuses: [Int] = [] //轉換
+    
+    
+    var firstAirDrop: AirDropAnnotation!
+    var secondAirDrop: AirDropAnnotation!
+    var thirdAirDrop: AirDropAnnotation!
+
     
     var statsInfo = StatsInfo()
     
@@ -159,7 +172,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     override func viewWillDisappear(_ animated: Bool) {
         mapView.delegate = nil
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         locationAuthStatus()
@@ -301,7 +313,9 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             self.timerLabel.isHidden = false
         }
         
-        self.setTimer_Waiting()
+        if timer.isValid == false {
+            self.setTimer_Waiting()
+        }
     }
     
     @IBAction func returnBtnPressed(_ sender: Any) {
@@ -378,10 +392,38 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     @IBAction func ARBtnPressed(_ sender: Any) {
         
-        giftsTaken.append(gifts[whichAirDrop])
-        performSegue(withIdentifier: "toARVCNew", sender: nil)
+        giftsTaken.append(GiftsTaken(gift: gifts[whichAirDrop], airdrop_url: airdrop_urls[whichAirDrop]))
         
-        print("!!!!!!!!!!!!!!!!!!!\(mapView.overlays)")
+        //改status
+        FirebaseService.shared().updateAirdropStatus(whichAirDrop: whichAirDrop)
+        
+        switch whichAirDrop {
+        case 0:
+            mapView.removeAnnotation(firstAirDrop)
+            let usedFirstAnno = UsedAirDropAnnotation(coordinate: firstAirDrop.coordinate)
+            mapView.addAnnotation(usedFirstAnno)
+            
+            statuses[0] = 1
+        case 1:
+            mapView.removeAnnotation(secondAirDrop)
+            let usedSecondAnno = UsedAirDropAnnotation(coordinate: secondAirDrop.coordinate)
+            mapView.addAnnotation(usedSecondAnno)
+            
+            statuses[1] = 1
+        case 3:
+            mapView.removeAnnotation(thirdAirDrop)
+            let usedThirdAnno = UsedAirDropAnnotation(coordinate: thirdAirDrop.coordinate)
+            mapView.addAnnotation(usedThirdAnno)
+            
+            statuses[2] = 1
+        default:
+            return
+        }
+        
+        //不能再按
+        
+        
+        performSegue(withIdentifier: "toARVCNew", sender: nil)
     }
     
     
@@ -415,7 +457,6 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     @IBAction func unwindFromARVC(_ sender: UIStoryboardSegue){
         mapView.delegate = self
     }
-    
     
     func hideOriginView(){
         
@@ -475,26 +516,29 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         })
         
         
-        FirebaseService.shared().setAirDrop { (airdropLocs, gifts) in
+        FirebaseService.shared().setAirDrop { (airdropLocs, gifts, airdrop_urls, statuses) in
             
             self.airdrops = airdropLocs
             self.gifts = gifts
+            self.airdrop_urls = airdrop_urls
+            self.statuses = statuses
             
             //for test
             let userloc: CLLocation = self.getUserLocationLocation()
             self.airdrops[0] = userloc
-            let firstAirDrop = AirDropAnnotation(coordinate: userloc.coordinate)
-            self.mapView.addAnnotation(firstAirDrop)
+            self.firstAirDrop = AirDropAnnotation(coordinate: userloc.coordinate)
+            self.mapView.addAnnotation(self.firstAirDrop)
             
 //            let firstAirDrop = AirDropAnnotation(coordinate: airdropLocs[0].coordinate)
 //            self.mapView.addAnnotation(firstAirDrop)
 
-            let secondAirDrop = AirDropAnnotation(coordinate: airdropLocs[1].coordinate)
-            self.mapView.addAnnotation(secondAirDrop)
+            self.secondAirDrop = AirDropAnnotation(coordinate: airdropLocs[1].coordinate)
+            self.mapView.addAnnotation(self.secondAirDrop)
 
-            let thirdAirDrop = AirDropAnnotation(coordinate: airdropLocs[2].coordinate)
-            self.mapView.addAnnotation(thirdAirDrop)
+            self.thirdAirDrop = AirDropAnnotation(coordinate: airdropLocs[2].coordinate)
+            self.mapView.addAnnotation(self.thirdAirDrop)
             
+            self.ARButton.isEnabled = true
             self.setTimer_DistanceToAirDrop()
         }
     }
@@ -657,10 +701,11 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             let av = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
             annotationView = av
         }
-        
     
         if let annotationView = annotationView, let _ = annotation as? AirDropAnnotation {
             annotationView.image = #imageLiteral(resourceName: "present")
+        } else if let annotationView = annotationView, let _ = annotation as? UsedAirDropAnnotation {
+            annotationView.image = #imageLiteral(resourceName: "present_grey")
         } else if let _ = annotation as? MKAnnotation{
             annotationView?.image = #imageLiteral(resourceName: "placeholder-1")
         }
@@ -847,7 +892,7 @@ extension StartGameVC{
         
         if countForCircle == 0.0 && term == 0{
             //第一次縮圈
-            countForCircle = 2.0
+            countForCircle = 5.0
             term = 1
             setSecondCircle()
             
@@ -856,7 +901,7 @@ extension StartGameVC{
             
         } else if countForCircle == 0.0 && term == 1 {
             //第二次縮圈
-            countForCircle = 2.0
+            countForCircle = 5.0
             term = 2
             setThirdCircle()
             
@@ -867,7 +912,7 @@ extension StartGameVC{
             topLeftView.backgroundColor = UIColor(netHex: 0x25AE88)
             topLeftView.alpha = 0.8
             
-            countForCircle = 2.0
+            countForCircle = 5.0
             term = 3
             setForthCircle()
         
@@ -959,25 +1004,23 @@ extension StartGameVC{
             //觸發空投
             self.ARButton.isEnabled = true
             
-            
+            print(statuses)
             
             //決定是哪個空投 for performSegue
-            if toAirDrops[0] - 30 < 0 {
+            if toAirDrops[0] - 30 < 0 && statuses[0] == 0{
                 whichAirDrop = 0
-                
-                //once
                 _ = vibrateForOnce
-            } else if toAirDrops[1] - 30 < 0 {
+            } else if toAirDrops[1] - 30 < 0 && statuses[1] == 0{
                 whichAirDrop = 1
-                
-                //once
+                _ = vibrateForOnce
+            } else if toAirDrops[1] - 30 < 0 && statuses[2] == 0{
+                whichAirDrop = 2
                 _ = vibrateForOnce
             } else {
-                whichAirDrop = 2
                 
-                //once
-                _ = vibrateForOnce
+                self.ARButton.isEnabled = false //拿過
             }
+            
             
         } else {
             //平常

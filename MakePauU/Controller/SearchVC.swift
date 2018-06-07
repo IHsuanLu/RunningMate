@@ -15,10 +15,13 @@ class SearchVC: UIViewController {
     
     var searchHistory: [String]!
     
+    var previousText: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchBar.delegate = self
+        searchBar.text = previousText
         
         searchHistory = ["死亡少女", "我剛剛跨完年", "醜醜阿臻", "洗廁所一哥", "拿鐵好喝"]
         
@@ -57,5 +60,14 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        searchBar.text = searchHistory[indexPath.row]
+        
+        sleep(UInt32(0.5))
+        
+        performSegue(withIdentifier: "backFromSearch_Enter", sender: nil)
     }
 }

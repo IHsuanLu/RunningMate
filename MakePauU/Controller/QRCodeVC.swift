@@ -17,9 +17,21 @@ class QRCodeVC: UIViewController {
     
     @IBOutlet weak var confirmBtn: UIButton!
     
+    var airdropDetail: AirdropDetail!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        updateUI()
+    }
+    
+    func updateUI(){
+        
+        if let airdropDetail = self.airdropDetail {
+            
+            titleLbl.text = airdropDetail.title
+            QRcodeImageView.image = airdropDetail.QRcode
+        }
     }
     
     
@@ -33,7 +45,7 @@ class QRCodeVC: UIViewController {
             self.confirmBtn.isEnabled = false
             self.confirmBtn.setTitle("已兌換", for: .normal)
             
-            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+            // send request
         }))
         
         // show the alert

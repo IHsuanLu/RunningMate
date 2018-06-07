@@ -15,10 +15,9 @@ class SetLoadingScreen: NSObject {
     var activityIndicator = UIActivityIndicatorView()
     var whiteView = UIView()
     
-    
     func startActivityIndicator(view: UIView){
         
-        activityIndicator.center = view.center
+        activityIndicator.frame.origin = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2 - 80)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         

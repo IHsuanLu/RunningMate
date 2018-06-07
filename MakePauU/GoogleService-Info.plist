@@ -23,17 +23,19 @@
 	<key>STORAGE_BUCKET</key>
 	<string>running-mate-7bb1b.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:610614312598:ios:197345552eff3c54</string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
 	<key>DATABASE_URL</key>
 	<string>https://running-mate-7bb1b.firebaseio.com</string>
 </dict>
