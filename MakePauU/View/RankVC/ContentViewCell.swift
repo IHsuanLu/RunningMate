@@ -12,18 +12,65 @@ import UIKit
 class ContentViewCell: UICollectionViewCell{
     
     @IBOutlet weak var rankCollection: UICollectionView!
-    var testArray: [RankItem]!
+    
+    var sections: [RankSection] = [
+        RankSection(section: "次數王", thumbImage: [], title: [], info: []),
+        RankSection(section: "里程王", thumbImage: [], title: [], info: []),
+        RankSection(section: "最速王", thumbImage: [], title: [], info: [])
+    ]
+    
+    var countItems: [RankItem]!
+    var distanceItems: [RankItem]!
+    var timeItems: [RankItem]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         rankCollection.delegate = self
         rankCollection.dataSource = self
         
-        testArray = [
-            RankItem(section: "成就王", thumbImage: [#imageLiteral(resourceName: "pic1"), #imageLiteral(resourceName: "pic2"), #imageLiteral(resourceName: "pic3"), #imageLiteral(resourceName: "pic1"), #imageLiteral(resourceName: "pic2"), #imageLiteral(resourceName: "pic3"), #imageLiteral(resourceName: "pic1"), #imageLiteral(resourceName: "pic2"), #imageLiteral(resourceName: "pic3"), #imageLiteral(resourceName: "pic3")], title: ["我剛剛跨完年", "東尼塔克", "NCCU U", "尼好毒", "Cory豪", "哈尼阿仁", "餅乾人好冷", "烤肉John", "光輝上將", "堅毅中校"], info: ["21 場", "18 場", "17 場", "15 場", "13 場", "13 場", "12 場", "9 場", "7 場", "2 場", ]),
-            RankItem(section: "里程王", thumbImage: [#imageLiteral(resourceName: "pic1"), #imageLiteral(resourceName: "pic2"), #imageLiteral(resourceName: "pic3"), #imageLiteral(resourceName: "pic1"), #imageLiteral(resourceName: "pic2"), #imageLiteral(resourceName: "pic3"), #imageLiteral(resourceName: "pic1"), #imageLiteral(resourceName: "pic2"), #imageLiteral(resourceName: "pic3"), #imageLiteral(resourceName: "pic3")], title: ["堅毅中校", "光輝上將", "烤肉John", "餅乾人好冷", "哈尼阿仁", "Cory豪", "尼好毒", "NCCU U", "東尼塔克", "我剛剛跨完年"], info: ["2 場", "7 場", "9 場", "12 場", "13 場", "13 場", "15 場", "17 場", "18 場", "21 場", ]),
-            RankItem(section: "冠軍王", thumbImage: [#imageLiteral(resourceName: "pic1"), #imageLiteral(resourceName: "pic2"), #imageLiteral(resourceName: "pic3"), #imageLiteral(resourceName: "pic1"), #imageLiteral(resourceName: "pic2"), #imageLiteral(resourceName: "pic3"), #imageLiteral(resourceName: "pic1"), #imageLiteral(resourceName: "pic2"), #imageLiteral(resourceName: "pic3"), #imageLiteral(resourceName: "pic3")], title: ["我剛剛跨完年", "東尼塔克", "NCCU U", "尼好毒", "Cory豪", "哈尼阿仁", "餅乾人好冷", "烤肉John", "光輝上將", "堅毅中校"], info: ["1 場", "1 場", "1 場", "1 場", "1 場", "1 場", "1 場", "1 場", "1 場", "0 場", ])
-        ]
+//        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self)
+//        
+//        sections = [
+//            RankSection(section: "次數王", thumbImage: [], title: [], info: []),
+//            RankSection(section: "里程王", thumbImage: [], title: [], info: []),
+//            RankSection(section: "最速王", thumbImage: [], title: [], info: [])
+//        ]
+//        
+//        FirebaseService.shared().getRankingInfo { (countItems, distanceItems, timeItems) in
+//            self.countItems = countItems
+//            self.distanceItems = distanceItems
+//            self.timeItems = timeItems
+//            
+//            self.updateUI()
+//        }
+    }
+    
+    
+    
+    func updateUI(){
+        
+        if let countItems = self.countItems, let distanceItems = self.distanceItems, let timeItems = self.timeItems {
+            
+            for count in countItems {
+                sections[0].title.append(count.name)
+                sections[0].info.append("\(count.value) 場")
+                sections[0].thumbImage.append(count.proflieImage)
+            }
+            for dis in distanceItems {
+                sections[1].title.append(dis.name)
+                sections[1].info.append("\(dis.value) 公里")
+                sections[1].thumbImage.append(dis.proflieImage)
+            }
+            for time in timeItems {
+                sections[2].title.append(time.name)
+                sections[2].thumbImage.append(time.proflieImage)
+                
+                let timeText = "\(Int(Double(truncating: time.value) / 60)))'\(Int(round(Double(truncating: time.value).truncatingRemainder(dividingBy: 60)))))''"
+                sections[2].info.append(timeText)
+            }
+            
+            SetLoadingScreen.sharedInstance.stopActivityIndicator()
+        }
     }
 }
 
@@ -34,7 +81,7 @@ extension ContentViewCell: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return testArray[collectionView.tag].thumbImage.count
+        return sections[collectionView.tag].thumbImage.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -42,21 +89,21 @@ extension ContentViewCell: UICollectionViewDelegate, UICollectionViewDataSource,
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RankCell", for: indexPath) as? RankCell{
             
             var medalArray: [UIImage] = [#imageLiteral(resourceName: "gold-medal"),#imageLiteral(resourceName: "silver-medal"),#imageLiteral(resourceName: "bronze-medal")]
-            for _ in 0...testArray[collectionView.tag].thumbImage.count - 3{
+            for _ in 0...sections[collectionView.tag].thumbImage.count - 3{
                 medalArray.append(UIImage())
             }
 
             cell.metalImageView.image = medalArray[indexPath.row]
             
-            let thumbImages = self.testArray[collectionView.tag].thumbImage
+            let thumbImages = self.sections[collectionView.tag].thumbImage
             let thumbImage = thumbImages[indexPath.row]
             cell.thumbImageView.image = thumbImage
             
-            let titles = self.testArray[collectionView.tag].title
+            let titles = self.sections[collectionView.tag].title
             let title = titles[indexPath.row]
             cell.nameLbl.text = title
             
-            let infos = self.testArray[collectionView.tag].info
+            let infos = self.sections[collectionView.tag].info
             let info = infos[indexPath.row]
             cell.infoLbl.text = info
             

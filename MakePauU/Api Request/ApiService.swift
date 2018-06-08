@@ -15,10 +15,9 @@ class ApiService: NSObject{
     static let sharedInstance = ApiService()
     
 
-    
     func postResgister(registerInfo: RegisterInfo, completion: @escaping (Bool, String) -> ()){
         
-        let checkSessionURL = URL(string: "http://172.20.10.11:8000/register_member/")
+        let checkSessionURL = URL(string: "http://140.119.19.149:8000/register_member/")
         
         let session = URLSession.shared
         var request = URLRequest(url: checkSessionURL!)
@@ -77,7 +76,7 @@ class ApiService: NSObject{
     
     func postLogin(loginInfo: LoginInfo, completion: @escaping (String) -> ()){
         
-        let checkSessionURL = URL(string: "http://172.20.10.11:8000/login_member/")
+        let checkSessionURL = URL(string: "http://140.119.19.149:8000/login_member/")
         
         let session = URLSession.shared
         var request = URLRequest(url: checkSessionURL!)
@@ -130,7 +129,7 @@ class ApiService: NSObject{
     func postUserPosition(userLocation: CLLocationCoordinate2D, completion: @escaping () -> ()) {
         //mapView.userLocation.coordinate
         
-        let circleURL = URL(string: "http://172.20.10.11:8000/circle/")
+        let circleURL = URL(string: "http://140.119.19.149:8000/circle/")
         
         let session = URLSession.shared
         var request = URLRequest(url: circleURL!)
@@ -178,7 +177,7 @@ class ApiService: NSObject{
     
     func start_game_cancel(completion: @escaping () -> ()){
         
-        let circleURL = URL(string: "http://172.20.10.11:8000/start_game_cancel/")
+        let circleURL = URL(string: "http://140.119.19.149:8000/start_game_cancel/")
         
         let session = URLSession.shared
         var request = URLRequest(url: circleURL!)
@@ -227,7 +226,7 @@ class ApiService: NSObject{
     
     func checkSession(completion: @escaping (Bool) -> ()){
         
-        let circleURL = URL(string: "http://172.20.10.11:8000/check_session/")
+        let circleURL = URL(string: "http://140.119.19.149:8000/check_session/")
         
         let session = URLSession.shared
         var request = URLRequest(url: circleURL!)
@@ -285,7 +284,7 @@ class ApiService: NSObject{
     
     func logout(completion: @escaping () -> ()){
         
-        let circleURL = URL(string: "http://172.20.10.11:8000/logout/")
+        let circleURL = URL(string: "http://140.119.19.149:8000/logout/")
         
         let session = URLSession.shared
         var request = URLRequest(url: circleURL!)
@@ -333,7 +332,7 @@ class ApiService: NSObject{
     
     func app_terminate(completion: @escaping () -> ()){
         
-        let circleURL = URL(string: "http://172.20.10.11:8000/app_terminate/")
+        let circleURL = URL(string: "http://140.119.19.149:8000/app_terminate/")
         
         let session = URLSession.shared
         var request = URLRequest(url: circleURL!)
@@ -382,7 +381,7 @@ class ApiService: NSObject{
     
     func delete_from_main_pool(completion: @escaping () -> ()){
         
-        let circleURL = URL(string: "http://172.20.10.11:8000/delete_from_main_pool/")
+        let circleURL = URL(string: "http://140.119.19.149:8000/delete_from_main_pool/")
         
         let session = URLSession.shared
         var request = URLRequest(url: circleURL!)
@@ -430,7 +429,7 @@ class ApiService: NSObject{
     
     func during_game_cancel(statsInfo: StatsInfo, completion: @escaping () -> ()){
         
-        let circleURL = URL(string: "http://172.20.10.11:8000/during_game_cancel/")
+        let circleURL = URL(string: "http://140.119.19.149:8000/during_game_cancel/")
         
         let session = URLSession.shared
         var request = URLRequest(url: circleURL!)
@@ -478,7 +477,7 @@ class ApiService: NSObject{
     
     func add_to_history(giftsTaken: [GiftsTaken], statsInfo: StatsInfo, completion: @escaping () -> ()){
     
-        let circleURL = URL(string: "http://172.20.10.11:8000/add_to_history/")
+        let circleURL = URL(string: "http://140.119.19.149:8000/add_to_history/")
         
         let session = URLSession.shared
         var request = URLRequest(url: circleURL!) 
@@ -540,13 +539,63 @@ class ApiService: NSObject{
     
     func add_to_friend(favoriteFriendsID: [String], completion: @escaping () -> ()){
     
-        let circleURL = URL(string: "http://172.20.10.11:8000/add_to_friend/")
+        let circleURL = URL(string: "http://140.119.19.149:8000/add_to_friend/")
         
         let session = URLSession.shared
         var request = URLRequest(url: circleURL!)
         
         
         let testString = "member_id=\(MemberId.sharedInstance.member_id)&favorite=\(favoriteFriendsID)"
+        
+        print(testString)
+        
+        request.httpMethod = "POST"
+        request.httpBody = testString.data(using: .utf8)
+        
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Accept")
+        
+        //create dataTask using the session object to send data to the server
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            
+            guard let data = data, error == nil else {
+                // check for fundamental networking error
+                print("error=\(String(describing: error))")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                
+                // check for http errors
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(String(describing: response))")
+            }
+            
+            //JSONSerialization -> 把Json形式轉成dictionary
+            do {
+                //create json object from data
+                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? Dictionary<String,Any> {
+                    
+                    print("responseJSON from CheckSession = \(json)")
+                    
+                    completion()
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+            
+        })
+        task.resume()
+    }
+    
+    func setAirDropStatus(whichAirDrop: Int, completion: @escaping () -> ()){
+        
+        let circleURL = URL(string: "http://140.119.19.149:8000/change_airdrops/")
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: circleURL!)
+        
+        let testString = "member_id=\(MemberId.sharedInstance.member_id)&which=\(whichAirDrop)"
         
         print(testString)
         

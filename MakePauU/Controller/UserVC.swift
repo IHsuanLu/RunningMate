@@ -21,77 +21,69 @@ class UserVC: UIViewController {
     @IBOutlet weak var nameAndAgeLbl: UILabel!
     @IBOutlet weak var fansLbl: UILabel!
     @IBOutlet weak var introLbl: UILabel!
-    @IBOutlet weak var pageControl: UIPageControl!
     
 
     @IBOutlet weak var imageCollectionHeight: NSLayoutConstraint!
     @IBOutlet weak var dataTableHeight: NSLayoutConstraint!
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var pagecontrolToTop: NSLayoutConstraint!
     
+    var userInfo = UserInfo()
     
-    var testArray: [UserImageItem]!
-    var testArray2: [StatItem]!
-    var testArray3: [DataItem]!
+    var titleArray: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
         
-        testArray = [
-            UserImageItem(image: #imageLiteral(resourceName: "user1")),
-            UserImageItem(image: #imageLiteral(resourceName: "user1")),
-            UserImageItem(image: #imageLiteral(resourceName: "user1")),
-            UserImageItem(image: #imageLiteral(resourceName: "user1"))
-        ]
-        
-        testArray2 = [
-            StatItem(figure: "8"),
-            StatItem(figure: "19.31"),
-            StatItem(figure: "11")
-        ]
-        
-        testArray3 = [
-            DataItem(title: "生日：", content: "1996 / 12 / 20"),
-            DataItem(title: "感情狀況：", content: "有三個小狼狗跟一個乾爹"),
-            DataItem(title: "興趣愛好：", content: "喜歡看各種類型的電影和徹夜不眠追劇\n國中時喜歡看天真浪漫不切實際的愛情片\n幻想男主角都是我的老公/n年幼無知憧憬愛情\n殊不知 那只是電影 只是 電影老公們都是有收錢的\n最終娶的都不是我 :(\n傷了心\n高中時喜歡古裝武打片\n看古人們輕功飛簷走壁\n以為自己也可以傷了身"),
-            DataItem(title: "最近的困擾：", content: "嘴巴上每天都說想減肥\n可是看到美食又忘記自己立下的毒誓\n希望有人可以陪我一起運動"),
-            DataItem(title: "想嘗試的事：", content: "想找一項活動\n可以療癒我的身心靈")
-        ]
-        
-        adjustConstraint()
-        
-        pageControl.numberOfPages = testArray.count
-        
-        dataTable.estimatedRowHeight = 60.0
-        dataTable.rowHeight = UITableViewAutomaticDimension
+        FirebaseService.shared().getUserInfo { (userInfo) in
+            self.userInfo = userInfo
+            
+            self.statCollection.delegate = self
+            self.statCollection.dataSource = self
+            
+            self.imageCollection.delegate = self
+            self.imageCollection.dataSource = self
+            
+            self.introLbl.text = "\(userInfo.living!), \(userInfo.sex!), \(userInfo.school!)"
+            
+            self.dataTable.reloadData()
+            
+            SetLoadingScreen.sharedInstance.stopActivityIndicator()
+        }
+    } 
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.dataTable.delegate = self
+        self.dataTable.dataSource = self
     }
     
     override func viewWillLayoutSubviews() {
         super.updateViewConstraints()
-        self.dataTableHeight?.constant = self.dataTable.contentSize.height
         
-        self.contentViewHeight.constant = self.view.frame.width + 290 + dataTableHeight.constant
+        self.adjustConstraint()
+        
+        self.dataTable.estimatedRowHeight = 60.0
+        self.dataTable.rowHeight = UITableViewAutomaticDimension
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
-        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width / 1.05)
-    }
     
     func adjustConstraint(){
         imageCollectionHeight.constant = self.view.frame.width
-        pagecontrolToTop.constant = self.imageCollection.frame.size.width - 55
+        
+        self.dataTableHeight?.constant = self.dataTable.contentSize.height
+        self.contentViewHeight.constant = self.view.frame.width + 290 + dataTableHeight.constant
     }
     
     @IBAction func editBtnpressed(_ sender: Any) {
-        performSegue(withIdentifier: "toEditUserVC", sender: testArray3)
+        performSegue(withIdentifier: "toEditUserVC", sender: userInfo)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toEditUserVC"{
             if let destination = segue.destination as? EditUserVC {
-                if let dataobj = sender as? [DataItem] {
-                    destination.datas = dataobj
+                if let dataobj = sender as? UserInfo {
+                    destination.userInfo = dataobj
                 }
             }
         }
@@ -107,9 +99,9 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == imageCollection{
-            return testArray.count
+            return 1
         } else if collectionView == statCollection{
-            return testArray2.count
+            return 3
         }
         
         return 0
@@ -120,7 +112,7 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         if collectionView == imageCollection {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserImageCell", for: indexPath) as! UserImageCell
-            cell.thumbImageView.image = testArray[indexPath.row].image
+            cell.thumbImageView.image = userInfo.profileImage
             
             return cell
             
@@ -128,9 +120,13 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StatCell", for: indexPath) as! StatCell
             
-            let array = ["總跑步次數", "總公里數", "成就達成"]
-            cell.titleLbl.text = array[indexPath.row]
-            cell.figureLbl.text = testArray2[indexPath.row].figure
+            let titleArray = ["總跑步次數", "總公里數", "平均時間"]
+            
+            
+            let figureArray = ["\(userInfo.total_count!)", "\(userInfo.total_distance!)", "\(userInfo.total_time!)"]
+            
+            cell.titleLbl.text = titleArray[indexPath.row]
+            cell.figureLbl.text = figureArray[indexPath.row]
             
             return cell
         }
@@ -170,15 +166,18 @@ extension UserVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testArray3.count
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as? DataCell{
             
-            cell.titleLbl.text = testArray3[indexPath.row].title
-            cell.contentLbl.text = testArray3[indexPath.row].content
+            let titleArray = ["生日：", "感情取向：", "興趣愛好：", "最近的困擾：", "想嘗試的事："]
+            let figureArray = [userInfo.birth!, userInfo.sex_prefer!, userInfo.interest!, userInfo.problem!, userInfo.tries!]
+            
+            cell.titleLbl.text = titleArray[indexPath.row]
+            cell.contentLbl.text = figureArray[indexPath.row]
             
             return cell
         }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RankItem {
+struct RankSection {
     
     var section: String
     var thumbImage: [UIImage]

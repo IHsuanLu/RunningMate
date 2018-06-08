@@ -29,7 +29,7 @@ class EditUserVC: UIViewController {
     
     var whichImageView: Int!
     
-    var datas: [DataItem]!
+    var userInfo: UserInfo!
     var textViewContentArray: [String]!
     
     override func viewDidLoad() {
@@ -207,8 +207,8 @@ extension EditUserVC: UITableViewDelegate, UITableViewDataSource{
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             
-            var titleArray = ["暱稱: ", "性別: ", "居住地: ", "就讀於 / 任職於: ", "生日: ", "感情取向: "]
-            var contentArray = ["死亡少女", "女", "台北市", "政治大學資管系", datas[0].content, datas[1].content]
+            var titleArray = ["姓名: ", "性別: ", "居住地: ", "就讀於 / 任職於: ", "生日: ", "感情取向: "]
+            var contentArray = [userInfo.name, userInfo.sex, userInfo.living, userInfo.school, userInfo.birth, userInfo.sex_prefer]
         
             cell.titleLbl.text = titleArray[indexPath.row]
             cell.contentTextField.text = contentArray[indexPath.row]
@@ -220,7 +220,7 @@ extension EditUserVC: UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
             
             var titleArray = ["興趣愛好: ", "最近的困擾: ", "想嘗試的事："]
-            textViewContentArray = [datas[2].content, datas[3].content, datas[4].content]
+            textViewContentArray = [userInfo.interest, userInfo.problem, userInfo.tries]
             
             cell.titleLbl.text = titleArray[indexPath.row]
             cell.contentTextView.text = textViewContentArray[indexPath.row]
@@ -231,5 +231,13 @@ extension EditUserVC: UITableViewDelegate, UITableViewDataSource{
         }
         
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == textFieldTabe {
+            return 44
+        } else {
+            return 180
+        }
     }
 }

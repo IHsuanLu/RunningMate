@@ -71,9 +71,20 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     lazy var vibrateForOnce: () = {
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+    }()
+    
+    lazy var vibrateForOnce_C1: () = {
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
     }()
+    
+    lazy var vibrateForOnce_C2: () = {
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+    }()
+    
+    lazy var vibrateForOnce_C3: () = {
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+    }()
+    
     
     //等待倒數
     var timer = Timer()
@@ -104,6 +115,9 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     //距離空頭(每兩秒呼叫一次)
     var timerForDistanceToAirDrop = Timer()
+    
+    //更新空頭狀態(每兩秒呼叫一次)
+    var timerForAirDropStatus = Timer()
     
     //出局控制
     var timerForOut = Timer()
@@ -392,36 +406,13 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     @IBAction func ARBtnPressed(_ sender: Any) {
         
+        //for ending
         giftsTaken.append(GiftsTaken(gift: gifts[whichAirDrop], airdrop_url: airdrop_urls[whichAirDrop]))
         
-        //改status
-        FirebaseService.shared().updateAirdropStatus(whichAirDrop: whichAirDrop)
-        
-        switch whichAirDrop {
-        case 0:
-            mapView.removeAnnotation(firstAirDrop)
-            let usedFirstAnno = UsedAirDropAnnotation(coordinate: firstAirDrop.coordinate)
-            mapView.addAnnotation(usedFirstAnno)
-            
-            statuses[0] = 1
-        case 1:
-            mapView.removeAnnotation(secondAirDrop)
-            let usedSecondAnno = UsedAirDropAnnotation(coordinate: secondAirDrop.coordinate)
-            mapView.addAnnotation(usedSecondAnno)
-            
-            statuses[1] = 1
-        case 3:
-            mapView.removeAnnotation(thirdAirDrop)
-            let usedThirdAnno = UsedAirDropAnnotation(coordinate: thirdAirDrop.coordinate)
-            mapView.addAnnotation(usedThirdAnno)
-            
-            statuses[2] = 1
-        default:
-            return
+        //改status (api)
+        ApiService.sharedInstance.setAirDropStatus(whichAirDrop: whichAirDrop) {
+            print("Informed")
         }
-        
-        //不能再按
-        
         
         performSegue(withIdentifier: "toARVCNew", sender: nil)
     }
@@ -540,6 +531,8 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             
             self.ARButton.isEnabled = true
             self.setTimer_DistanceToAirDrop()
+            
+            self.setTimer_AirDropStatus()
         }
     }
     
@@ -704,9 +697,10 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
         if let annotationView = annotationView, let _ = annotation as? AirDropAnnotation {
             annotationView.image = #imageLiteral(resourceName: "present")
-        } else if let annotationView = annotationView, let _ = annotation as? UsedAirDropAnnotation {
-            annotationView.image = #imageLiteral(resourceName: "present_grey")
-        } else if let _ = annotation as? MKAnnotation{
+        } else if let _ = annotation as? UsedAirDropAnnotation {
+            
+            annotationView?.image = #imageLiteral(resourceName: "present_gray")
+        } else if let _ = annotation as? MKPointAnnotation{
             annotationView?.image = #imageLiteral(resourceName: "placeholder-1")
         }
     
@@ -856,6 +850,11 @@ extension StartGameVC{
         timerForOut = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(startTiming), userInfo: nil, repeats: true)
     }
     
+    func setTimer_AirDropStatus(){
+        
+        timerForAirDropStatus = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(startTracking_airdrop_status), userInfo: nil, repeats: true)
+    }
+    
     @objc func updateTimer(){
         
         let seconds = String(count)
@@ -892,6 +891,8 @@ extension StartGameVC{
         
         if countForCircle == 0.0 && term == 0{
             //第一次縮圈
+            _ = vibrateForOnce_C1
+            
             countForCircle = 5.0
             term = 1
             setSecondCircle()
@@ -901,6 +902,8 @@ extension StartGameVC{
             
         } else if countForCircle == 0.0 && term == 1 {
             //第二次縮圈
+            _ = vibrateForOnce
+            
             countForCircle = 5.0
             term = 2
             setThirdCircle()
@@ -908,6 +911,8 @@ extension StartGameVC{
         } else if countForCircle == 0.0 && term == 2 {
            
             //第三次縮圈
+            _ = vibrateForOnce
+            
             topLeftTitle.text = "距離遊戲結束還有："
             topLeftView.backgroundColor = UIColor(netHex: 0x25AE88)
             topLeftView.alpha = 0.8
@@ -921,6 +926,8 @@ extension StartGameVC{
             //先被淘汰，在結束遊戲
             //準備結束。
             timerForCircle.invalidate()
+            timerForDistanceToAirDrop.invalidate()
+            timerForAirDropStatus.invalidate()
             
             if timerForOut.isValid {
                 //在圈外
@@ -1020,11 +1027,44 @@ extension StartGameVC{
                 
                 self.ARButton.isEnabled = false //拿過
             }
-            
-            
         } else {
             //平常
             self.ARButton.isEnabled = false
+        }
+    }
+    
+    @objc func startTracking_airdrop_status(){
+        
+        FirebaseService.shared().getAirdropStatus { (statuses) in
+            self.statuses = statuses //update statuses
+        }
+        
+        for i in 0...self.statuses.count - 1 {
+            if self.statuses[i] == 1 {
+                
+                switch i {
+                case 0:
+                    mapView.removeAnnotation(firstAirDrop)
+                    let usedFirstAnno = UsedAirDropAnnotation(coordinate: firstAirDrop.coordinate)
+                    self.mapView.addAnnotation(usedFirstAnno)
+                    
+                    statuses[0] = 1
+                case 1:
+                    mapView.removeAnnotation(secondAirDrop)
+                    let usedSecondAnno = UsedAirDropAnnotation(coordinate: secondAirDrop.coordinate)
+                    self.mapView.addAnnotation(usedSecondAnno)
+                    
+                    statuses[1] = 1
+                case 3:
+                    mapView.removeAnnotation(thirdAirDrop)
+                    let usedThirdAnno = UsedAirDropAnnotation(coordinate: thirdAirDrop.coordinate)
+                    self.mapView.addAnnotation(usedThirdAnno)
+                    
+                    statuses[2] = 1
+                default:
+                    return
+                }
+            }
         }
     }
     

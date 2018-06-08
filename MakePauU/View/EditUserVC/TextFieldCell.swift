@@ -25,8 +25,4 @@ extension TextFieldCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
     }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-
-    }
 }

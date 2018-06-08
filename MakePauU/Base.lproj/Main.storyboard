@@ -2551,7 +2551,7 @@
                     <connections>
                         <outlet property="searchBar" destination="bVV-sS-Qsp" id="n6q-xd-som"/>
                         <outlet property="tableView" destination="rww-Lg-W9Z" id="ovL-RY-Fhj"/>
-                        <segue destination="Coy-Mo-7rf" kind="presentation" identifier="toSearchVC" id="s5G-a7-U0u"/>
+                        <segue destination="Coy-Mo-7rf" kind="presentation" identifier="toSearchVC" modalTransitionStyle="crossDissolve" id="s5G-a7-U0u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NSJ-mm-ivq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2561,7 +2561,7 @@
         <!--SearchVC-->
         <scene sceneID="b0W-en-j4l">
             <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="Coy-Mo-7rf" customClass="SearchVC" customModule="MakePauU" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="Coy-Mo-7rf" customClass="SearchVC" customModule="MakePauU" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="06g-l0-ukL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2709,10 +2709,6 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="jse-vN-2qO" id="cwk-id-iMP"/>
-                                                    <outlet property="delegate" destination="jse-vN-2qO" id="T2Q-Yb-PHb"/>
-                                                </connections>
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jamie, 22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JcK-CV-gJC">
                                                 <rect key="frame" x="36" y="391" width="76.5" height="21"/>
@@ -2804,10 +2800,6 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="jse-vN-2qO" id="Yao-lr-uFo"/>
-                                                    <outlet property="delegate" destination="jse-vN-2qO" id="vPD-V6-fpw"/>
-                                                </connections>
                                             </collectionView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJ2-pb-wfw">
                                                 <rect key="frame" x="36" y="613" width="303" height="1"/>
@@ -2859,15 +2851,7 @@
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="jse-vN-2qO" id="Zrm-VD-Vvi"/>
-                                                    <outlet property="delegate" destination="jse-vN-2qO" id="AC6-91-hko"/>
-                                                </connections>
                                             </tableView>
-                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Pce-Aj-Qqk">
-                                                <rect key="frame" x="168" y="320" width="39" height="37"/>
-                                                <color key="pageIndicatorTintColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </pageControl>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -2878,9 +2862,7 @@
                                             <constraint firstItem="K69-rt-B2T" firstAttribute="top" secondItem="JcK-CV-gJC" secondAttribute="bottom" constant="16" id="5mG-Jb-q2b"/>
                                             <constraint firstItem="YYz-0v-sDB" firstAttribute="centerY" secondItem="5AS-fu-VAZ" secondAttribute="centerY" id="A1Z-Sg-2G1"/>
                                             <constraint firstAttribute="trailing" secondItem="5AS-fu-VAZ" secondAttribute="trailing" constant="36" id="BKw-UK-6Po"/>
-                                            <constraint firstItem="Pce-Aj-Qqk" firstAttribute="top" secondItem="YUP-8g-xJV" secondAttribute="top" constant="320" id="DIH-tV-OQ8"/>
                                             <constraint firstItem="T8x-qW-D23" firstAttribute="leading" secondItem="YUP-8g-xJV" secondAttribute="leading" constant="36" id="E9g-P9-evt"/>
-                                            <constraint firstItem="Pce-Aj-Qqk" firstAttribute="centerX" secondItem="YUP-8g-xJV" secondAttribute="centerX" id="FS9-I7-7z1"/>
                                             <constraint firstItem="c3n-Qq-bcQ" firstAttribute="top" secondItem="K69-rt-B2T" secondAttribute="bottom" constant="16" id="IZl-Ex-DU3"/>
                                             <constraint firstItem="QJ2-pb-wfw" firstAttribute="leading" secondItem="YUP-8g-xJV" secondAttribute="leading" constant="36" id="KGg-tD-izu"/>
                                             <constraint firstAttribute="trailing" secondItem="K69-rt-B2T" secondAttribute="trailing" constant="36" id="Mpc-dP-JKh"/>
@@ -2935,15 +2917,13 @@
                     <connections>
                         <outlet property="containerView" destination="YUP-8g-xJV" id="nEV-TH-oyV"/>
                         <outlet property="contentViewHeight" destination="33Y-F6-vYo" id="IJj-kI-rMm"/>
-                        <outlet property="dataTable" destination="SXW-es-FQn" id="Nja-A0-anD"/>
+                        <outlet property="dataTable" destination="SXW-es-FQn" id="RLc-cU-AeU"/>
                         <outlet property="dataTableHeight" destination="e9N-or-H0s" id="jsd-fj-7E1"/>
                         <outlet property="fansLbl" destination="5AS-fu-VAZ" id="nZI-9X-U9s"/>
                         <outlet property="imageCollection" destination="xZq-ip-9qd" id="nrn-zg-uyy"/>
                         <outlet property="imageCollectionHeight" destination="ZTn-8d-kWB" id="30p-7M-hlP"/>
                         <outlet property="introLbl" destination="K69-rt-B2T" id="fMd-G1-Z5x"/>
                         <outlet property="nameAndAgeLbl" destination="JcK-CV-gJC" id="gVa-9f-rcW"/>
-                        <outlet property="pageControl" destination="Pce-Aj-Qqk" id="36X-Mh-XBc"/>
-                        <outlet property="pagecontrolToTop" destination="DIH-tV-OQ8" id="uVk-C0-lBg"/>
                         <outlet property="statCollection" destination="T8x-qW-D23" id="6IE-X1-lcd"/>
                         <segue destination="4u7-GA-Xjo" kind="presentation" identifier="toEditUserVC" modalTransitionStyle="coverVertical" id="pMV-2s-H4T"/>
                     </connections>

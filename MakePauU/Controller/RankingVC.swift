@@ -96,7 +96,7 @@ extension RankingVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MenuBarCell", for: indexPath) as? MenuBarCell{
                 
-                let array = ["成就王", "里程王", "冠軍王"]
+                let array = ["次數王", "里程王", "最速王"]
                 cell.titleLbl.text = array[indexPath.row]
                 
                 return cell
