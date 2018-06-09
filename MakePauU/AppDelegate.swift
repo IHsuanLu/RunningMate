@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance()
         
+        self.window?.tintColor = UIColor.white
+        
         return true
     }
 

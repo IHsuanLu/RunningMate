@@ -197,8 +197,9 @@ class FriendListVC: UIViewController {
     
     //出現聊天頁面
     func showchatController() {
-        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
-        navigationController?.pushViewController(chatLogController, animated: true)
+        let messagesVC = MessagesVC()
+        messagesVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(messagesVC, animated: true)
     }
 }
 
@@ -315,7 +316,7 @@ extension FriendListVC: UITableViewDelegate, UITableViewDataSource {
             let title = titles![indexPath.row]
             
             let chatLogController = ChatLogVC(collectionViewLayout: UICollectionViewFlowLayout())
-            let user = UserForChat(id: member_id, name: title)
+            let user = UserClass(id: member_id, name: title)
             chatLogController.user = user
             chatLogController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(chatLogController, animated: true)
@@ -328,7 +329,7 @@ extension FriendListVC: UITableViewDelegate, UITableViewDataSource {
             let title = titles![indexPath.row]
             
             let chatLogController = ChatLogVC(collectionViewLayout: UICollectionViewFlowLayout())
-            let user = UserForChat(id: member_id, name: title)
+            let user = UserClass(id: member_id, name: title)
             chatLogController.user = user
             chatLogController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(chatLogController, animated: true)

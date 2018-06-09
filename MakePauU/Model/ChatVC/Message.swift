@@ -26,7 +26,7 @@ class Message: NSObject {
     }
     
     func chatPartnerId() -> String? {
-        if fromId == Auth.auth().currentUser?.uid {
+        if fromId == MemberId.sharedInstance.member_id {
             return toId
         } else {
             return fromId

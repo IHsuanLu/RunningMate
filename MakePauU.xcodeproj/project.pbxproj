@@ -94,6 +94,8 @@
 		8CB43FCF20CBFEB30010C8AA /* ChatLogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FCE20CBFEB30010C8AA /* ChatLogVC.swift */; };
 		8CB43FD120CC03B90010C8AA /* UserForChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FD020CC03B90010C8AA /* UserForChat.swift */; };
 		8CB43FD320CC0DC40010C8AA /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FD220CC0DC40010C8AA /* MessageCell.swift */; };
+		8CB43FD520CC103D0010C8AA /* MessagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FD420CC103D0010C8AA /* MessagesVC.swift */; };
+		8CB43FD720CC12DC0010C8AA /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FD620CC12DC0010C8AA /* UserClass.swift */; };
 		8CB7482C20BFC2DA00FF8684 /* StatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB7482B20BFC2DA00FF8684 /* StatVC.swift */; };
 		8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */; };
 		8CBBDFDD2070BFD700C89FBB /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */; };
@@ -221,6 +223,8 @@
 		8CB43FCE20CBFEB30010C8AA /* ChatLogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogVC.swift; sourceTree = "<group>"; };
 		8CB43FD020CC03B90010C8AA /* UserForChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserForChat.swift; sourceTree = "<group>"; };
 		8CB43FD220CC0DC40010C8AA /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		8CB43FD420CC103D0010C8AA /* MessagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesVC.swift; sourceTree = "<group>"; };
+		8CB43FD620CC12DC0010C8AA /* UserClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
 		8CB7482B20BFC2DA00FF8684 /* StatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatVC.swift; sourceTree = "<group>"; };
 		8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
 		8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
@@ -472,6 +476,7 @@
 				8C9DC77520CBE7D700298E6A /* Message.swift */,
 				8C9DC77620CBE7D800298E6A /* User.swift */,
 				8CB43FD020CC03B90010C8AA /* UserForChat.swift */,
+				8CB43FD620CC12DC0010C8AA /* UserClass.swift */,
 			);
 			path = ChatVC;
 			sourceTree = "<group>";
@@ -545,6 +550,7 @@
 				8C52B9DF208A50F1003002AE /* RankingVC.swift */,
 				8C6BBDA920AC007900575B7C /* FriendListVC.swift */,
 				8CB43FCE20CBFEB30010C8AA /* ChatLogVC.swift */,
+				8CB43FD420CC103D0010C8AA /* MessagesVC.swift */,
 				8CF7300D20ADE99800908B34 /* SearchVC.swift */,
 				8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */,
 				8C6E9D01208C7923000551D1 /* AR */,
@@ -907,6 +913,7 @@
 				8C9EAA2420C422EB00F25E4F /* FriendList.swift in Sources */,
 				8C9DC77420CBE76800298E6A /* ChatMessageCell.swift in Sources */,
 				8C2D8CE020C0199300369D30 /* EndingInfo.swift in Sources */,
+				8CB43FD520CC103D0010C8AA /* MessagesVC.swift in Sources */,
 				8CF7301020AEAC6500908B34 /* PreloadVC.swift in Sources */,
 				8CBEB8D32099C62E00B13C42 /* SettingEnding.swift in Sources */,
 				8C9DC76E20CBE74C00298E6A /* MessagesController.swift in Sources */,
@@ -976,6 +983,7 @@
 				8C80219620BA7DA90051EF3D /* CustomSearchBar.swift in Sources */,
 				8CAD37AC209F0D6500AC92B9 /* EndingItem.swift in Sources */,
 				8C52B9EC208C4E24003002AE /* RankCell.swift in Sources */,
+				8CB43FD720CC12DC0010C8AA /* UserClass.swift in Sources */,
 				8C9EAA2920C4403D00F25E4F /* SearchCell.swift in Sources */,
 				8C6F29AC20987BD500FE40A2 /* TextViewItem.swift in Sources */,
 				8C9DC76F20CBE74C00298E6A /* NewMessageController.swift in Sources */,

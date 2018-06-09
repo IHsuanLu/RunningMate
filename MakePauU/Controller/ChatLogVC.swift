@@ -16,7 +16,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UICollectionVi
     var reuseIdentifier = "cellId"
 
     
-    var user: UserForChat? {
+    var user: UserClass? {
         didSet {
             navigationItem.title = user?.name!
             
@@ -274,24 +274,30 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UICollectionVi
                 print(Error.debugDescription)
                 return
             }
+
             
-            //在每次按送出後清出打字格
-            self.inputTextField.text = nil
-            
-            let userMessagesRef = Database.database().reference().child("user-messages").child(fromId).child(toId)
-            
-            let messageId = childRef.key
-            userMessagesRef.updateChildValues([messageId: 1])
-            
-            let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toId).child(fromId)
-            
-            recipientUserMessagesRef.updateChildValues([messageId: 1])
+            if !(self.inputTextField.text?.isEmpty)! {
+                
+                let userMessagesRef = Database.database().reference().child("user-messages").child(fromId).child(toId)
+                
+                let messageId = childRef.key
+                userMessagesRef.updateChildValues([messageId: 1])
+                
+                let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toId).child(fromId)
+                
+                recipientUserMessagesRef.updateChildValues([messageId: 1])
+                
+                //在每次按送出後清出打字格
+                self.inputTextField.text = nil
+                
+            } else {
+                return
+            }
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSend()
-        textField.becomeFirstResponder()
         return true
     }
 }

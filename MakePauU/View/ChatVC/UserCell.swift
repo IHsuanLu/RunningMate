@@ -26,19 +26,18 @@ class UserCell: UITableViewCell {
 
                 timeLabel.text = dateFormatter.string(from: timestampDate as Date)
             }
-            
-            
         }
     }
     
     private func setupName() {
         if let id = message?.chatPartnerId() {
-            let ref = Database.database().reference().child("users").child(id)
+            let ref = Database.database().reference().child("members").child(id)
             ref.observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 if let dictionary = snapshot.value as? [String:AnyObject]{
                     //秀出名字在
-                    self.textLabel?.text = dictionary["name"] as? String
+                    let name = dictionary["name"] as! String
+                    self.textLabel?.text = name
                 }
                 
             }, withCancel: nil)
@@ -54,6 +53,11 @@ class UserCell: UITableViewCell {
         return label
     }()
     
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//
+//        self.selectionStyle = .none
+//    }
     
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -66,8 +70,6 @@ class UserCell: UITableViewCell {
         timeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
         timeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         timeLabel.heightAnchor.constraint(equalTo: (textLabel?.heightAnchor)!).isActive = true
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
