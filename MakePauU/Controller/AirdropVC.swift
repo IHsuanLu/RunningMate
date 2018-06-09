@@ -19,7 +19,7 @@ class AirdropVC: UIViewController {
     
     var ifExpanded = true
     
-    var titles: [String] = []
+    var titles: [String] = [] 
     var QRcodes: [UIImage] = []
     
     

@@ -24,4 +24,6 @@ struct UserInfo {
     var interest: String!
     var problem: String!
     var tries: String!
+    
+    var profileImageURL: String!
 }

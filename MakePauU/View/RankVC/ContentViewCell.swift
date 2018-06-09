@@ -19,33 +19,39 @@ class ContentViewCell: UICollectionViewCell{
         RankSection(section: "最速王", thumbImage: [], title: [], info: [])
     ]
     
+    
     var countItems: [RankItem]!
     var distanceItems: [RankItem]!
     var timeItems: [RankItem]!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        rankCollection.delegate = self
-        rankCollection.dataSource = self
+    lazy var setRankingThing: () = {
         
-//        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self)
-//        
-//        sections = [
-//            RankSection(section: "次數王", thumbImage: [], title: [], info: []),
-//            RankSection(section: "里程王", thumbImage: [], title: [], info: []),
-//            RankSection(section: "最速王", thumbImage: [], title: [], info: [])
-//        ]
-//        
-//        FirebaseService.shared().getRankingInfo { (countItems, distanceItems, timeItems) in
-//            self.countItems = countItems
-//            self.distanceItems = distanceItems
-//            self.timeItems = timeItems
-//            
-//            self.updateUI()
-//        }
+        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self)
+        
+        sections = [
+            RankSection(section: "次數王", thumbImage: [], title: [], info: []),
+            RankSection(section: "里程王", thumbImage: [], title: [], info: []),
+            RankSection(section: "最速王", thumbImage: [], title: [], info: [])
+        ]
+        
+        FirebaseService.shared().getRankingInfo(completion: { (countItems) in
+            self.countItems = countItems
+        })
+        
+        FirebaseService.shared().getRankingInfo_Dis(completion: { (distanceItems) in
+            self.distanceItems = distanceItems
+        })
+        
+        FirebaseService.shared().getRankingInfo_Time(completion: { (timeItems) in
+            self.timeItems = timeItems
+            self.updateUI()
+            print(self.sections)
+        })
+    }()
+    
+    override func layoutSubviews() {
+        _ = setRankingThing
     }
-    
-    
     
     func updateUI(){
         
@@ -53,21 +59,24 @@ class ContentViewCell: UICollectionViewCell{
             
             for count in countItems {
                 sections[0].title.append(count.name)
-                sections[0].info.append("\(count.value) 場")
+                sections[0].info.append("\(count.value!) 場")
                 sections[0].thumbImage.append(count.proflieImage)
             }
             for dis in distanceItems {
                 sections[1].title.append(dis.name)
-                sections[1].info.append("\(dis.value) 公里")
+                sections[1].info.append("\(dis.value!) 公里")
                 sections[1].thumbImage.append(dis.proflieImage)
             }
             for time in timeItems {
                 sections[2].title.append(time.name)
                 sections[2].thumbImage.append(time.proflieImage)
                 
-                let timeText = "\(Int(Double(truncating: time.value) / 60)))'\(Int(round(Double(truncating: time.value).truncatingRemainder(dividingBy: 60)))))''"
+                let timeText = "\(Int(Double(truncating: time.value!) / 60))'\(Int(round(Double(truncating: time.value!).truncatingRemainder(dividingBy: 60))))''"
                 sections[2].info.append(timeText)
             }
+            
+            self.rankCollection.delegate = self
+            self.rankCollection.dataSource = self
             
             SetLoadingScreen.sharedInstance.stopActivityIndicator()
         }

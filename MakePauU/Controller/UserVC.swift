@@ -33,7 +33,8 @@ class UserVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+         
+        
         SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
         
         FirebaseService.shared().getUserInfo { (userInfo) in
@@ -46,6 +47,7 @@ class UserVC: UIViewController {
             self.imageCollection.dataSource = self
             
             self.introLbl.text = "\(userInfo.living!), \(userInfo.sex!), \(userInfo.school!)"
+            self.nameAndAgeLbl.text = "\(userInfo.name!)"
             
             self.dataTable.reloadData()
             
@@ -56,6 +58,12 @@ class UserVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         self.dataTable.delegate = self
         self.dataTable.dataSource = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.adjustConstraint()
+        
+        self.dataTable.reloadData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -71,7 +79,7 @@ class UserVC: UIViewController {
     func adjustConstraint(){
         imageCollectionHeight.constant = self.view.frame.width
         
-        self.dataTableHeight?.constant = self.dataTable.contentSize.height
+        self.dataTableHeight?.constant = self.dataTable.contentSize.height + 150
         self.contentViewHeight.constant = self.view.frame.width + 290 + dataTableHeight.constant
     }
     
@@ -86,6 +94,19 @@ class UserVC: UIViewController {
                     destination.userInfo = dataobj
                 }
             }
+        }
+    }
+    
+    @IBAction func unwindFromEditVC(_ sender: UIStoryboardSegue){
+        
+        FirebaseService.shared().getUserInfo { (userInfo) in
+            self.userInfo = userInfo
+
+            self.introLbl.text = "\(userInfo.living!), \(userInfo.sex!), \(userInfo.school!)"
+
+            self.dataTable.reloadData()
+
+            self.imageCollection.reloadData()
         }
     }
 }
@@ -112,7 +133,7 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         if collectionView == imageCollection {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserImageCell", for: indexPath) as! UserImageCell
-            cell.thumbImageView.image = userInfo.profileImage
+            cell.thumbImageView.image = userInfo.profileImage!
             
             return cell
             

@@ -20,6 +20,10 @@ class RankingVC: UIViewController {
     var width: CGFloat!
     var horizontalBar_X: CGFloat!
     
+    var countItems: [RankItem]!
+    var distanceItems: [RankItem]!
+    var timeItems: [RankItem]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,7 +112,8 @@ extension RankingVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
                 
                 //differentiate by means of using tag
                 cell.rankCollection.tag = indexPath.row
-                
+
+                        
                 return cell
             }
         }
@@ -148,4 +153,6 @@ extension RankingVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         }
     }
 }
+
+
 

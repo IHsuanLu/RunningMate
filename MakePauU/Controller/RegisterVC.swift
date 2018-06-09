@@ -266,7 +266,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         // get reference to the storage (get id)
         let ref = Storage.storage().reference().child("\(member_id!)").child("first pic")
         
-        if let uploadData = UIImagePNGRepresentation(photo) {
+        if let uploadData = UIImageJPEGRepresentation(photo, 0.05) {
             
             _ = ref.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 
@@ -300,7 +300,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         
         let ref = Database.database().reference()
         ref.child("members").child("\(member_id!)").updateChildValues(["profileImageURL":["\(profileImageURL!)"]])
-    }
+    } 
     
     
     

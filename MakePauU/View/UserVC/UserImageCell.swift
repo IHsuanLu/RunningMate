@@ -9,6 +9,6 @@
 import UIKit
 
 class UserImageCell: UICollectionViewCell {
-    
-    @IBOutlet weak var thumbImageView: UIImageView!
+
+    @IBOutlet weak var thumbImageView: CustomImageView!
 }

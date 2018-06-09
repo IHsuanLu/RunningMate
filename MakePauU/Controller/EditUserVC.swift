@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import FirebaseStorage
 
 
 //把暱稱也送過來
 
-class EditUserVC: UIViewController {
+class EditUserVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var imageView1: UIImageView!
     @IBOutlet weak var imageView2: UIImageView!
@@ -20,36 +23,113 @@ class EditUserVC: UIViewController {
     @IBOutlet weak var imageView5: UIImageView!
     @IBOutlet weak var imageView6: UIImageView!
     
-    @IBOutlet weak var textFieldTabe: UITableView!
-    @IBOutlet weak var textViewTable: UITableView!
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var sexTextField: UITextField!
+    @IBOutlet weak var livingTextField: UITextField!
+    @IBOutlet weak var schoolTextField: UITextField!
+    @IBOutlet weak var birthTextField: UITextField!
+    @IBOutlet weak var sexPreferTextField: UITextField!
+    
+    @IBOutlet weak var interestTextView: UITextView!
+    @IBOutlet weak var problemTextView: UITextView!
+    @IBOutlet weak var triesTextView: UITextView!
+    
+    @IBOutlet weak var problemHeight: NSLayoutConstraint!
+    @IBOutlet weak var interestHeight: NSLayoutConstraint!
+    @IBOutlet weak var triesHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var contentView: UIView!
     
-    @IBOutlet weak var textViewTableHeight: NSLayoutConstraint!
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
+    
     
     var whichImageView: Int!
     
     var userInfo: UserInfo!
     var textViewContentArray: [String]!
     
+    var profileImageURL = String()
+    
+    var afterChangesInfo = UserInfo()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        adjustConstraint()
+        imageView1.image = userInfo.profileImage!
         
-        textViewTable.rowHeight = UITableViewAutomaticDimension
-        textViewTable.estimatedRowHeight = 300
+        updateUI()
         
-        textFieldTabe.rowHeight = UITableViewAutomaticDimension
-        textFieldTabe.estimatedRowHeight = 300
+        adjustTextViewHeight(textView: interestTextView, heightConstraint: interestHeight)
+        adjustTextViewHeight(textView: problemTextView, heightConstraint: problemHeight)
+        adjustTextViewHeight(textView: triesTextView, heightConstraint: triesHeight)
     }
+    
     
     override func viewWillLayoutSubviews() {
         super.updateViewConstraints()
-        self.textViewTableHeight?.constant = self.textViewTable.contentSize.height
         
-        self.contentViewHeight.constant = 315 + self.view.frame.width + self.textViewTableHeight.constant + 20
+        self.contentViewHeight.constant = self.view.frame.width + 562 + problemHeight.constant + interestHeight.constant + triesHeight.constant
     }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView == interestTextView {
+            adjustTextViewHeight(textView: interestTextView, heightConstraint: interestHeight)
+        } else if textView == problemTextView {
+            adjustTextViewHeight(textView: problemTextView, heightConstraint: problemHeight)
+        } else if textView == triesTextView {
+            adjustTextViewHeight(textView: triesTextView, heightConstraint: triesHeight)
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }        
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        AdjustKeyboard.sharedInstance.keyboardStatus_TextView(frameView: contentView, activeTextView: textView)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        AdjustKeyboard.sharedInstance.keyboardStatus(frameView: contentView, activeTextField: textField)
+    }
+    
+    func adjustTextViewHeight(textView: UITextView, heightConstraint: NSLayoutConstraint) {
+        
+        let fixedWidth = self.view.frame.size.width
+        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        heightConstraint.constant = newSize.height + 20
+        
+        self.view.layoutIfNeeded()
+    }
+    
+    func updateUI(){
+        
+        nameTextField.text = userInfo.name
+        sexTextField.text = userInfo.sex
+        livingTextField.text = userInfo.living
+        schoolTextField.text = userInfo.school
+        birthTextField.text = userInfo.birth
+        sexPreferTextField.text = userInfo.sex_prefer
+        
+        interestTextView.text = userInfo.interest
+        problemTextView.text = userInfo.problem
+        triesTextView.text = userInfo.tries
+        
+        self.contentViewHeight.constant = self.view.frame.width + 482 + problemHeight.constant + interestHeight.constant + triesHeight.constant
+        
+        self.contentView.reloadInputViews()
+    }
+    
     
     
     @IBAction func onButton1(_ sender: Any) {
@@ -88,6 +168,123 @@ class EditUserVC: UIViewController {
     }
     
     @IBAction func doneBtnPressed(_ sender: Any) {
+        
+        print("Pressed")
+        
+        gaterInfo {
+            ApiService.sharedInstance.updateUser(userInfo: self.afterChangesInfo, completion: {
+                
+                //unwind
+                self.performSegue(withIdentifier: "unwindFromEditVC", sender: nil)
+            })
+        }
+    }
+    
+    func gaterInfo(completion: () -> ()){
+        
+        if let profileImage = imageView1.image {
+            afterChangesInfo.profileImage = profileImage
+        } else {
+            afterChangesInfo.profileImage = UIImage()
+        }
+        
+        if let name = nameTextField.text {
+            afterChangesInfo.name = name
+        } else {
+            afterChangesInfo.name = " "
+        }
+        
+        if let sex = sexTextField.text {
+            afterChangesInfo.sex = sex
+        } else {
+            afterChangesInfo.sex = " "
+        }
+        
+        if let living = livingTextField.text {
+            afterChangesInfo.living = living
+        } else {
+            afterChangesInfo.living = " "
+        }
+        
+        if let school = schoolTextField.text {
+            afterChangesInfo.school = school
+        } else {
+            afterChangesInfo.school = " "
+        }
+        
+        if let birth = birthTextField.text {
+            afterChangesInfo.birth = birth
+        } else {
+            afterChangesInfo.birth = " "
+        }
+        
+        if let sex_prefer = sexPreferTextField.text {
+            afterChangesInfo.sex_prefer = sex_prefer
+        } else {
+            afterChangesInfo.sex_prefer = " "
+        }
+        
+        if let interest = interestTextView.text {
+            afterChangesInfo.interest = interest
+        } else {
+            afterChangesInfo.interest = " "
+        }
+        
+        if let problem = problemTextView.text {
+            afterChangesInfo.problem = problem
+        } else {
+            afterChangesInfo.problem = " "
+        }
+        
+        if let tries = triesTextView.text {
+            afterChangesInfo.tries = tries
+        } else {
+            afterChangesInfo.tries = " "
+        }
+        
+        completion()
+    }
+    
+    //progressBlock -> completion handler
+    func uplaodImage(_ photo: UIImage){
+        
+        // get reference to the storage (get id)
+        let ref = Storage.storage().reference().child(MemberId.sharedInstance.member_id).child("first pic")
+        
+        if let uploadData = UIImageJPEGRepresentation(photo, 0.05) {
+            
+            _ = ref.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                
+                self.downloadURL()
+            })
+        }
+    }
+    
+    func downloadURL(){
+        
+        let ref = Storage.storage().reference().child(MemberId.sharedInstance.member_id).child("first pic")
+        
+        ref.downloadURL { (url, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let profileImageURL = url?.absoluteString {
+                    self.profileImageURL = profileImageURL
+                    self.writeURL()
+                }
+            }
+        }
+    }
+    
+    func writeURL(){
+        
+        let ref = Database.database().reference()
+        ref.child("members").child(MemberId.sharedInstance.member_id).child("profileImageURL").updateChildValues(["0" :"\(profileImageURL)"])
     }
     
     func setAlert(){
@@ -162,6 +359,7 @@ extension EditUserVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         switch whichImageView {
         case 1:
             imageView1.image = userSelectedImage
+            self.uplaodImage(self.imageView1.image!)
         case 2:
             imageView2.image = userSelectedImage
         case 3:
@@ -181,63 +379,5 @@ extension EditUserVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension EditUserVC: UITableViewDelegate, UITableViewDataSource{
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if tableView == textFieldTabe{
-            return 6
-        } else if tableView == textViewTable{
-            return 3
-        }
-        
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if tableView == textFieldTabe {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
-            
-            var titleArray = ["姓名: ", "性別: ", "居住地: ", "就讀於 / 任職於: ", "生日: ", "感情取向: "]
-            var contentArray = [userInfo.name, userInfo.sex, userInfo.living, userInfo.school, userInfo.birth, userInfo.sex_prefer]
-        
-            cell.titleLbl.text = titleArray[indexPath.row]
-            cell.contentTextField.text = contentArray[indexPath.row]
-            
-            return cell
-        
-        } else if tableView == textViewTable {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
-            
-            var titleArray = ["興趣愛好: ", "最近的困擾: ", "想嘗試的事："]
-            textViewContentArray = [userInfo.interest, userInfo.problem, userInfo.tries]
-            
-            cell.titleLbl.text = titleArray[indexPath.row]
-            cell.contentTextView.text = textViewContentArray[indexPath.row]
-            
-            cell.contentTextView.translatesAutoresizingMaskIntoConstraints = false
-            
-            return cell
-        }
-        
-        return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView == textFieldTabe {
-            return 44
-        } else {
-            return 180
-        }
     }
 }

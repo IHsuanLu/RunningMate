@@ -15,7 +15,6 @@ class AdjustKeyboard: NSObject {
     var frameView = UIView()
     var activeTextField = UITextField()
     var activeTextView = UITextView()
-    var indexPath_textView = IndexPath()
     
     func keyboardStatus(frameView view: UIView, activeTextField textField: UITextField){
         
@@ -55,11 +54,10 @@ class AdjustKeyboard: NSObject {
     }
     
     
-    func keyboardStatus_TextView(frameView view: UIView, activeTextView textView: UITextView, indexPath: IndexPath){
+    func keyboardStatus_TextView(frameView view: UIView, activeTextView textView: UITextView){
         
         self.frameView = view
         self.activeTextView = textView
-        self.indexPath_textView = indexPath
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow_TextView), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
@@ -74,7 +72,7 @@ class AdjustKeyboard: NSObject {
         let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.size
         let keyboardY = frameView.frame.size.height - keyboardSize.height
         
-        let editingTextFieldY:CGFloat! = self.activeTextView.frame.origin.y * CGFloat(indexPath_textView.row + 1)
+        let editingTextFieldY:CGFloat! = self.activeTextView.frame.origin.y
         
         if frameView.frame.origin.y >= 0 {
             

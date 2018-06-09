@@ -561,119 +561,156 @@ class FirebaseService: NSObject{
         })
     }
     
-    func getRankingInfo(completion: @escaping ([RankItem], [RankItem], [RankItem]) -> ()){
+    func getRankingInfo(completion: @escaping ([RankItem]) -> ()){
         
         let myGroup = DispatchGroup()
-        let myGroup2 = DispatchGroup()
         
         var storage: Storage?
         storage = Storage.storage()
         
         var countItems: [RankItem] = []
-        var distanceItems: [RankItem] = []
-        var timeItems: [RankItem] = []
 
         
         _ = dbReference.child("friends_list").child(MemberId.sharedInstance.member_id).child("排行榜").observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                 
-
-            myGroup.enter()
-            DispatchQueue.main.async {
-                    if let count = value["count"] as? Dictionary<String, AnyObject> {
-                        for obj in count {
-                                    
-                            let name = obj.value["name"] as! String
-                            let value = obj.value["value"] as! NSNumber
-                                
-                            let profileImageString = obj.value["url"] as! String
-                                    
-                            let storageRef = storage?.reference(forURL: profileImageString)
-                            storageRef?.downloadURL(completion: { (url, error) in
-                                        
-                                do {
-                                            
-                                    let data = try Data(contentsOf: url!)
-                                    let pic = UIImage(data: data)
-                                            
-                                    let rankItem = RankItem(name: name, proflieImage: pic!, value: value)
-                                            
-                                    countItems.append(rankItem)
-                                            
-                                } catch {
-                                    print(error)
-                                }
-                            })
-                                    
-                        }
-                    }
-                            
-                    if let distance = value["distance"] as? Dictionary<String, AnyObject> {
-                        for obj in distance {
-                                    
-                            let name = obj.value["name"] as! String
-                            let value = obj.value["value"] as! NSNumber
-                                    
-                            let profileImageString = obj.value["url"] as! String
-                                    
-                            let storageRef = storage?.reference(forURL: profileImageString)
-                            storageRef?.downloadURL(completion: { (url, error) in
-                                        
-                                do {
-                                            
-                                    let data = try Data(contentsOf: url!)
-                                    let pic = UIImage(data: data)
-                                            
-                                    let rankItem = RankItem(name: name, proflieImage: pic!, value: value)
-                                            
-                                    distanceItems.append(rankItem)
-                                            
-                                } catch {
-                                    print(error)
-                                }
-                            })
-                                    
-                        }
-                    }
-                            
-                    if let time = value["time"] as? Dictionary<String, AnyObject> {
-                        for obj in time{
-                            myGroup2.enter()
-                            let name = obj.value["name"] as! String
-                            let value = obj.value["value"] as! NSNumber
-                                    
-                            let profileImageString = obj.value["url"] as! String
-                                    
-                            let storageRef = storage?.reference(forURL: profileImageString)
-                            storageRef?.downloadURL(completion: { (url, error) in
-                                        
-                                do {
-                                            
-                                    let data = try Data(contentsOf: url!)
-                                    let pic = UIImage(data: data)
-                                            
-                                    let rankItem = RankItem(name: name, proflieImage: pic!, value: value)
-                                            
-                                    timeItems.append(rankItem)
-                                    myGroup2.leave()
-                                } catch {
-                                    print(error)
-                                }
-                            })
-                        }
+                if let count = value["count"] as? Dictionary<String, AnyObject> {
+                    for obj in count {
                         
-                        myGroup2.notify(queue: DispatchQueue.main, execute: {
-                            myGroup.leave()
+                        myGroup.enter()
+                        
+                        let name = obj.value["name"] as! String
+                        let value = obj.value["value"] as! NSNumber
+                                
+                        let profileImageString = obj.value["url"] as! String
+                                    
+                        let storageRef = storage?.reference(forURL: profileImageString)
+                        storageRef?.downloadURL(completion: { (url, error) in
+                                        
+                            do {
+                                            
+                                let data = try Data(contentsOf: url!)
+                                let pic = UIImage(data: data)
+                                            
+                                let rankItem = RankItem(name: name, proflieImage: pic!, value: value)
+                                            
+                                countItems.append(rankItem)
+                                
+                                myGroup.leave()
+                                            
+                            } catch {
+                                    print(error)
+                            }
                         })
                     }
+                    
+                    myGroup.notify(queue: DispatchQueue.main, execute: {
+                        completion(countItems)
+                    })
                 }
-
-                myGroup.notify(queue: DispatchQueue.main, execute: {
-                    completion(countItems, distanceItems, timeItems)
-                })
             }
         })
+    }
+    
+
+    
+    func getRankingInfo_Dis(completion: @escaping ([RankItem]) -> ()){
+        var distanceItems: [RankItem] = []
+        
+        let myGroup = DispatchGroup()
+        
+        var storage: Storage?
+        storage = Storage.storage()
+        
+        _ = dbReference.child("friends_list").child(MemberId.sharedInstance.member_id).child("排行榜").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? Dictionary<String, AnyObject>{
+                
+                if let distance = value["distance"] as? Dictionary<String, AnyObject> {
+                    for obj in distance{
+                        
+                        myGroup.enter()
+                        let name = obj.value["name"] as! String
+                        let value = obj.value["value"] as! NSNumber
+                        
+                        let profileImageString = obj.value["url"] as! String
+                        
+                        let storageRef = storage?.reference(forURL: profileImageString)
+                        storageRef?.downloadURL(completion: { (url, error) in
+                            
+                            do {
+                                
+                                let data = try Data(contentsOf: url!)
+                                let pic = UIImage(data: data)
+                                
+                                let rankItem = RankItem(name: name, proflieImage: pic!, value: value)
+                                
+                                distanceItems.append(rankItem)
+                                
+                                myGroup.leave()
+                            } catch {
+                                print(error)
+                            }
+                        })
+                    }
+                    
+                    myGroup.notify(queue: DispatchQueue.main, execute: {
+                        completion(distanceItems)
+                    })
+                }
+            }
+        })
+    }
+    
+    func getRankingInfo_Time(completion: @escaping ([RankItem]) -> ()){
+        var timeItems: [RankItem] = []
+        
+        let myGroup = DispatchGroup()
+        
+        var storage: Storage?
+        storage = Storage.storage()
+        
+        _ = dbReference.child("friends_list").child(MemberId.sharedInstance.member_id).child("排行榜").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? Dictionary<String, AnyObject>{
+                
+                if let time = value["time"] as? Dictionary<String, AnyObject> {
+                    for obj in time{
+                        
+                        myGroup.enter()
+                        let name = obj.value["name"] as! String
+                        let value = obj.value["value"] as! NSNumber
+                        
+                        let profileImageString = obj.value["url"] as! String
+                        
+                        let storageRef = storage?.reference(forURL: profileImageString)
+                        storageRef?.downloadURL(completion: { (url, error) in
+                            
+                            do {
+                                
+                                let data = try Data(contentsOf: url!)
+                                let pic = UIImage(data: data)
+                                
+                                let rankItem = RankItem(name: name, proflieImage: pic!, value: value)
+                                
+                                timeItems.append(rankItem)
+                                
+                                myGroup.leave()
+                            } catch {
+                                print(error)
+                            }
+                        })
+                    }
+                    
+                    myGroup.notify(queue: DispatchQueue.main, execute: {
+                        completion(timeItems)
+                    })
+                }
+            }
+
+        })
+
     }
     
     func getUserInfo(completion: @escaping (UserInfo) -> ()){
@@ -717,12 +754,12 @@ class FirebaseService: NSObject{
                         let storageRef = storage?.reference(forURL: profileImageURL)
                         
                         storageRef?.downloadURL(completion: { (url, error) in
-                            
+                             
                             do {
                                 let data = try Data(contentsOf: url!)
                                 let pic = UIImage(data: data)
                                 
-                                userInfo = UserInfo(name: name, profileImage: pic!, sex_prefer: sex_prefer, total_count: total_count, total_distance: total_distance, total_time: total_time, birth: birth, sex: sex, living: living, school: school, interest: interest, problem: problem, tries: tries)
+                                userInfo = UserInfo(name: name, profileImage: pic!, sex_prefer: sex_prefer, total_count: total_count, total_distance: total_distance, total_time: total_time, birth: birth, sex: sex, living: living, school: school, interest: interest, problem: problem, tries: tries, profileImageURL: profileImageURL)
                                 
                                 myGroup.leave()
                                 
