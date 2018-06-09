@@ -10,7 +10,8 @@ import Foundation
 
 struct FriendList {
     
-    var thumbImage: UIImage
-    var title: String
-    var metTimes: Int
+    var member_id: String!
+    var thumbImage: UIImage!
+    var title: String!
+    var metTimes: Int!
 }

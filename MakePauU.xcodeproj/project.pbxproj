@@ -91,6 +91,9 @@
 		8CAEA1EB207DDCA9005A3B5F /* StartGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */; };
 		8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */; };
 		8CAF531620C3F8C700A3DA47 /* FavoriteFriendIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAF531520C3F8C700A3DA47 /* FavoriteFriendIDs.swift */; };
+		8CB43FCF20CBFEB30010C8AA /* ChatLogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FCE20CBFEB30010C8AA /* ChatLogVC.swift */; };
+		8CB43FD120CC03B90010C8AA /* UserForChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FD020CC03B90010C8AA /* UserForChat.swift */; };
+		8CB43FD320CC0DC40010C8AA /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FD220CC0DC40010C8AA /* MessageCell.swift */; };
 		8CB7482C20BFC2DA00FF8684 /* StatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB7482B20BFC2DA00FF8684 /* StatVC.swift */; };
 		8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */; };
 		8CBBDFDD2070BFD700C89FBB /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */; };
@@ -215,6 +218,9 @@
 		8CAEA1EA207DDCA9005A3B5F /* StartGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameVC.swift; sourceTree = "<group>"; };
 		8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalConfirmVC.swift; sourceTree = "<group>"; };
 		8CAF531520C3F8C700A3DA47 /* FavoriteFriendIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFriendIDs.swift; sourceTree = "<group>"; };
+		8CB43FCE20CBFEB30010C8AA /* ChatLogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogVC.swift; sourceTree = "<group>"; };
+		8CB43FD020CC03B90010C8AA /* UserForChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserForChat.swift; sourceTree = "<group>"; };
+		8CB43FD220CC0DC40010C8AA /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		8CB7482B20BFC2DA00FF8684 /* StatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatVC.swift; sourceTree = "<group>"; };
 		8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
 		8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
@@ -465,6 +471,7 @@
 			children = (
 				8C9DC77520CBE7D700298E6A /* Message.swift */,
 				8C9DC77620CBE7D800298E6A /* User.swift */,
+				8CB43FD020CC03B90010C8AA /* UserForChat.swift */,
 			);
 			path = ChatVC;
 			sourceTree = "<group>";
@@ -484,6 +491,7 @@
 			children = (
 				8C9DC77220CBE76800298E6A /* ChatMessageCell.swift */,
 				8C9DC77120CBE76700298E6A /* UserCell.swift */,
+				8CB43FD220CC0DC40010C8AA /* MessageCell.swift */,
 			);
 			path = ChatVC;
 			sourceTree = "<group>";
@@ -536,6 +544,7 @@
 				8C11BA05208485E900DDCDBF /* StartGame */,
 				8C52B9DF208A50F1003002AE /* RankingVC.swift */,
 				8C6BBDA920AC007900575B7C /* FriendListVC.swift */,
+				8CB43FCE20CBFEB30010C8AA /* ChatLogVC.swift */,
 				8CF7300D20ADE99800908B34 /* SearchVC.swift */,
 				8CAEA1EF207E3E60005A3B5F /* FinalConfirmVC.swift */,
 				8C6E9D01208C7923000551D1 /* AR */,
@@ -883,6 +892,7 @@
 				8CBE3D7520B596D000B07F77 /* StatsInfo.swift in Sources */,
 				8C45B77820C7A72A001C1003 /* AirdropVC.swift in Sources */,
 				8C34F75E20959FC0003958FD /* UserImageCell.swift in Sources */,
+				8CB43FD120CC03B90010C8AA /* UserForChat.swift in Sources */,
 				8C34F7652095A848003958FD /* ResgisterInfo.swift in Sources */,
 				8CBBDFE12070C4A100C89FBB /* IntroCell.swift in Sources */,
 				8CBBDFE52070D4BF00C89FBB /* LoginVC.swift in Sources */,
@@ -902,6 +912,7 @@
 				8C9DC76E20CBE74C00298E6A /* MessagesController.swift in Sources */,
 				8C6BBDAC20AC016900575B7C /* UISearchBarExt.swift in Sources */,
 				8C34F75C20959F02003958FD /* UserVC.swift in Sources */,
+				8CB43FCF20CBFEB30010C8AA /* ChatLogVC.swift in Sources */,
 				8C6BBDB020AC04B300575B7C /* SearchBarSegue.swift in Sources */,
 				8CBE3D7D20B6B7B800B07F77 /* AirDropAnnotation.swift in Sources */,
 				8C9EAA2620C431EC00F25E4F /* FriendListSection.swift in Sources */,
@@ -938,6 +949,7 @@
 				8CBBDFDD2070BFD700C89FBB /* UIColorExt.swift in Sources */,
 				8C80219120BA68730051EF3D /* MailboxCell.swift in Sources */,
 				8C34F7672095B80F003958FD /* LoginInfo.swift in Sources */,
+				8CB43FD320CC0DC40010C8AA /* MessageCell.swift in Sources */,
 				8CD8D895206CD1B100E980AD /* AppDelegate.swift in Sources */,
 				8CBBDFE32070C4C400C89FBB /* IntroItem.swift in Sources */,
 				8C45B78A20CA86EC001C1003 /* RankItem.swift in Sources */,

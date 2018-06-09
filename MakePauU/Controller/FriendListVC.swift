@@ -31,13 +31,13 @@ class FriendListVC: UIViewController {
     }()
     
     var sections = [
-        FriendListSection(section: "摯友", thumbnailImages: [], titles: [], metTimes: []),
-        FriendListSection(section: "普通朋友", thumbnailImages: [], titles: [], metTimes: [])
+        FriendListSection(section: "摯友", member_ids: [], thumbnailImages: [], titles: [], metTimes: []),
+        FriendListSection(section: "普通朋友", member_ids: [], thumbnailImages: [], titles: [], metTimes: [])
     ]
     
     var filteredSections = [
-        FriendListSection(section: "摯友", thumbnailImages: [], titles: [], metTimes: []),
-        FriendListSection(section: "普通朋友", thumbnailImages: [], titles: [], metTimes: [])
+        FriendListSection(section: "摯友", member_ids: [], thumbnailImages: [], titles: [], metTimes: []),
+        FriendListSection(section: "普通朋友", member_ids: [], thumbnailImages: [], titles: [], metTimes: [])
     ]
     
     var filteredNormalFriends: [FriendList]!
@@ -62,8 +62,8 @@ class FriendListVC: UIViewController {
         super.awakeFromNib()
         
         sections = [
-            FriendListSection(section: "摯友", thumbnailImages: [], titles: [], metTimes: []),
-            FriendListSection(section: "普通朋友", thumbnailImages: [], titles: [], metTimes: [])
+            FriendListSection(section: "摯友", member_ids: [], thumbnailImages: [], titles: [], metTimes: []),
+            FriendListSection(section: "普通朋友", member_ids: [], thumbnailImages: [], titles: [], metTimes: [])
         ]
 
         //setFirendList
@@ -73,12 +73,14 @@ class FriendListVC: UIViewController {
             self.favoriteFriends = favoriteFriends
 
             for obj in normalFriends {
+                self.sections[1].member_ids.append(obj.member_id)
                 self.sections[1].titles.append(obj.title)
                 self.sections[1].thumbnailImages.append(obj.thumbImage)
                 self.sections[1].metTimes.append(obj.metTimes)
             }
 
             for obj in favoriteFriends {
+                self.sections[0].member_ids.append(obj.member_id)
                 self.sections[0].titles.append(obj.title)
                 self.sections[0].thumbnailImages.append(obj.thumbImage)
                 self.sections[0].metTimes.append(obj.metTimes)
@@ -120,8 +122,8 @@ class FriendListVC: UIViewController {
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         
         sections = [
-            FriendListSection(section: "摯友", thumbnailImages: [], titles: [], metTimes: []),
-            FriendListSection(section: "普通朋友", thumbnailImages: [], titles: [], metTimes: [])
+            FriendListSection(section: "摯友", member_ids: [], thumbnailImages: [], titles: [], metTimes: []),
+            FriendListSection(section: "普通朋友", member_ids: [], thumbnailImages: [], titles: [], metTimes: [])
         ]
         
         //setFirendList
@@ -131,12 +133,14 @@ class FriendListVC: UIViewController {
             print(favoriteFriends.count)
             
             for obj in normalFriends {
+                self.sections[1].member_ids.append(obj.member_id)
                 self.sections[1].titles.append(obj.title)
                 self.sections[1].thumbnailImages.append(obj.thumbImage)
                 self.sections[1].metTimes.append(obj.metTimes)
             }
             
             for obj in favoriteFriends {
+                self.sections[0].member_ids.append(obj.member_id)
                 self.sections[0].titles.append(obj.title)
                 self.sections[0].thumbnailImages.append(obj.thumbImage)
                 self.sections[0].metTimes.append(obj.metTimes)
@@ -167,20 +171,22 @@ class FriendListVC: UIViewController {
     func filterArray(){
         
         filteredSections = [
-            FriendListSection(section: "摯友", thumbnailImages: [], titles: [], metTimes: []),
-            FriendListSection(section: "普通朋友", thumbnailImages: [], titles: [], metTimes: [])
+            FriendListSection(section: "摯友", member_ids: [], thumbnailImages: [], titles: [], metTimes: []),
+            FriendListSection(section: "普通朋友", member_ids: [], thumbnailImages: [], titles: [], metTimes: [])
         ]
         
         filteredNormalFriends = normalFriends.filter({$0.title.range(of: self.searchBar.text!) != nil})
         filteredFavoriteFriends = favoriteFriends.filter({$0.title.range(of: self.searchBar.text!) != nil})
         
         for obj in filteredNormalFriends {
+            self.filteredSections[1].member_ids.append(obj.title)
             self.filteredSections[1].titles.append(obj.title)
             self.filteredSections[1].thumbnailImages.append(obj.thumbImage)
             self.filteredSections[1].metTimes.append(obj.metTimes)
         }
         
         for obj in filteredFavoriteFriends {
+            self.filteredSections[0].member_ids.append(obj.title)
             self.filteredSections[0].titles.append(obj.title)
             self.filteredSections[0].thumbnailImages.append(obj.thumbImage)
             self.filteredSections[0].metTimes.append(obj.metTimes)
@@ -298,5 +304,34 @@ extension FriendListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if whetherInSearchMode == false {
+            let member_ids = self.sections[indexPath.section].member_ids
+            let member_id = member_ids![indexPath.row]
+            
+            let titles = self.sections[indexPath.section].titles
+            let title = titles![indexPath.row]
+            
+            let chatLogController = ChatLogVC(collectionViewLayout: UICollectionViewFlowLayout())
+            let user = UserForChat(id: member_id, name: title)
+            chatLogController.user = user
+            chatLogController.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(chatLogController, animated: true)
+            
+        } else {
+            let member_ids = self.filteredSections[indexPath.section].member_ids
+            let member_id = member_ids![indexPath.row]
+            
+            let titles = self.filteredSections[indexPath.section].titles
+            let title = titles![indexPath.row]
+            
+            let chatLogController = ChatLogVC(collectionViewLayout: UICollectionViewFlowLayout())
+            let user = UserForChat(id: member_id, name: title)
+            chatLogController.user = user
+            chatLogController.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(chatLogController, animated: true)
+        }
     }
 }

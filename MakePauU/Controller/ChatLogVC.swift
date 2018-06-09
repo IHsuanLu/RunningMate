@@ -1,19 +1,24 @@
 //
-//  ChatLogController.swift
-//  chatchatchat
+//  ChatLogVC.swift
+//  MakePauU
 //
-//  Created by Hsieh Tony on 2018/6/6.
-//  Copyright © 2018 Hsieh Tony. All rights reserved.
+//  Created by 呂易軒 on 2018/6/9.
+//  Copyright © 2018年 呂易軒. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class ChatLogController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout{
+
+class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
+
     
-    var user: User? {
+    var reuseIdentifier = "cellId"
+
+    
+    var user: UserForChat? {
         didSet {
-            navigationItem.title = user?.name
+            navigationItem.title = user?.name!
             
             observeMessages()
         }
@@ -22,19 +27,16 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     var messages = [Message]()
     
     func observeMessages() {
-        guard let uid = Auth.auth().currentUser?.uid else {
-            return
-        }
-        let toId = user!.id!
 
-        let userMessagesRef = Database.database().reference().child("user-messages").child(uid).child(toId)
+        let toId = user!.id!
+        
+        let userMessagesRef = Database.database().reference().child("user-messages").child(MemberId.sharedInstance.member_id).child(toId)
         //不確定
+        
         
         userMessagesRef.observe(.childAdded, with: { (snapshot) in
             
             let messageId = snapshot.key
-            
-            
             
             let messagesRef = Database.database().reference().child("messages").child(messageId)
             
@@ -60,17 +62,15 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         }, withCancel: nil)
     }
     
-    
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "打些東西吧"
         textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+        
         textField.delegate = self
+        
+        return textField
     }()
-    
-    
-    let cellId = "cellId"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,10 +80,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = UIColor.white
-        collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView?.register(MessageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         collectionView?.keyboardDismissMode = .interactive
     }
+
     
     lazy var inputContainerView: UIView =  {
         
@@ -143,7 +144,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MessageCell
         
         let message = messages[indexPath.item]
         cell.textView.text = message.text
@@ -157,11 +158,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         return cell
     }
     
-    private func setupCell(cell: ChatMessageCell, message: Message) {
+    private func setupCell(cell: MessageCell, message: Message) {
         //決定框框是橘色或灰色
-        if message.fromId == Auth.auth().currentUser?.uid {
+        if message.fromId == MemberId.sharedInstance.member_id {
             //出去是橘底白字
-            cell.bubbleView.backgroundColor = ChatMessageCell.runningColor
+            cell.bubbleView.backgroundColor = MessageCell.runningColor
             cell.textView.textColor = UIColor.white
             
             cell.bubbleViewRightAnchor?.isActive = true
@@ -205,53 +206,54 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     var containerViewButtomAnchor: NSLayoutConstraint?
     
-        func setupInputComponents() {
-            let containerView = UIView()
-            containerView.backgroundColor = UIColor.lightGray
-            containerView.translatesAutoresizingMaskIntoConstraints = false
-            
-            view.addSubview(containerView)
-            
-            
-            //ios10 constraint anchors
-            //x,y,w,h
-            containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-            
-            containerViewButtomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            containerViewButtomAnchor?.isActive = true
-            
-            containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-            containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-            
-            
-            let sendButton = UIButton(type: .system)
-            sendButton.setTitle("Send", for: .normal)
-            sendButton.translatesAutoresizingMaskIntoConstraints = false
-            sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
-            containerView.addSubview(sendButton)
-            //x,y,w,h
-            sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-            sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-            sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-            sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-            
-            containerView.addSubview(inputTextField)
-            //x,y,w,h
-            inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-            inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-            inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-            inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-            
-            let separatorLineView = UIView()
-            separatorLineView.backgroundColor = UIColor(red: 220, green: 220, blue: 220)
-            separatorLineView.translatesAutoresizingMaskIntoConstraints = false
-            containerView.addSubview(separatorLineView)
-            //x,y,w,h
-            separatorLineView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-            separatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-            separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
-            separatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        }
+    
+    func setupInputComponents() {
+        let containerView = UIView()
+        containerView.backgroundColor = UIColor.lightGray
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(containerView)
+        
+        
+        //ios10 constraint anchors
+        //x,y,w,h
+        containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        
+        containerViewButtomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        containerViewButtomAnchor?.isActive = true
+        
+        containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        
+        let sendButton = UIButton(type: .system)
+        sendButton.setTitle("Send", for: .normal)
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        containerView.addSubview(sendButton)
+        //x,y,w,h
+        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        
+        containerView.addSubview(inputTextField)
+        //x,y,w,h
+        inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
+        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        
+        let separatorLineView = UIView()
+        separatorLineView.backgroundColor = UIColor(red: 220, green: 220, blue: 220)
+        separatorLineView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(separatorLineView)
+        //x,y,w,h
+        separatorLineView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        separatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
+        separatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+    }
     
     @objc func handleSend() {
         
@@ -261,7 +263,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         //輸入資料庫的方式
         let toId = user!.id!
         //送出和接收方
-        let fromId = Auth.auth().currentUser?.uid
+        let fromId = MemberId.sharedInstance.member_id
         let timestamp = NSDate().timeIntervalSince1970
         
         let values = ["toId": toId, "timestamp": timestamp, "text": inputTextField.text!, "fromId": fromId] as [String : Any]
@@ -269,29 +271,27 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         //childRef.updateChildValues(values)
         childRef.updateChildValues(values) { (Error, ref) in
             if Error != nil {
-                print(Error)
+                print(Error.debugDescription)
                 return
             }
             
             //在每次按送出後清出打字格
             self.inputTextField.text = nil
             
-            let userMessagesRef = Database.database().reference().child("user-messages").child(fromId!).child(toId)
+            let userMessagesRef = Database.database().reference().child("user-messages").child(fromId).child(toId)
             
             let messageId = childRef.key
             userMessagesRef.updateChildValues([messageId: 1])
             
-            let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toId).child(fromId!)
+            let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toId).child(fromId)
             
             recipientUserMessagesRef.updateChildValues([messageId: 1])
-            
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSend()
+        textField.becomeFirstResponder()
         return true
     }
-    
-}//class
-
+}

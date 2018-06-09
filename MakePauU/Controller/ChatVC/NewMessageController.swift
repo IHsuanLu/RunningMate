@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+
+// 好友列表
 class NewMessageController: UITableViewController {
 
     let cellId = "cellId"
@@ -24,6 +26,7 @@ class NewMessageController: UITableViewController {
         fetchUser()
     }
     
+    //有了
     func fetchUser() {
         Database.database().reference().child("users").observe(.childAdded, with: { (DataSnapshot) in
             
@@ -66,8 +69,6 @@ class NewMessageController: UITableViewController {
         
         
         return cell
-        
-        
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //間距
@@ -84,7 +85,7 @@ class NewMessageController: UITableViewController {
             self.messagesController?.showChatControllerForUser(user:user)
         }
     }
-}//class
+}
 
 
 

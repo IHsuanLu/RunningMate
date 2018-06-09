@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 
+//右上角的聊天 接過來
+
 class MessagesController: UITableViewController {
     
     let cellId = "cellId"

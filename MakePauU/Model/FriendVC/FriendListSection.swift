@@ -11,6 +11,7 @@ import Foundation
 struct FriendListSection {
     
     var section: String!
+    var member_ids: [String]!
     var thumbnailImages: [UIImage]!
     var titles: [String]!
     var metTimes: [Int]!

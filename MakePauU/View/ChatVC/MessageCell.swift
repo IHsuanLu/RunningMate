@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatMessageCell: UICollectionViewCell {
+class MessageCell: UICollectionViewCell {
     
     let textView: UITextView = {
         let tv = UITextView()

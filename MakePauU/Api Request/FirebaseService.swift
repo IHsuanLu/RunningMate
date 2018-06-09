@@ -420,6 +420,8 @@ class FirebaseService: NSObject{
                         
                         myGroup.enter()
                         
+                        let member_id = obj.key as! String
+                        
                         if let personalData = obj.value["個人資料"] as? Dictionary<String, AnyObject>, let metTimes = obj.value["遇到次數"] as? Int {
                             
                             let name = personalData["name"] as! String
@@ -436,7 +438,7 @@ class FirebaseService: NSObject{
                                         let data = try Data(contentsOf: url!)
                                         let pic = UIImage(data: data)
                                         
-                                        let normalFriend = FriendList(thumbImage: pic!, title: name, metTimes: metTimes)
+                                        let normalFriend = FriendList(member_id: member_id, thumbImage: pic!, title: name, metTimes: metTimes)
                                         
                                         normalFriends.append(normalFriend)
                                         
@@ -459,6 +461,8 @@ class FirebaseService: NSObject{
                         
                         myGroup2.enter()
                         
+                        let member_id = obj.key as! String
+                        
                         if let personalData = obj.value["個人資料"] as? Dictionary<String, AnyObject>, let metTimes = obj.value["遇到次數"] as? Int {
                         
                             
@@ -476,7 +480,7 @@ class FirebaseService: NSObject{
                                         let data = try Data(contentsOf: url!)
                                         let pic = UIImage(data: data)
                                         
-                                        let favoriteFriend = FriendList(thumbImage: pic!, title: name, metTimes: metTimes)
+                                        let favoriteFriend = FriendList(member_id: member_id, thumbImage: pic!, title: name, metTimes: metTimes)
                                         
                                         favoriteFriends.append(favoriteFriend)
                                         
