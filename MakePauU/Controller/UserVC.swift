@@ -50,6 +50,7 @@ class UserVC: UIViewController {
             self.nameAndAgeLbl.text = "\(userInfo.name!)"
             
             self.dataTable.reloadData()
+            self.dataTable.tableFooterView = UIView()
             
             SetLoadingScreen.sharedInstance.stopActivityIndicator()
         }

@@ -40,13 +40,16 @@ class ContentViewCell: UICollectionViewCell{
         
         FirebaseService.shared().getRankingInfo_Dis(completion: { (distanceItems) in
             self.distanceItems = distanceItems
+            
+            FirebaseService.shared().getRankingInfo_Time(completion: { (timeItems) in
+                self.timeItems = timeItems
+                self.updateUI()
+                print(self.timeItems!)
+                
+                SetLoadingScreen.sharedInstance.stopActivityIndicator()
+            })
         })
-        
-        FirebaseService.shared().getRankingInfo_Time(completion: { (timeItems) in
-            self.timeItems = timeItems
-            self.updateUI()
-            print(self.sections)
-        })
+
     }()
     
     override func layoutSubviews() {
@@ -77,8 +80,6 @@ class ContentViewCell: UICollectionViewCell{
             
             self.rankCollection.delegate = self
             self.rankCollection.dataSource = self
-            
-            SetLoadingScreen.sharedInstance.stopActivityIndicator()
         }
     }
 }

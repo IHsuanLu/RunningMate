@@ -100,10 +100,10 @@ class FirebaseService: NSObject{
         var storage: Storage?
         storage = Storage.storage()
         
+        let myGroup1 = DispatchGroup()
+        
         //把資料送回去
         var items = [RoomMemberItem]()
-        
-        let myGroup = DispatchGroup()
         
         _ = dbReference.child("running_player").child(MemberId.sharedInstance.member_id).observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -115,7 +115,7 @@ class FirebaseService: NSObject{
                     
                     for obj in running_mate {
                         
-                        myGroup.enter()
+                        myGroup1.enter()
                         
                         let name = obj.value["name"] as! String
                                 
@@ -133,8 +133,8 @@ class FirebaseService: NSObject{
                                             
                                     let item = RoomMemberItem(thumbImage: pic!, title: name)
                                     items.append(item)
-                                            
-                                    myGroup.leave()
+                                    
+                                    myGroup1.leave()
                                     
                                 } catch {
                                     print(error)
@@ -142,12 +142,12 @@ class FirebaseService: NSObject{
                             })
                         }
                     }
-                }
-                
-                myGroup.notify(queue: DispatchQueue.main, execute: {
                     
-                    completion(estimate_distance, items)
-                })
+                    myGroup1.notify(queue: DispatchQueue.main, execute: {
+                        print("Yes")
+                        completion(estimate_distance, items)
+                    })
+                }
             }
         })
     }
