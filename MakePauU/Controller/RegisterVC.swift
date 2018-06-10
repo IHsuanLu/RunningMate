@@ -226,6 +226,8 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         
         print("Button Pressed")
         
+        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
+        
         // 確定有資料
         gatherInfo(completion: {
             
@@ -245,10 +247,14 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
                             self.uplaodImage(photo)
                         }
                         
+                        SetLoadingScreen.sharedInstance.stopActivityIndicator()
+                        
                         self.setAlert()
                     })
                     
                 } else {
+                    
+                    SetLoadingScreen.sharedInstance.stopActivityIndicator()
                     
                     let alert = UIAlertController(title: "請選擇照片", message: "", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: nil))
@@ -307,7 +313,11 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     func gatherInfo(completion: () -> ()){
         
         if let email = emailTextField.text {
-            registerInfo.email = email
+            if email.isValidEmail() == true {
+                registerInfo.email = email
+            } else {
+                setAlert_Email()
+            }
         } else {
             setAlert(string: "Email")
         }
@@ -359,6 +369,13 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     
     func setAlert(string: String){
         let alert = UIAlertController(title: "\(string)欄位 未填寫！", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func setAlert_Email(){
+        let alert = UIAlertController(title: "Email格式錯誤", message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: nil))
         
         self.present(alert, animated: true, completion: nil)

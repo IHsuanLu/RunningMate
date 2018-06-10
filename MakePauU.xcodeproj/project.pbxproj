@@ -96,6 +96,7 @@
 		8CB43FD320CC0DC40010C8AA /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FD220CC0DC40010C8AA /* MessageCell.swift */; };
 		8CB43FD520CC103D0010C8AA /* MessagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FD420CC103D0010C8AA /* MessagesVC.swift */; };
 		8CB43FD720CC12DC0010C8AA /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FD620CC12DC0010C8AA /* UserClass.swift */; };
+		8CB43FD920CCD8AF0010C8AA /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB43FD820CCD8AF0010C8AA /* StringExt.swift */; };
 		8CB7482C20BFC2DA00FF8684 /* StatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB7482B20BFC2DA00FF8684 /* StatVC.swift */; };
 		8CBBDFCC206D32AD00C89FBB /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */; };
 		8CBBDFDD2070BFD700C89FBB /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */; };
@@ -225,6 +226,7 @@
 		8CB43FD220CC0DC40010C8AA /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		8CB43FD420CC103D0010C8AA /* MessagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesVC.swift; sourceTree = "<group>"; };
 		8CB43FD620CC12DC0010C8AA /* UserClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
+		8CB43FD820CCD8AF0010C8AA /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
 		8CB7482B20BFC2DA00FF8684 /* StatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatVC.swift; sourceTree = "<group>"; };
 		8CBBDFCB206D32AD00C89FBB /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
 		8CBBDFDC2070BFD700C89FBB /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 				8C08FF07207A0C930021B343 /* UITabBarControllerExt.swift */,
 				8C08FF0B207A19B20021B343 /* UIViewExt.swift */,
 				8C6BBDAB20AC016900575B7C /* UISearchBarExt.swift */,
+				8CB43FD820CCD8AF0010C8AA /* StringExt.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -929,6 +932,7 @@
 				8C08FF042079E05D0021B343 /* CustomButton.swift in Sources */,
 				8CAEA1F0207E3E60005A3B5F /* FinalConfirmVC.swift in Sources */,
 				8C80219420BA69850051EF3D /* MailboxItem.swift in Sources */,
+				8CB43FD920CCD8AF0010C8AA /* StringExt.swift in Sources */,
 				8C45B77D20C7B045001C1003 /* AirdropCell.swift in Sources */,
 				8C45B78120C82913001C1003 /* GiftsTaken.swift in Sources */,
 				8C08FF0E207A284D0021B343 /* ProfileImageView.swift in Sources */,

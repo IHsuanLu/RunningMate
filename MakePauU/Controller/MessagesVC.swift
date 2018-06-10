@@ -18,6 +18,10 @@ class MessagesVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let window = UIApplication.shared.keyWindow{
+            window.tintColor = UIColor.white
+        }
+        
         fetchUserAndSetupNavBarTitle()
         
         tableView.tableFooterView = UIView()

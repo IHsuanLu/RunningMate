@@ -75,6 +75,10 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let window = UIApplication.shared.keyWindow{
+            window.tintColor = UIColor.white
+        }
+        
         //把第一個聊天往下推
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         
