@@ -225,9 +225,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     @IBAction func createAccountBtnPressed(_ sender: UIButton) {
         
         print("Button Pressed")
-        
-        SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
-        
+                
         // 確定有資料
         gatherInfo(completion: {
             
@@ -247,14 +245,10 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
                             self.uplaodImage(photo)
                         }
                         
-                        SetLoadingScreen.sharedInstance.stopActivityIndicator()
-                        
                         self.setAlert()
                     })
                     
                 } else {
-                    
-                    SetLoadingScreen.sharedInstance.stopActivityIndicator()
                     
                     let alert = UIAlertController(title: "請選擇照片", message: "", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: nil))

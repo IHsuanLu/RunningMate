@@ -22,7 +22,6 @@ class FirstPageVC: UIViewController {
     lazy var setting: Setting = {
         let setting = Setting()
         setting.firstPageVC = self
-        
         return setting
     }()
     

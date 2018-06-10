@@ -28,7 +28,7 @@ class AirdropVC: UIViewController {
         
         SetLoadingScreen.sharedInstance.startActivityIndicator(view: tableView)
         
-        FirebaseService.shared().getAirdrops { (titles, QRcodes) in
+        FirebaseService.shared().getAirdrops { (titles, QRcodes, ifContent) in
             self.titles = titles
             self.QRcodes = QRcodes
             
@@ -38,13 +38,23 @@ class AirdropVC: UIViewController {
             SetLoadingScreen.sharedInstance.stopActivityIndicator()
             
             self.tableView.tableFooterView = UIView()
+
+            print(ifContent)
+            print(self.tableView.frame.height)
+            
+            if ifContent == false {
+                // add View
+                let label = UILabel()
+                label.textColor = UIColor(netHex: 0x666666)
+                label.text = "目前尚無資料！"
+                label.font = UIFont.boldSystemFont(ofSize: 17)
+                label.frame = CGRect(x: self.tableView.frame.width / 2 - 60, y: 20, width: 200, height: 30)
+                self.tableView.addSubview(label)
+            }
         }
 
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
+
     
     @IBAction func expandBtnPressed(_ sender: Any) {
         

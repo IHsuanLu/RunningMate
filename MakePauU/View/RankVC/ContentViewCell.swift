@@ -34,17 +34,47 @@ class ContentViewCell: UICollectionViewCell{
             RankSection(section: "最速王", thumbImage: [], title: [], info: [])
         ]
         
-        FirebaseService.shared().getRankingInfo(completion: { (countItems) in
+        FirebaseService.shared().getRankingInfo(completion: { (countItems, ifcontent) in
             self.countItems = countItems
+            
+            if ifcontent == false {
+                // add View
+                let label = UILabel()
+                label.textColor = UIColor(netHex: 0x666666)
+                label.text = "目前尚無資料！"
+                label.font = UIFont(name: "Helvetica Neue", size: 17)
+                label.frame = CGRect(x: self.frame.width / 2 - 60, y: 40, width: 200, height: 30)
+                self.addSubview(label)
+            }
         })
         
-        FirebaseService.shared().getRankingInfo_Dis(completion: { (distanceItems) in
+        FirebaseService.shared().getRankingInfo_Dis(completion: { (distanceItems, ifcontent) in
             self.distanceItems = distanceItems
             
-            FirebaseService.shared().getRankingInfo_Time(completion: { (timeItems) in
+            if ifcontent == false {
+                // add View
+                let label = UILabel()
+                label.textColor = UIColor(netHex: 0x666666)
+                label.text = "目前尚無資料！"
+                label.font = UIFont.boldSystemFont(ofSize: 17)
+                label.frame = CGRect(x: self.frame.width / 2 - 60, y: 20, width: 200, height: 30)
+                self.addSubview(label)
+            }
+            
+            FirebaseService.shared().getRankingInfo_Time(completion: { (timeItems, ifcontent) in
                 self.timeItems = timeItems
                 self.updateUI()
                 print(self.timeItems!)
+                
+                if ifcontent == false {
+                    // add View
+                    let label = UILabel()
+                    label.textColor = UIColor(netHex: 0x666666)
+                    label.text = "目前尚無資料！"
+                    label.font = UIFont.boldSystemFont(ofSize: 17)
+                    label.frame = CGRect(x: self.frame.width / 2 - 60, y: 20, width: 200, height: 30)
+                    self.addSubview(label)
+                }
                 
                 SetLoadingScreen.sharedInstance.stopActivityIndicator()
             })

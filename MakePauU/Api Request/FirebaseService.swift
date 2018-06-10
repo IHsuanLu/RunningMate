@@ -513,7 +513,7 @@ class FirebaseService: NSObject{
         })
     }
     
-    func getAirdrops(completion: @escaping ([String], [UIImage]) -> ()){
+    func getAirdrops(completion: @escaping ([String], [UIImage], Bool) -> ()){
         
         var storage: Storage?
         storage = Storage.storage()
@@ -526,6 +526,8 @@ class FirebaseService: NSObject{
         _ = dbReference.child("members").child(MemberId.sharedInstance.member_id).child("airdrops").observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? NSArray {
+                
+                print(snapshot.value)
                 
                 for i in 0...value.count - 1{
                     
@@ -559,13 +561,17 @@ class FirebaseService: NSObject{
                 }
                 
                 myGroup.notify(queue: DispatchQueue.main, execute: {
-                    completion(titles, QRcodes)
+                    completion(titles, QRcodes, true)
                 })
+                
+            } else {
+                
+                completion(titles, QRcodes, false)
             }
         })
     }
     
-    func getRankingInfo(completion: @escaping ([RankItem]) -> ()){
+    func getRankingInfo(completion: @escaping ([RankItem], Bool) -> ()){
         
         let myGroup = DispatchGroup()
         
@@ -610,16 +616,18 @@ class FirebaseService: NSObject{
                     }
                     
                     myGroup.notify(queue: DispatchQueue.main, execute: {
-                        completion(countItems)
+                        completion(countItems, true)
                     })
                 }
+            } else {
+                completion(countItems, false)
             }
         })
     }
     
 
     
-    func getRankingInfo_Dis(completion: @escaping ([RankItem]) -> ()){
+    func getRankingInfo_Dis(completion: @escaping ([RankItem], Bool) -> ()){
         var distanceItems: [RankItem] = []
         
         let myGroup = DispatchGroup()
@@ -660,14 +668,16 @@ class FirebaseService: NSObject{
                     }
                     
                     myGroup.notify(queue: DispatchQueue.main, execute: {
-                        completion(distanceItems)
+                        completion(distanceItems, true)
                     })
                 }
+            } else {
+                completion(distanceItems, false)
             }
         })
     }
     
-    func getRankingInfo_Time(completion: @escaping ([RankItem]) -> ()){
+    func getRankingInfo_Time(completion: @escaping ([RankItem], Bool) -> ()){
         var timeItems: [RankItem] = []
         
         let myGroup = DispatchGroup()
@@ -708,11 +718,12 @@ class FirebaseService: NSObject{
                     }
                     
                     myGroup.notify(queue: DispatchQueue.main, execute: {
-                        completion(timeItems)
+                        completion(timeItems, true)
                     })
                 }
+            } else {
+                completion(timeItems, false)
             }
-
         })
 
     }

@@ -150,11 +150,14 @@ extension Setting: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print(indexPath.row)
         if indexPath.row == 4 {
             ApiService.sharedInstance.logout {
-                self.firstPageVC.performSegue(withIdentifier: "logout", sender: nil)
-                print("Done!")
+                
             }
+            self.firstPageVC.performSegue(withIdentifier: "logout", sender: nil)
+            self.handleDismiss()
         }
     }
     

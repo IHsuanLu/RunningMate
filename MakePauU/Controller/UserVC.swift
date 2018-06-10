@@ -196,7 +196,7 @@ extension UserVC: UITableViewDelegate, UITableViewDataSource{
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as? DataCell{
             
             let titleArray = ["生日：", "感情取向：", "興趣愛好：", "最近的困擾：", "想嘗試的事："]
-            let figureArray = [userInfo.birth!, userInfo.sex_prefer!, userInfo.interest!, userInfo.problem!, userInfo.tries!]
+            let figureArray = [userInfo.birth!, userInfo.sex_prefer!, userInfo.interest!, userInfo.problem!, userInfo.tries!] 
             
             cell.titleLbl.text = titleArray[indexPath.row]
             cell.contentLbl.text = figureArray[indexPath.row]
