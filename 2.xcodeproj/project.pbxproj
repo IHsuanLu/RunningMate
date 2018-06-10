@@ -305,8 +305,8 @@
 				8C11B9FD20835CAD00DDCDBF /* StartStatus.swift */,
 				8C11BA082088FC4700DDCDBF /* GameStatus.swift */,
 				8C34F7682095C188003958FD /* MemberId.swift */,
-				8CBE3D7A20B6A53700B07F77 /* EnterRoomStatus.swift */,
 				8CAF531520C3F8C700A3DA47 /* FavoriteFriendIDs.swift */,
+				8CBE3D7A20B6A53700B07F77 /* EnterRoomStatus.swift */,
 			);
 			path = Singleton;
 			sourceTree = "<group>";
@@ -782,7 +782,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8CD8D88C206CD1B100E980AD /* Build configuration list for PBXProject "MakePauU" */;
+			buildConfigurationList = 8CD8D88C206CD1B100E980AD /* Build configuration list for PBXProject "2" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1228,7 +1228,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8CD8D88C206CD1B100E980AD /* Build configuration list for PBXProject "MakePauU" */ = {
+		8CD8D88C206CD1B100E980AD /* Build configuration list for PBXProject "2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8CD8D8AC206CD1B100E980AD /* Debug */,

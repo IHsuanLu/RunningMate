@@ -107,7 +107,7 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
     
     //縮圈控制
     var timerForCircle = Timer()
-    var countForCircle = 5.0 //第一次的時間
+    var countForCircle = 10.0 //第一次的時間
     var term: Int = 0 // 0 for the first time, 1 for the second time...
     
     //距離縮圈(每兩秒呼叫一次)
@@ -428,6 +428,11 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
         print(StartStatus.sharedInstance.ifEntered)
     
         
+        if let obj = sender.source as? FinalConfirmVC {
+            obj.checkStatusTimer.invalidate()
+            obj.reloadTimer.invalidate()
+        }
+        
         if StartStatus.sharedInstance.ifEntered == false{
             dismiss(animated: true, completion: nil)
         } else {
@@ -494,12 +499,12 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
  
             
             //for test
-            let centre4: CLLocation = self.getUserLocationLocation()
-            self.locations[3] = self.getUserLocationLocation()
-            self.addRadiusCircle(location: centre4, radius: 50)
-            
-//            let centre4: CLLocation = locations[3]
+//            let centre4: CLLocation = self.getUserLocationLocation()
+//            self.locations[3] = self.getUserLocationLocation()
 //            self.addRadiusCircle(location: centre4, radius: 50)
+            
+            let centre4: CLLocation = locations[3]
+            self.addRadiusCircle(location: centre4, radius: 50)
             
             self.mapView.renderer(for: self.mapView.overlays[2])?.alpha = 0
             self.mapView.renderer(for: self.mapView.overlays[3])?.alpha = 0
@@ -515,13 +520,13 @@ class StartGameVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegat
             self.statuses = statuses
             
             //for test
-            let userloc: CLLocation = self.getUserLocationLocation()
-            self.airdrops[0] = userloc
-            self.firstAirDrop = AirDropAnnotation(coordinate: userloc.coordinate)
-            self.mapView.addAnnotation(self.firstAirDrop)
+//            let userloc: CLLocation = self.getUserLocationLocation()
+//            self.airdrops[0] = userloc
+//            self.firstAirDrop = AirDropAnnotation(coordinate: userloc.coordinate)
+//            self.mapView.addAnnotation(self.firstAirDrop)
             
-//            let firstAirDrop = AirDropAnnotation(coordinate: airdropLocs[0].coordinate)
-//            self.mapView.addAnnotation(firstAirDrop)
+            let firstAirDrop = AirDropAnnotation(coordinate: airdropLocs[0].coordinate)
+            self.mapView.addAnnotation(firstAirDrop)
 
             self.secondAirDrop = AirDropAnnotation(coordinate: airdropLocs[1].coordinate)
             self.mapView.addAnnotation(self.secondAirDrop)
@@ -893,7 +898,7 @@ extension StartGameVC{
             //第一次縮圈
             _ = vibrateForOnce_C1
             
-            countForCircle = 5.0
+            countForCircle = 10.0
             term = 1
             setSecondCircle()
             
@@ -904,7 +909,7 @@ extension StartGameVC{
             //第二次縮圈
             _ = vibrateForOnce
             
-            countForCircle = 5.0
+            countForCircle = 10.0
             term = 2
             setThirdCircle()
             
@@ -917,7 +922,7 @@ extension StartGameVC{
             topLeftView.backgroundColor = UIColor(netHex: 0x25AE88)
             topLeftView.alpha = 0.8
             
-            countForCircle = 5.0
+            countForCircle = 10.0
             term = 3
             setForthCircle()
         

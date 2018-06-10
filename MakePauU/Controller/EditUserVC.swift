@@ -56,6 +56,10 @@ class EditUserVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let window = UIApplication.shared.keyWindow {
+            window.tintColor = UIColor(netHex: 0xE9A11A)
+        }
+        
         imageView1.image = userInfo.profileImage!
         
         updateUI()

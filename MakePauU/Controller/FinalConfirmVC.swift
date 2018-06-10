@@ -10,6 +10,7 @@ import UIKit
 
 class FinalConfirmVC: UIViewController {
 
+    @IBOutlet weak var warningLbl: UILabel!
     @IBOutlet weak var distanceLbl: UILabel!
     @IBOutlet weak var timeLbl: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -24,10 +25,39 @@ class FinalConfirmVC: UIViewController {
     var startGameTimer = Timer()
     var startGameCount = 10.0
     
+    var checkStatusTimer = Timer()
+    
+    var reloadTimer = Timer()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         SetLoadingScreen.sharedInstance.startActivityIndicator(view: self.view)
+        
+        //timer 撈
+        setTimer_reloadUI()
+
+        
+        tableView.separatorStyle = .none
+    }
+    
+    func setTimer_reloadUI(){
+        
+        reloadTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(startRoloading), userInfo: nil, repeats: true)
+    }
+    
+    func setTimer_StartGame(){
+        
+        startGameTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(startCounting), userInfo: nil, repeats: true)
+    }
+    
+    func setTimer_CheckRoomStatus(){
+        
+        checkStatusTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(startChecking), userInfo: nil, repeats: true)
+    }
+    
+    @objc func startRoloading(){
         
         FirebaseService.shared().setFinalConfirm(completion: { (estimate_distance, member_items) in
             
@@ -42,17 +72,12 @@ class FinalConfirmVC: UIViewController {
             
             self.tableView.reloadData()
             
-            SetLoadingScreen.sharedInstance.stopActivityIndicator()
+            if self.startGameCount == 10.0 {
+                self.setTimer_StartGame()
+            }
             
-            self.setTimer_StartGame()
+            SetLoadingScreen.sharedInstance.stopActivityIndicator()
         })
-        
-        tableView.separatorStyle = .none
-    }
-    
-    func setTimer_StartGame(){
-        
-        startGameTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(startCounting), userInfo: nil, repeats: true)
     }
     
     @objc func startCounting(){
@@ -64,21 +89,39 @@ class FinalConfirmVC: UIViewController {
             startGameTimer.invalidate()
             
             if ifEntered == true {
+                    
                 StartStatus.sharedInstance.ifEntered = true //for startgameVC 判斷
                 EnterRoomStatus.sharedInstance.ifEnteredRoom = true
+                    
+                //每兩秒撈房間狀態
+                self.setTimer_CheckRoomStatus()
                 
-                
-                performSegue(withIdentifier: "unwindFromFinalConfirm", sender: nil)
             } else {
-                
+                    
                 StartStatus.sharedInstance.ifEntered = false
                 EnterRoomStatus.sharedInstance.ifEnteredRoom = false
-                
+                    
                 ApiService.sharedInstance.start_game_cancel {
                     print("start_game_cancel")
                 }
-                
+        
                 performSegue(withIdentifier: "unwindFromFinalConfirm", sender: nil)
+            }
+        }
+    }
+    
+    @objc func startChecking(){
+        
+        FirebaseService.shared().checkRoomStatus { (ifNormal) in
+            
+            if ifNormal == true {
+                self.reloadTimer.invalidate()
+                self.checkStatusTimer.invalidate()
+                self.warningLbl.isHidden = true
+                self.performSegue(withIdentifier: "unwindFromFinalConfirm", sender: nil)
+            } else {
+                self.warningLbl.isHidden = false
+                print("不正常，等待中")
             }
         }
     }
@@ -95,10 +138,15 @@ class FinalConfirmVC: UIViewController {
     
     @IBAction func denyBtnPressed(_ sender: Any) {
         
+        //不正常中離開
+        if self.checkStatusTimer.isValid == true {
+            self.checkStatusTimer.invalidate()
+        }
+        
         ApiService.sharedInstance.start_game_cancel {
             print("start_game_cancel")
         }
-        print(MemberId.sharedInstance.member_id)
+        print(MemberId.sharedInstance.member_id) 
         
         StartStatus.sharedInstance.ifEntered = false
         EnterRoomStatus.sharedInstance.ifEnteredRoom = false

@@ -527,7 +527,7 @@ class FirebaseService: NSObject{
             
             if let value = snapshot.value as? NSArray {
                 
-                print(snapshot.value)
+                print(snapshot.value) 
                 
                 for i in 0...value.count - 1{
                     
@@ -581,7 +581,7 @@ class FirebaseService: NSObject{
         var countItems: [RankItem] = []
 
         
-        _ = dbReference.child("friends_list").child(MemberId.sharedInstance.member_id).child("排行榜").observeSingleEvent(of: .value, with: { (snapshot) in
+        _ = dbReference.child("friends_list").child(MemberId.sharedInstance.member_id).child("排行榜").queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                 
@@ -635,7 +635,7 @@ class FirebaseService: NSObject{
         var storage: Storage?
         storage = Storage.storage()
         
-        _ = dbReference.child("friends_list").child(MemberId.sharedInstance.member_id).child("排行榜").observeSingleEvent(of: .value, with: { (snapshot) in
+        _ = dbReference.child("friends_list").child(MemberId.sharedInstance.member_id).child("排行榜").queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                 
@@ -685,7 +685,7 @@ class FirebaseService: NSObject{
         var storage: Storage?
         storage = Storage.storage()
         
-        _ = dbReference.child("friends_list").child(MemberId.sharedInstance.member_id).child("排行榜").observeSingleEvent(of: .value, with: { (snapshot) in
+        _ = dbReference.child("friends_list").child(MemberId.sharedInstance.member_id).child("排行榜").queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let value = snapshot.value as? Dictionary<String, AnyObject>{
                 
@@ -788,6 +788,23 @@ class FirebaseService: NSObject{
                 myGroup.notify(queue: DispatchQueue.main, execute: {
                     completion(userInfo)
                 })
+            }
+        })
+    }
+    
+    func checkRoomStatus(completion: @escaping (Bool) -> ()){
+        
+        _ = dbReference.child("running_player").child(MemberId.sharedInstance.member_id).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? Dictionary<String, AnyObject> {
+                
+                let status = value["房間狀態"] as! String
+                
+                if status == "正常狀況"{
+                    completion(true)
+                } else {
+                    completion(false)
+                }
             }
         })
     }

@@ -156,7 +156,7 @@ extension Setting: UITableViewDelegate, UITableViewDataSource {
             ApiService.sharedInstance.logout {
                 
             }
-            self.firstPageVC.performSegue(withIdentifier: "logout", sender: nil)
+            self.firstPageVC.performSegue(withIdentifier: "logout", sender: self)
             self.handleDismiss()
         }
     }

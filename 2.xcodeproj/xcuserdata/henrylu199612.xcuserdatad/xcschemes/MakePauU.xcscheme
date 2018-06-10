@@ -17,7 +17,7 @@
                BlueprintIdentifier = "8CD8D890206CD1B100E980AD"
                BuildableName = "MakePauU.app"
                BlueprintName = "MakePauU"
-               ReferencedContainer = "container:MakePauU.xcodeproj">
+               ReferencedContainer = "container:2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "8CD8D8A4206CD1B100E980AD"
                BuildableName = "MakePauUTests.xctest"
                BlueprintName = "MakePauUTests"
-               ReferencedContainer = "container:MakePauU.xcodeproj">
+               ReferencedContainer = "container:2.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,7 +45,7 @@
             BlueprintIdentifier = "8CD8D890206CD1B100E980AD"
             BuildableName = "MakePauU.app"
             BlueprintName = "MakePauU"
-            ReferencedContainer = "container:MakePauU.xcodeproj">
+            ReferencedContainer = "container:2.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -68,7 +68,7 @@
             BlueprintIdentifier = "8CD8D890206CD1B100E980AD"
             BuildableName = "MakePauU.app"
             BlueprintName = "MakePauU"
-            ReferencedContainer = "container:MakePauU.xcodeproj">
+            ReferencedContainer = "container:2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -94,7 +94,7 @@
             BlueprintIdentifier = "8CD8D890206CD1B100E980AD"
             BuildableName = "MakePauU.app"
             BlueprintName = "MakePauU"
-            ReferencedContainer = "container:MakePauU.xcodeproj">
+            ReferencedContainer = "container:2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

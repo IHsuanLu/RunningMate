@@ -19,6 +19,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     
     @IBOutlet weak var selectPhotoBtn: UIButton!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var createAccountBtn: CustomButton!
     
     @IBOutlet weak var emailTextField: LoginTextField!
     @IBOutlet weak var nameTextField: LoginTextField!
@@ -225,6 +226,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     @IBAction func createAccountBtnPressed(_ sender: UIButton) {
         
         print("Button Pressed")
+        createAccountBtn.isEnabled = false
                 
         // 確定有資料
         gatherInfo(completion: {
@@ -366,6 +368,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
+        createAccountBtn.isEnabled = true
     }
     
     func setAlert_Email(){
@@ -373,6 +376,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
+        createAccountBtn.isEnabled = true
     }
     
     func setAlert(){
@@ -385,12 +389,15 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
             }))
             
             self.present(alert, animated: true, completion: nil)
+            createAccountBtn.isEnabled = true
             
         } else {
             let alert = UIAlertController(title: "此Email帳號已經註冊過了！", message: "", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.default, handler: nil))
             
             self.present(alert, animated: true, completion: nil)
+            
+            createAccountBtn.isEnabled = true
         }
     }
 }

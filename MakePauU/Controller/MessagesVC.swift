@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import AudioToolbox
 
 class MessagesVC: UITableViewController {
     
@@ -86,6 +87,7 @@ class MessagesVC: UITableViewController {
         })
         
         DispatchQueue.main.async {
+            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
             self.tableView.reloadData()
         }
     }

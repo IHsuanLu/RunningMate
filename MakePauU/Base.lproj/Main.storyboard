@@ -822,26 +822,26 @@
                                                     <constraint firstItem="lfS-pM-E29" firstAttribute="centerY" secondItem="rkX-hO-hBL" secondAttribute="centerY" id="dF2-FU-UEj"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距離終點預計：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKk-dI-3Wx">
-                                                <rect key="frame" x="8" y="48" width="86" height="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距離終點：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKk-dI-3Wx">
+                                                <rect key="frame" x="8" y="48" width="62" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rHP-PB-IUs">
-                                                <rect key="frame" x="47" y="72" width="39" height="30"/>
+                                                <rect key="frame" x="34.5" y="72" width="39" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                                                 <color key="textColor" red="0.98431372549999996" green="0.63137254899999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="預估時間：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hb0-n6-rv4">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="遊戲時間：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hb0-n6-rv4">
                                                 <rect key="frame" x="148" y="48" width="62" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km (s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyH-Nk-UWH">
-                                                <rect key="frame" x="91" y="84" width="37" height="15"/>
+                                                <rect key="frame" x="78.5" y="84" width="37" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -958,6 +958,12 @@
                                                     <action selector="confirmBtnPressed:" destination="ZMW-TW-KTz" eventType="touchUpInside" id="ESt-j5-7sN"/>
                                                 </connections>
                                             </button>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="房間人數不足，等待配對中。。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2Y-zQ-CIv">
+                                                <rect key="frame" x="115" y="119" width="172" height="15"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                <color key="textColor" red="0.91764705879999997" green="0.4549019608" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -967,6 +973,7 @@
                                             <constraint firstItem="oyH-Nk-UWH" firstAttribute="baseline" secondItem="rHP-PB-IUs" secondAttribute="baseline" id="6rZ-mW-DMc"/>
                                             <constraint firstItem="Hb0-n6-rv4" firstAttribute="top" secondItem="rkX-hO-hBL" secondAttribute="bottom" constant="8" id="8tA-mg-WLl"/>
                                             <constraint firstItem="rHP-PB-IUs" firstAttribute="centerX" secondItem="lKk-dI-3Wx" secondAttribute="centerX" constant="15" id="A8n-fx-bq1"/>
+                                            <constraint firstAttribute="trailing" secondItem="F2Y-zQ-CIv" secondAttribute="trailing" constant="8" id="Cro-SP-DXV"/>
                                             <constraint firstItem="9i0-Rj-TCk" firstAttribute="top" secondItem="8Bm-Gu-6ZV" secondAttribute="bottom" constant="8" id="Eyr-ko-nVU"/>
                                             <constraint firstItem="E44-Uh-Y0t" firstAttribute="leading" secondItem="FuY-vL-emm" secondAttribute="leading" constant="8" id="J9D-cs-OUO"/>
                                             <constraint firstItem="rHP-PB-IUs" firstAttribute="top" secondItem="lKk-dI-3Wx" secondAttribute="bottom" constant="9" id="KxR-MN-b0j"/>
@@ -991,6 +998,7 @@
                                             <constraint firstItem="8Bm-Gu-6ZV" firstAttribute="top" secondItem="Hb0-n6-rv4" secondAttribute="bottom" constant="9" id="lke-IM-41d"/>
                                             <constraint firstAttribute="trailing" secondItem="9i0-Rj-TCk" secondAttribute="trailing" constant="8" id="mJL-oA-UpJ"/>
                                             <constraint firstAttribute="bottom" secondItem="NNi-CY-j9o" secondAttribute="bottom" id="oZ4-hw-JY6"/>
+                                            <constraint firstItem="F2Y-zQ-CIv" firstAttribute="top" secondItem="9i0-Rj-TCk" secondAttribute="bottom" constant="8" id="u64-Vd-gRj"/>
                                             <constraint firstAttribute="trailing" secondItem="f1V-6G-Se8" secondAttribute="trailing" constant="8" id="uci-tZ-4Hl"/>
                                             <constraint firstItem="rkX-hO-hBL" firstAttribute="top" secondItem="FuY-vL-emm" secondAttribute="top" id="vyw-ka-GmR"/>
                                             <constraint firstItem="Xm9-6c-eOE" firstAttribute="top" secondItem="FuY-vL-emm" secondAttribute="top" constant="401" id="yAO-aH-Nbm"/>
@@ -1020,6 +1028,7 @@
                         <outlet property="distanceLbl" destination="rHP-PB-IUs" id="Osk-iX-f77"/>
                         <outlet property="tableView" destination="f1V-6G-Se8" id="ubQ-OU-f5Y"/>
                         <outlet property="timeLbl" destination="8Bm-Gu-6ZV" id="rVb-p5-R7L"/>
+                        <outlet property="warningLbl" destination="F2Y-zQ-CIv" id="cV9-gL-HCr"/>
                         <segue destination="sdS-IW-syL" kind="unwind" identifier="unwindFromFinalConfirm" unwindAction="unwindFromFinalConfirm:" id="xvL-oD-bdp"/>
                     </connections>
                 </viewController>
@@ -2368,6 +2377,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="1080"/>
                     <connections>
+                        <outlet property="createAccountBtn" destination="vU8-rz-dA0" id="5un-PD-xtq"/>
                         <outlet property="dayTextField" destination="vuy-dD-S1e" id="2ug-Fl-7lK"/>
                         <outlet property="emailTextField" destination="I6E-Oh-bDZ" id="Uer-88-j8g"/>
                         <outlet property="femaleRadio" destination="BAZ-Xv-HOL" id="jgK-6g-ybE"/>
